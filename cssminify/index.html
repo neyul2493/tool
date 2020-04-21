@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html dir='ltr' lang='vi'>
+<head>
+<meta content='index,follow' name='robots'/>
+<meta charset='utf-8'/>
+<meta content='width=device-width,initial-scale=1,maximum-scale=1' name='viewport'/>
+<meta content='nen css, lam dep css, lam dep css online, nen css online, rut gon css online, nen code css, lam dep code css, online css compressor,online css beautifier,online css decompressor' name='keywords'/>
+<meta content='Tối ưu CSS của bạn bằng công cụ Nén code CSS, làm đẹp code CSS để tối ưu, tăng tốc CSS trên Website' name='description'/>
+<title>Công cụ Nén CSS và Làm đẹp CSS Online</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<h1>Nén hoặc Làm đẹp CSS Code Online</h1>
+<div id='page-wrap'>
+<h2>Dán code CSS:</h2>
+<div class='clear'></div>
+<div class='col left'><span class='right'><input checked='' id='highlightCode' type='checkbox'/>
+<label for='highlightCode'>Hiển thị mã nhấn mạnh ?</label>
+<button onclick='clearField("cssField");'>Xóa Hết</button>
+<button onclick='selectAll("cssField");'>Chọn Tất Cả</button></span><span class='clear'></span>
+<textarea autofocus='' id='cssField' placeholder='Dán code CSS của bạn vào đây...' spellcheck='false'></textarea>
+</div>
+<div class='col right'>
+<div class='button-group'>
+<div class='box'>
+<p>
+<input id='stripAllComment' type='checkbox'/>
+<label for='stripAllComment'>Gỡ bỏ tất cả chú thích</label>
+</p>
+<p>
+<input id='superCompact' type='checkbox'/>
+<label for='superCompact'>Nến siêu gọn</label>
+</p>
+<p>
+<input id='betterIndentation' type='checkbox'/>
+<label for='betterIndentation'>Giữ thụt đầu dòng trong <code>@query {}</code></label>
+</p>
+<p>
+<input checked='' id='keepLastComma' type='checkbox'/>
+<label for='keepLastComma'>Loại bỏ các dấu chấm phẩy cuối cùng</label>
+</p>
+</div>
+<button onclick='compressCSS("cssField");'>Nén CSS</button>
+</div>
+<div class='button-group'>
+<div class='box'>
+<p>
+<input id='inlineLayout' onchange='beautifyCSS("cssField");' type='checkbox'/>
+<label for='inlineLayout'>Hình thức bố cục nội dòng</label>
+</p>
+<p>
+<input id='toTab' onchange='beautifyCSS("cssField");' type='checkbox'/>
+<label for='toTab'>Thụt đầu dòng:</label>
+<br/><span id='tabOpt'><input id='op-1' name='op' onchange='beautifyCSS("cssField");' type='radio'/>
+<label for='op-1'>Một Tab</label>
+<input id='op-2' name='op' onchange='beautifyCSS("cssField");' type='radio'/>
+<label for='op-2'>4 dấu cách</label></span></p>
+<p>
+<input checked='' id='breakSelector' onchange='beautifyCSS("cssField");' type='checkbox'/>
+<label for='breakSelector'>Chia đa bộ chọn (e.g: <code>html,<span style='color:darkred;'>\n</span>body,<span style='color:darkred;'>\n</span>table {}</code>)</label>
+</p>
+<p>
+<input id='spaceBetween' onchange='beautifyCSS("cssField");' type='checkbox'/>
+<label for='spaceBetween'>Khoảng cách giữa thuộc tính <code>:</code> giá trị <code>;</code></label>
+</p>
+<p>
+<input id='inlineSingleProp' onchange='beautifyCSS("cssField");' type='checkbox'/>
+<label for='inlineSingleProp'>Viết cùng dòng khi chỉ có một thuộc tính</label>
+</p>
+<p>
+<input id='removeLastSemicolon' onchange='beautifyCSS("cssField");' type='checkbox'/>
+<label for='removeLastSemicolon'>Xóa các dấu chấm phẩy cuối cùng</label>
+</p>
+<p>
+<input id='singleBreak' onchange='beautifyCSS("cssField");' type='checkbox'/>
+<label for='singleBreak'>Xóa hoặc tạo khoảng cách mỗi dòng</label>
+</p>
+</div>
+<button onclick='beautifyCSS("cssField");'>Làm đẹp CSS code</button>
+</div>
+</div>
+<div class='clear'></div>
+<h2 class='hidden'>Highlighted Code:</h2><pre id='highlightedResult'><code><span class='cm'>/* ================= Supported layout/pattern: ================= */</span>
+
+
+<span class='cm'>/* -------- [1]. Nén CSS -------- */</span>
+
+<span class='cm'>/* a. Normal */</span>
+#foo<span class='pn'>{</span><span class='pr'>margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'>padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>}</span> <span class='cm'>/* comment */</span>
+#foo:focus<span class='pn'>{</span><span class='pr'>outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>}</span>
+
+<span class='cm'>/* b. Gỡ bỏ tất cả chú thích */</span>
+#foo<span class='pn'>{</span><span class='pr'>margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'>padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>}</span>
+#foo:focus<span class='pn'>{</span><span class='pr'>outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>}</span>
+
+<span class='cm'>/* c. Nến siêu gọn */</span>
+#foo<span class='pn'>{</span><span class='pr'>margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'>padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>}</span>#foo:focus<span class='pn'>{</span><span class='pr'>outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>}</span>
+
+<span class='cm'>/* d. Giữ thụt đầu dòng trong `@query <span class='pn'>{}</span>` */</span>
+#foo<span class='pn'>{</span><span class='pr'>margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'>padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>}</span>#foo:focus<span class='pn'>{</span><span class='pr'>outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>}</span>
+#foo<span class='pn'>{</span><span class='pr'>margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'>padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>}</span>#foo:focus<span class='pn'>{</span><span class='pr'>outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>}</span>
+@media screen and (max-width:400px)<span class='pn'>{</span>
+  #foo<span class='pn'>{</span><span class='pr'>margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'>padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>}</span>#foo:focus<span class='pn'>{</span><span class='pr'>outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>}</span>
+  #foo<span class='pn'>{</span><span class='pr'>margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'>padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>}</span>#foo:focus<span class='pn'>{</span><span class='pr'>outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>}</span>
+}
+
+
+<span class='cm'>/* -------- [2]. Làm đẹp CSS code -------- */</span>
+
+<span class='cm'>/* a. Normal */</span>
+#foo <span class='pn'>{</span><span class='pr'>
+  margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pn'>}</span>
+
+#foo:focus <span class='pn'>{</span><span class='pr'>
+  outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>;</span>
+<span class='pn'>}</span>
+
+<span class='cm'>/* b. Replace double space indentation with a tab character or 4 spaces */</span>
+#tab-character <span class='pn'>{</span><span class='pr'>
+  margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'> padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pn'>}</span>
+
+#four-space <span class='pn'>{</span><span class='pr'>
+    outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>;</span>
+<span class='pn'>}</span>
+
+<span class='cm'>/* c. Chia đa bộ chọn */</span>
+#foo,
+#bar,
+.walaaa <span class='pn'>{</span><span class='pr'>
+  margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pn'>}</span>
+
+<span class='cm'>/* d. Space after `:` and `,` */</span>
+#foo <span class='pn'>{</span><span class='pr'>
+  margin</span><span class='pn'>:</span><span class='vl'> 0 auto</span><span class='pn'>;</span>
+<span class='pr'>  background-image</span><span class='pn'>:</span><span class='vl'> linear-gradient<span class='pn'>(</span>top<span class='pn'>,</span> #333<span class='pn'>,</span> #555<span class='pn'>)</span></span><span class='pn'>;</span>
+<span class='pr'>  color</span><span class='pn'>:</span><span class='vl'> rgba<span class='pn'>(</span>0<span class='pn'>,</span> 0<span class='pn'>,</span> 0<span class='pn'>,</span> .4<span class='pn'>)</span></span><span class='pn'>;</span>
+<span class='pn'>}</span>
+
+<span class='cm'>/* e. Inline bracket for single property */</span>
+#foo .bg <span class='pn'>{</span><span class='pr'>
+  position</span><span class='pn'>:</span><span class='vl'>absolute</span><span class='pn'>;</span>
+<span class='pr'>  top</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  right</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  bottom</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  left</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  background</span><span class='pn'>:</span><span class='vl'>white url<span class='pn'>(</span><span class='st'>'img/bg-image.png'</span><span class='pn'>)</span> no-repeat 0 0</span><span class='pn'>;</span>
+<span class='pn'>}</span>
+
+#foo .bg-1 <span class='pn'>{</span><span class='pr'>background-position</span><span class='pn'>:</span><span class='vl'>0 0</span><span class='pn'>;}</span>
+#foo .bg-2 <span class='pn'>{</span><span class='pr'>background-position</span><span class='pn'>:</span><span class='vl'>100% 0</span><span class='pn'>;}</span>
+#foo .bg-3 <span class='pn'>{</span><span class='pr'>background-position</span><span class='pn'>:</span><span class='vl'>100% 100%</span><span class='pn'>;}</span>
+#foo .bg-4 <span class='pn'>{</span><span class='pr'>background-position</span><span class='pn'>:</span><span class='vl'>0 100%</span><span class='pn'>;}</span>
+
+<span class='cm'>/* f. Remove the last semicolon in single property */</span>
+#foo .bg <span class='pn'>{</span><span class='pr'>
+  position</span><span class='pn'>:</span><span class='vl'>absolute</span><span class='pn'>;</span>
+<span class='pr'>  top</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  right</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  bottom</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  left</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  background</span><span class='pn'>:</span><span class='vl'>white url<span class='pn'>(</span><span class='st'>'img/bg-image.png'</span><span class='pn'>)</span> no-repeat 0 0</span><span class='pn'>;</span>
+<span class='pn'>}</span>
+
+#foo .bg-1 <span class='pn'>{</span><span class='pr'>background-position</span><span class='pn'>:</span><span class='vl'>0 0</span><span class='pn'>}</span>
+#foo .bg-2 <span class='pn'>{</span><span class='pr'>background-position</span><span class='pn'>:</span><span class='vl'>100% 0</span><span class='pn'>}</span>
+#foo .bg-3 <span class='pn'>{</span><span class='pr'>background-position</span><span class='pn'>:</span><span class='vl'>100% 100%</span><span class='pn'>}</span>
+#foo .bg-4 <span class='pn'>{</span><span class='pr'>background-position</span><span class='pn'>:</span><span class='vl'>0 100%</span><span class='pn'>}</span>
+
+<span class='cm'>/* g. Hình thức bố cục nội dòng */</span>
+#foo .bg <span class='pn'>{</span><span class='pr'> position</span><span class='pn'>:</span><span class='vl'>absolute</span><span class='pn'>;</span><span class='pr'> top</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'> right</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'> bottom</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'> left</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'> background</span><span class='pn'>:</span><span class='vl'>white url<span class='pn'>(</span><span class='st'>'img/bg-image.png'</span><span class='pn'>)</span> no-repeat 0 0</span><span class='pn'>;</span> <span class='pn'>}</span></code></pre></div>
+<div class='footer'>Việt Hóa by <a href='https://plus.google.com/101012740376158198356' target='blank' title='Updated: Ngày 8 Tháng 05 Năm 2015'>Neyul</a> - <a href='https://www.sharesieutoc.com' ref='dofollow' target='blank'>ShareSiêuTốc</a></div>
+<script src="script.js" type="text/javascript"></script>
+</body></html>
