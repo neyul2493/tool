@@ -1,0 +1,336 @@
+﻿
+<!DOCTYPE html>
+<html dir='ltr' lang='vi' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+<meta content='index,nofollow' name='robots'/>
+<meta charset='utf-8'/>
+<meta content='width=device-width,initial-scale=1,maximum-scale=1' name='viewport'/>
+<meta content='nen css, lam dep css, lam dep css online, nen css online, rut gon css online, nen code css, lam dep code css, online css compressor,online css beautifier,online css decompressor' name='keywords'/>
+<meta content='Tối ưu CSS của bạn bằng công cụ Nén code CSS, làm đẹp code CSS để tối ưu, tăng tốc CSS trên Website' name='description'/>
+<title>Công cụ Nén CSS và Làm đẹp CSS Online</title>
+
+</head>
+<body>
+<h1>Nén hoặc Làm đẹp CSS Code Online</h1>
+<div id='page-wrap'>
+<h2>Dán code CSS:</h2>
+<div class='clear'></div>
+<div class='col left'><span class='right'><input checked='' id='highlightCode' type='checkbox'/>
+<label for='highlightCode'>Hiển thị mã nhấn mạnh ?</label>
+<button onclick='clearField("cssField");'>Xóa Hết</button>
+<button onclick='selectAll("cssField");'>Chọn Tất Cả</button></span><span class='clear'></span>
+<textarea autofocus='' id='cssField' placeholder='Dán code CSS của bạn vào đây...' spellcheck='false'></textarea>
+</div>
+<div class='col right'>
+<div class='button-group'>
+<div class='box'>
+<p>
+<input id='stripAllComment' type='checkbox'/>
+<label for='stripAllComment'>Gỡ bỏ tất cả chú thích</label>
+</p>
+<p>
+<input id='superCompact' type='checkbox'/>
+<label for='superCompact'>Nến siêu gọn</label>
+</p>
+<p>
+<input id='betterIndentation' type='checkbox'/>
+<label for='betterIndentation'>Giữ thụt đầu dòng trong <code>@query {}</code></label>
+</p>
+<p>
+<input checked='' id='keepLastComma' type='checkbox'/>
+<label for='keepLastComma'>Loại bỏ các dấu chấm phẩy cuối cùng</label>
+</p>
+</div>
+<button onclick='compressCSS("cssField");'>Nén CSS</button>
+</div>
+<div class='button-group'>
+<div class='box'>
+<p>
+<input id='inlineLayout' onchange='beautifyCSS("cssField");' type='checkbox'/>
+<label for='inlineLayout'>Hình thức bố cục nội dòng</label>
+</p>
+<p>
+<input id='toTab' onchange='beautifyCSS("cssField");' type='checkbox'/>
+<label for='toTab'>Thụt đầu dòng:</label>
+<br/><span id='tabOpt'><input id='op-1' name='op' onchange='beautifyCSS("cssField");' type='radio'/>
+<label for='op-1'>Một Tab</label>
+<input id='op-2' name='op' onchange='beautifyCSS("cssField");' type='radio'/>
+<label for='op-2'>4 dấu cách</label></span></p>
+<p>
+<input checked='' id='breakSelector' onchange='beautifyCSS("cssField");' type='checkbox'/>
+<label for='breakSelector'>Chia đa bộ chọn (e.g: <code>html,<span style='color:darkred;'>\n</span>body,<span style='color:darkred;'>\n</span>table {}</code>)</label>
+</p>
+<p>
+<input id='spaceBetween' onchange='beautifyCSS("cssField");' type='checkbox'/>
+<label for='spaceBetween'>Khoảng cách giữa thuộc tính <code>:</code> giá trị <code>;</code></label>
+</p>
+<p>
+<input id='inlineSingleProp' onchange='beautifyCSS("cssField");' type='checkbox'/>
+<label for='inlineSingleProp'>Viết cùng dòng khi chỉ có một thuộc tính</label>
+</p>
+<p>
+<input id='removeLastSemicolon' onchange='beautifyCSS("cssField");' type='checkbox'/>
+<label for='removeLastSemicolon'>Xóa các dấu chấm phẩy cuối cùng</label>
+</p>
+<p>
+<input id='singleBreak' onchange='beautifyCSS("cssField");' type='checkbox'/>
+<label for='singleBreak'>Xóa hoặc tạo khoảng cách mỗi dòng</label>
+</p>
+</div>
+<button onclick='beautifyCSS("cssField");'>Làm đẹp CSS code</button>
+</div>
+</div>
+<div class='clear'></div>
+<h2 class='hidden'>Highlighted Code:</h2><pre id='highlightedResult'><code><span class='cm'>/* ================= Supported layout/pattern: ================= */</span>
+
+
+<span class='cm'>/* -------- [1]. Nén CSS -------- */</span>
+
+<span class='cm'>/* a. Normal */</span>
+#foo<span class='pn'>{</span><span class='pr'>margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'>padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>}</span> <span class='cm'>/* comment */</span>
+#foo:focus<span class='pn'>{</span><span class='pr'>outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>}</span>
+
+<span class='cm'>/* b. Gỡ bỏ tất cả chú thích */</span>
+#foo<span class='pn'>{</span><span class='pr'>margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'>padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>}</span>
+#foo:focus<span class='pn'>{</span><span class='pr'>outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>}</span>
+
+<span class='cm'>/* c. Nến siêu gọn */</span>
+#foo<span class='pn'>{</span><span class='pr'>margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'>padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>}</span>#foo:focus<span class='pn'>{</span><span class='pr'>outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>}</span>
+
+<span class='cm'>/* d. Giữ thụt đầu dòng trong `@query <span class='pn'>{}</span>` */</span>
+#foo<span class='pn'>{</span><span class='pr'>margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'>padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>}</span>#foo:focus<span class='pn'>{</span><span class='pr'>outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>}</span>
+#foo<span class='pn'>{</span><span class='pr'>margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'>padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>}</span>#foo:focus<span class='pn'>{</span><span class='pr'>outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>}</span>
+@media screen and (max-width:400px)<span class='pn'>{</span>
+  #foo<span class='pn'>{</span><span class='pr'>margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'>padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>}</span>#foo:focus<span class='pn'>{</span><span class='pr'>outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>}</span>
+  #foo<span class='pn'>{</span><span class='pr'>margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'>padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>}</span>#foo:focus<span class='pn'>{</span><span class='pr'>outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>}</span>
+}
+
+
+<span class='cm'>/* -------- [2]. Làm đẹp CSS code -------- */</span>
+
+<span class='cm'>/* a. Normal */</span>
+#foo <span class='pn'>{</span><span class='pr'>
+  margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pn'>}</span>
+
+#foo:focus <span class='pn'>{</span><span class='pr'>
+  outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>;</span>
+<span class='pn'>}</span>
+
+<span class='cm'>/* b. Replace double space indentation with a tab character or 4 spaces */</span>
+#tab-character <span class='pn'>{</span><span class='pr'>
+	margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>	padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pn'>}</span>
+
+#four-space <span class='pn'>{</span><span class='pr'>
+    outline</span><span class='pn'>:</span><span class='vl'>none</span><span class='pn'>;</span>
+<span class='pn'>}</span>
+
+<span class='cm'>/* c. Chia đa bộ chọn */</span>
+#foo,
+#bar,
+.walaaa <span class='pn'>{</span><span class='pr'>
+  margin</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  padding</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pn'>}</span>
+
+<span class='cm'>/* d. Space after `:` and `,` */</span>
+#foo <span class='pn'>{</span><span class='pr'>
+  margin</span><span class='pn'>:</span><span class='vl'> 0 auto</span><span class='pn'>;</span>
+<span class='pr'>  background-image</span><span class='pn'>:</span><span class='vl'> linear-gradient<span class='pn'>(</span>top<span class='pn'>,</span> #333<span class='pn'>,</span> #555<span class='pn'>)</span></span><span class='pn'>;</span>
+<span class='pr'>  color</span><span class='pn'>:</span><span class='vl'> rgba<span class='pn'>(</span>0<span class='pn'>,</span> 0<span class='pn'>,</span> 0<span class='pn'>,</span> .4<span class='pn'>)</span></span><span class='pn'>;</span>
+<span class='pn'>}</span>
+
+<span class='cm'>/* e. Inline bracket for single property */</span>
+#foo .bg <span class='pn'>{</span><span class='pr'>
+  position</span><span class='pn'>:</span><span class='vl'>absolute</span><span class='pn'>;</span>
+<span class='pr'>  top</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  right</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  bottom</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  left</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  background</span><span class='pn'>:</span><span class='vl'>white url<span class='pn'>(</span><span class='st'>'img/bg-image.png'</span><span class='pn'>)</span> no-repeat 0 0</span><span class='pn'>;</span>
+<span class='pn'>}</span>
+
+#foo .bg-1 <span class='pn'>{</span><span class='pr'>background-position</span><span class='pn'>:</span><span class='vl'>0 0</span><span class='pn'>;}</span>
+#foo .bg-2 <span class='pn'>{</span><span class='pr'>background-position</span><span class='pn'>:</span><span class='vl'>100% 0</span><span class='pn'>;}</span>
+#foo .bg-3 <span class='pn'>{</span><span class='pr'>background-position</span><span class='pn'>:</span><span class='vl'>100% 100%</span><span class='pn'>;}</span>
+#foo .bg-4 <span class='pn'>{</span><span class='pr'>background-position</span><span class='pn'>:</span><span class='vl'>0 100%</span><span class='pn'>;}</span>
+
+<span class='cm'>/* f. Remove the last semicolon in single property */</span>
+#foo .bg <span class='pn'>{</span><span class='pr'>
+  position</span><span class='pn'>:</span><span class='vl'>absolute</span><span class='pn'>;</span>
+<span class='pr'>  top</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  right</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  bottom</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  left</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span>
+<span class='pr'>  background</span><span class='pn'>:</span><span class='vl'>white url<span class='pn'>(</span><span class='st'>'img/bg-image.png'</span><span class='pn'>)</span> no-repeat 0 0</span><span class='pn'>;</span>
+<span class='pn'>}</span>
+
+#foo .bg-1 <span class='pn'>{</span><span class='pr'>background-position</span><span class='pn'>:</span><span class='vl'>0 0</span><span class='pn'>}</span>
+#foo .bg-2 <span class='pn'>{</span><span class='pr'>background-position</span><span class='pn'>:</span><span class='vl'>100% 0</span><span class='pn'>}</span>
+#foo .bg-3 <span class='pn'>{</span><span class='pr'>background-position</span><span class='pn'>:</span><span class='vl'>100% 100%</span><span class='pn'>}</span>
+#foo .bg-4 <span class='pn'>{</span><span class='pr'>background-position</span><span class='pn'>:</span><span class='vl'>0 100%</span><span class='pn'>}</span>
+
+<span class='cm'>/* g. Hình thức bố cục nội dòng */</span>
+#foo .bg <span class='pn'>{</span><span class='pr'> position</span><span class='pn'>:</span><span class='vl'>absolute</span><span class='pn'>;</span><span class='pr'> top</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'> right</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'> bottom</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'> left</span><span class='pn'>:</span><span class='vl'>0</span><span class='pn'>;</span><span class='pr'> background</span><span class='pn'>:</span><span class='vl'>white url<span class='pn'>(</span><span class='st'>'img/bg-image.png'</span><span class='pn'>)</span> no-repeat 0 0</span><span class='pn'>;</span> <span class='pn'>}</span></code></pre></div>
+<div class='footer'>Việt Hóa by <a href='https://plus.google.com/101012740376158198356' target='blank' title='Updated: Ngày 8 Tháng 05 Năm 2015'>Neyul</a> - <a href='https://www.sharesieutoc.com' ref='dofollow' target='blank'>ShareSiêuTốc</a></div>
+<script type='text/javascript'>
+//<![CDATA[
+/*
+CSS Compressor & Beautifier Script by Taufik Nurrohman,
+https://plus.google.com/108949996304093815163/posts
+*/
+
+function get(id) {
+	return document.getElementById(id);
+}
+
+var hc = get('highlightCode'),
+	sa = get('stripAllComment'),
+	sc = get('superCompact'),
+	cm = get('keepLastComma'),
+	bi = get('betterIndentation'),
+	bs = get('breakSelector'),
+	tt = get('toTab'),
+	to = get('tabOpt').getElementsByTagName('input'),
+	sb = get('spaceBetween'),
+	ip = get('inlineSingleProp'),
+	rs = get('removeLastSemicolon'),
+	il = get('inlineLayout'),
+	si = get('singleBreak'),
+	hr = get('highlightedResult'),
+	rt = document.getElementsByTagName('h2')[1];
+
+/* Syntax Highlighter */
+function highlightCode(el) {
+	if (hc.checked) {
+		var t = el.innerHTML;
+		t = t.replace(/\{([\s\S]+?)\}/g, function(m) {
+			return m.replace(/\'(.*?)\'/g, "<span class='st'>\'$1\'</span>").replace(/\"(.*?)\"/g, "<span class='st'>\"$1\"</span>").replace(/(\{|\n|;)?(.[^\{]*?):(.[^\{]*?)(;|\})/g, "$1<span class='pr'>$2</span>:<span class='vl'>$3</span>$4").replace(/<span class='pr'>\{/g, "{<span class='pr'>");
+		});
+		t = t.replace(/&lt;(.*?)('|")(.*?)('|")&gt;/g, function(m) {
+			return m.replace(/'(.*?)'/g, "<span class='vl'>\'$1\'</span>").replace(/"(.*?)"/g, "<span class='vl'>\"$1\"</span>")
+		});
+		t = t.replace(/\{([\s\S]+?)\}/g, function(m) {
+			return m.replace(/([\(\)\{\}\[\]\:\;\,]+)/g, "<span class='pn'>$1</span>").replace(/\!important/ig, "<span class='im'>!important</span>");
+		});
+		t = t.replace(/\/\*([\w\W]+?)\*\//gm, "<span class='cm'>/*$1*/</span>");
+		el.innerHTML = '<code>' + t + '</code>';
+		hr.style.display = "block";
+		rt.style.display = "block";
+	} else {
+		hr.style.display = "none";
+		rt.style.display = "none";
+	}
+}
+
+/* CSS Compressor */
+function compressCSS(id) {
+	var cf = get(id),
+		iq = /@(media|-w|-m|-o|keyframes|page)(.*?)\{([\s\S]+?)?\}\}/ig,
+		v = cf.value,
+		ln = v.length;
+	v = (sa.checked || sc.checked) ? v.replace(/\/\*[\w\W]*?\*\//gm, "") : v.replace(/(\n+)?(\/\*[\w\W]*?\*\/)(\n+)?/gm, "\n$2\n");
+	v = v.replace(/([\n\r\t\s ]+)?([\,\:\;\{\}]+?)([\n\r\t\s ]+)?/g, "$2");
+	v = (sc.checked) ? v : v.replace(/\}(?!\})/g, "}\n");
+	v = (bi.checked) ? v.replace(iq, function(m) {
+		return m.replace(/\n+/g, "\n  ");
+	}) : v.replace(iq, function(m) {
+		return m.replace(/\n+/g, "");
+	});
+	v = (bi.checked && !sc.checked) ? v.replace(/\}\}/g, "}\n}") : v;
+	v = (bi.checked && !sc.checked) ? v.replace(/@(media|-w|-m|-o|keyframes)(.*?)\{/g, "@$1$2{\n  ") : v;
+	v = (cm.checked) ? v.replace(/;\}/g, "}") : v.replace(/\}/g,";}").replace(/;+\}/g,";}").replace(/\};\}/g,"}}");
+	v = v.replace(/\:0(px|em|pt)/ig, ":0");
+	v = v.replace(/ 0(px|em|pt)/ig, " 0");
+	//v = v.replace(/ +?(\>|\+|\~) +?/g,"$1");
+	v = v.replace(/\s+\!important/ig, "!important");
+	v = v.replace(/(^\n+|\n+$)/, "");
+	cf.value = v;
+	hr.innerHTML = '\/\* ' + (ln - v.length) + ' of ' + ln + ' unused characters has been removed. \*\/\n' + v.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+	highlightCode(hr);
+}
+
+/* CSS Beautifier */
+function beautifyCSS(id) {
+	sc.checked = false;
+	sa.checked = false;
+	bi.checked = false;
+	compressCSS('cssField'); // Compress first...
+	var bf = get(id),
+		iq = /\n@(media|-w|-m|-o|keyframes|page)(.*?)\{([\s\S]+?)?\}\n\}/ig, // Inside `@query{}`
+		v = bf.value;
+	if (!il.checked) {
+		v = v.split(';').join(';\n  ');
+		v = v.split('{').join(' {\n  ');
+		v = v.split('}').join(';\n}\n');
+		v = v.replace(/\}([\n\s;]+?)?\}/g, "}\n}");
+		v = (bs.checked) ? v.replace(/\n(.*?)\{/g, function(m) {
+			return m.replace(/,/g, ",\n"); // Break multiple selectors
+		}) : v;
+		v = v.replace(/@([\s\S]+?)\{/g, function(m) {
+			return m.replace(/,\n/g, ", ");
+		});
+		v = v.replace(iq, function(m) {
+			return m.replace(/\n/g, "\n  ").replace(/\n\s+\n/g, "\n").replace(/\}\n+\s+\}/g, "}\n}");
+		});
+	} else {
+		v = v.replace(/;/g, "; ");
+		v = v.replace(/\{(.*?)\}/g, " { $1; }");
+		v = v.replace(/\}\}/g, "}\n}");
+		v = v.replace(iq, function(m) {
+			return m.replace(/\n/g, "\n    ").replace(/\n+\s+\n/g, "\n").replace(/\}\n\s+\}/g, "}\n}");
+		})
+		v = v.replace(/\{(.*?)\{(.*?):(.*?)\}\n/g, "{\n     $1 { $2:$3}\n");
+	}
+	v = v.replace(/\{\n  ;\n\}|\{ ; \}/g, "{}"); // Empty selectors
+	v = (sb.checked) ? v.replace(/\{([\s\S]+?)\}|\((.*?)\)/gm, function(m) {
+		return m.replace(/(,|\:)/g, "$1 ");
+	}) : v;
+	v = (sb.checked) ? v.replace(/(.*?)\{/g, function(m) {
+		return m.replace(/,/g, ", ");
+	}) : v;
+	v = v.replace(/\!important/g, " !important");
+	v = v.replace(/data: ?image(.*?);([\n\r\t\s]+)base64, ?/g, "data:image$1;base64,"); // Data URI Image
+	v = v.replace(/\n\s+@(.*?)\{\n    /g, "\n\n@$1{\n  ");
+	//v = v.replace(/(\>|\+|\~)/g," $1 ");
+	v = (ip.checked) ? v.replace(/(.*){(\n\s+|\t)(.*)\:(.*);\n(\s+)?}/g, "$1{$3:$4;}") : v;
+	v = (rs.checked) ? v.replace(/\{(.*?)\;(\s+)?\}/g, "{$1$2}") : v;
+	v = (tt.checked && to[0].checked) ? v.split(/  /).join('\t') : v;
+	v = (tt.checked && to[1].checked) ? v.split(/  /).join('    ') : v;
+	v = (il.checked) ? v.replace(iq, function(m) {
+		return m.replace(/\}/g, "} ");
+	}) : v;
+	v = (si.checked) ? v.replace(/(\}|\*\/)\n+/g, "$1\n").replace(/\/\*/g, "\n/*") : v.replace(/\*\/\n(.)/g, "*/\n\n$1");
+	v = v.replace(/(^\n+|\n+$)/, "");
+	bs.disabled = (il.checked) ? true : false;
+	ip.disabled = (il.checked) ? true : false;
+	tt.disabled = (il.checked) ? true : false;
+	to[0].disabled = (tt.checked && !il.checked) ? false : true;
+	to[1].disabled = (tt.checked && !il.checked) ? false : true;
+	bf.value = v;
+	hr.innerHTML = v.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+	highlightCode(hr);
+}
+
+/* Clear the field value */
+function clearField(id) {
+	var fl = get(id);
+	fl.value = "";
+	fl.focus();
+}
+
+/* Select All */
+function selectAll(id) {
+	get(id).focus();
+	get(id).select();
+}
+//]]>
+</script>
+<style type='text/css'>
+*{margin:0;padding:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}*:focus{outline:none}html,body{height:100%}body{text-align:center;background-color:#E3FFDB;font:normal normal 12px Arial,Sans-Serif;text-shadow:0 0 1px rgba(0,0,0,.2);color:black}#page-wrap{width:96%;min-height:100%;margin:24px auto;text-align:left;overflow:hidden;clear:both}h1{font-size:30px;margin:50px 0}h2{font-size:22px;width:100%;margin:0 10px 20px}h2 label{font-weight:normal;font-size:12px}textarea{display:block;text-shadow:none;width:100%;height:406px;margin:10px auto 30px;padding:0 0;background-color:white;text-align:left;border:1px solid #aaa;font:normal 12px/15px "Inconsolata","Monaco","Consolas","Andale Mono","Bitstream Vera Sans Mono","Courier New",Courier,monospace;color:black}code{color:darkblue}.button-group{text-align:center;border:1px dashed #bbb;padding:10px 20px 20px 20px;margin:0 0 10px}.box{text-align:left;margin:10px auto 30px}.box p{margin:0 0 2px}button{font:normal bold 12px Arial,Sans-Serif;cursor:pointer;padding:2px 5px}.button-group button{padding:7px 18px}.col{width:50%;padding:0 10px;margin:10px 0 30px}.left{float:left}.right{float:right}.footer{display:block;height:40px;margin:0 4% 0 4%;text-align:right}label{cursor:pointer;text-decoration:none}label:hover{text-decoration:underline}label+span,input:disabled+label,input:disabled+label:hover,input:disabled+label *{color:#aaa!important;text-decoration:none;text-shadow:none;cursor:default}input:checked+label+span{color:black}.clear{display:block;clear:both}pre{overflow:auto;white-space:pre;white-space:pre-wrap;word-wrap:break-word;text-shadow:none;background-color:#D1EACB;border:4px solid #93B78B;margin:10px;cursor:text}pre code{display:block;font:normal normal 12px/16px "Courier New",Courier,Monospace;color:darkblue;padding:10px 15px}pre .st{color:purple}pre .pr{color:brown}pre .vl{color:darkgreen}pre .pn{color:black}pre .im{color:red}pre .cm,pre .cm span{color:#666!important;font-style:italic;font-weight:normal}.hidden{display:none}@media(max-width:767px){.col.left,.col.right{float:none;display:block;width:100%;margin:0 auto 20px}.footer{margin:25px}}
+</style>
+
+</body></html>
