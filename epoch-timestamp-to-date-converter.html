@@ -1,0 +1,579 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+
+
+<head>
+	<title>Free Online Epoch And Unix Timestamp Converter - FreeFormatter.com</title>
+	<meta name="title" content="Free Online Epoch And Unix Timestamp Converter - FreeFormatter.com"/>
+	<meta name="description" content="This free online converter lets you convert epoch timestamps to and from humand readable dates"/>	  		
+		<meta name="language" content="en"/>
+	<meta name="robots" content="all"/>
+	<meta name="rating" content="general"/>	
+	<meta charset="utf-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="shortcut icon" href="favicon.ico"/>
+	<link rel="stylesheet" href="/3.4.0.3/css/styles.css"/>
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/cupertino/jquery-ui.css"/>	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>	
+	<script src="/3.4.0.3/js/freeformatter.js"></script>
+	<script type="text/javascript">
+	
+		$(document).ready(function() {	
+						
+			converter.startEpoch();
+			converter.startEpochMs();	
+			
+		});
+		
+		var converter = {
+			
+			epochInterval : null,
+			
+			epochIntervalMs: null,			
+			
+			epoch: function() {
+				$('#epoch').text(parseInt(new Date().getTime() / 1000));
+			},
+			
+			epochMs: function() {
+				$('#epochMs').text(parseInt(new Date().getTime()));
+			},
+			
+			startEpoch: function() {
+				if (converter.epochInterval == null) {
+					converter.epochInterval = setInterval('converter.epoch()', 750);
+				}
+			},
+			
+			startEpochMs: function() {
+				if (converter.epochIntervalMs == null) {
+					converter.epochIntervalMs = setInterval('converter.epochMs()', 257);
+				}
+			},			
+			
+			stopEpoch: function() {
+				if (converter.epochInterval != null) {
+					clearInterval(converter.epochInterval);
+					converter.epochInterval = null;
+				}
+			},
+			
+			stopEpochMs: function() {
+				if (converter.epochIntervalMs != null) {
+					clearInterval(converter.epochIntervalMs);
+					converter.epochIntervalMs = null;
+				}
+			},
+			
+			convertToDate: function() {
+
+				var sourceEpoch = $('#sourceEpoch').val();
+				sourceEpoch = parseInt(sourceEpoch);
+
+				if (isNaN(sourceEpoch)) {
+					$('#resultDate').text('Invalid Timestamp').show();
+				} else {
+					if (sourceEpoch <= 9999999999) {
+						sourceEpoch *= 1000;
+					}
+					var date = new Date(sourceEpoch);
+					$('#resultDate').text(date.toLocaleString()).show();
+				}
+				
+			},
+			
+			getValue: function(id) {
+				var value = $('#' + id).val();
+				value = value.replace(/^0*([0-9]+)$/, '$1');
+				return parseInt(value);
+			}, 
+			
+			convertToEpoch: function() {
+
+				var d = null;
+				if ($('#timeZone').val() == 'gmt') {
+					d = new Date(Date.UTC(
+						converter.getValue('year'), 
+						(converter.getValue('month') - 1),
+						converter.getValue('date'),
+						converter.getValue('hours'),
+						converter.getValue('minutes'),
+						converter.getValue('seconds')
+					));
+				} else {
+					d = new Date(
+						converter.getValue('year'), 
+						(converter.getValue('month') - 1),
+						converter.getValue('date'),
+						converter.getValue('hours'),
+						converter.getValue('minutes'),
+						converter.getValue('seconds')
+					);					
+				}
+				
+				$('#resultEpoch').text(parseInt(d.getTime() / 1000));
+				$('#result').show();
+			
+			}
+			
+		};		
+		
+	</script>	
+</head>
+<body onload="prettyPrint();">
+	<div class="topbar">
+	<div class="topbar-inner">
+		<div class="container-fluid">
+			<a class="brand" href="http://www.freeformatter.com">FreeFormatter.com</a>
+			<ul class="nav">
+				<li><a href="https://www.freeformatter.com">HTTPS</a></li>
+				<li><a href="mailto:freeformatter@gmail.com">Contact</a></li>
+			</ul>
+			<div class="social" style="float:right;">
+				<div class="fb-like" data-href="http://www.freeformatter.com" data-send="false" data-layout="button_count" data-width="50" data-show-faces="true" data-font="arial"></div>
+				<!-- Place this tag where you want the +1 button to render -->
+				<div style="float: left; padding: 8px 5px 5px;">
+					<g:plusone></g:plusone>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<div class="container-fluid">
+		<div class="sidebar">
+	<div class="well">
+		<a href="/formatters.html"><h5>Formatters</h5></a>
+		<ul>
+			<li><a href="/json-formatter.html">JSON Formatter</a></li>
+			<li><a href="/html-formatter.html">HTML Formatter</a></li>
+			<li><a href="/xml-formatter.html">XML Formatter</a></li>
+			<li><a href="/sql-formatter.html">SQL Formatter</a></li>
+			<li><a href="/batch-formatter.html">Batch Formatter (new!)</strong></a></li>
+		</ul>
+		<a href="/validators.html"><h5>Validators</h5></a>
+		<ul>		
+			<li><a href="/json-validator.html">JSON Validator</a></li>
+			<li><a href="/html-validator.html">HTML Validator</a></li>
+			<li><a href="/xml-validator-xsd.html">XML Validator - XSD</a></li>
+			<li><a href="/xpath-tester.html">XPath Tester</a></li>
+			<li><a href="/credit-card-number-generator-validator.html">Credit Card Number Generator & Validator</a></li>
+			<li><a href="/regex-tester.html">Regular Expression Tester</a></li>			
+			<li><a href="/java-regex-tester.html">Java Regular Expression Tester</a></li>
+			<li><a href="/cron-expression-generator-quartz.html">Cron Expression Generator - Quartz</a></li>						
+		</ul>
+		<a href="/encoders.html"><h5>Encoders & Decoders</h5></a>
+		<ul>
+			<li><a href="/url-encoder.html">Url Encoder & Decoder</a></li>
+			<li><a href="/base64-encoder.html">Base 64 Encoder & Decoder</a></li>
+			<li><a href="/qr-code-generator.html">QR Code Generator</a></li>			
+		</ul>
+		<a href="/minifiers.html"><h5>Code Minifiers / Beautifier</h5></a>
+		<ul>
+			<li><a href="/javascript-beautifier.html">JavaScript Beautifier</a></li>
+			<li><a href="/css-beautifier.html">CSS Beautifier</a></li>
+			<li><a href="/javascript-minifier.html">JavaScript Minifier</a></li>
+			<li><a href="/css-minifier.html">CSS Minifier</a></li>
+		</ul>
+		<a href="/converters.html"><h5>Converters</h5></a>
+		<ul>
+			<li><a href="/xsd-generator.html">XSD Generator</a></li>
+			<li><a href="/xsl-transformer.html">XSLT (XSL Transformer)</a></li>					
+			<li><a href="/xml-to-json-converter.html">XML to JSON Converter</a></li>
+			<li><a href="/json-to-xml-converter.html">JSON to XML Converter</a></li>
+			<li><a href="/csv-to-xml-converter.html">CSV to XML Converter</a></li>	
+			<li><a href="/csv-to-json-converter.html">CSV to JSON Converter</a></li>			
+			<li><a href="/epoch-timestamp-to-date-converter.html">Epoch Timestamp To Date</a></li>
+		</ul>
+		<a href="/cryptography-and-security.html"><h5>Cryptography & Security</h5></a>
+		<ul>
+			<li><a href="/message-digest.html">Message Digester (MD5, SHA-256, SHA-512)</a></li>
+			<li><a href="/hmac-generator.html">HMAC Generator</a></li>			
+			<li><a href="/md5-generator.html">MD5 Generator</a></li>
+			<li><a href="/sha256-generator.html">SHA-256 Generator</a></li>
+			<li><a href="/sha512-generator.html">SHA-512 Generator</a></li>			
+		</ul>
+		<a href="/string-escaper.html"><h5>String Escaper & Utilities</h5></a>
+		<ul>
+			<li><a href="/string-utilities.html">String Utilities</a></li>
+			<li><a href="/html-escape.html">HTML Escape</a></li>
+			<li><a href="/xml-escape.html">XML Escape</a></li>
+			<li><a href="/java-dotnet-escape.html">Java and .Net Escape</a></li>
+			<li><a href="/javascript-escape.html">JavaScript Escape</a></li>
+			<li><a href="/json-escape.html">JSON Escape</a></li>			
+			<li><a href="/csv-escape.html">CSV Escape</a></li>
+			<li><a href="/sql-escape.html">SQL	Escape</a></li>
+		</ul>
+		<a href="/web-resources.html"><h5>Web Resources</h5></a>
+		<ul>
+			<li><a href="/lorem-ipsum-generator.html">Lorem Ipsum Generator</a></li>
+			<li><a href="/less-compiler.html">LESS Compiler</a></li>
+			<li><a href="/mime-types-list.html">List of MIME types</a></li>
+			<li><a href="/html-entities.html">HTML Entities</a></li>
+			<li><a href="/url-parser-query-string-splitter.html">Url Parser / Query String Splitter</a></li>						
+			<li><a href="/i18n-standards-code-snippets.html">i18n - Formatting standards & code snippets</a></li>
+			<li><a href="/iso-country-list-html-select.html">ISO country list - HTML select snippet</a></li>
+			<li><a href="/usa-state-list-html-select.html">USA state list - HTML select snippet</a></li>
+			<li><a href="/canada-province-list-html-select.html">Canada province	list - HTML select snippet</a></li>
+			<li><a href="/mexico-state-list-html-select.html">Mexico state list - HTML select snippet</a></li>			
+			<li><a href="/time-zone-list-html-select.html">Time zone list - HTML select snippet</a></li>
+		</ul>
+	</div>
+	<div style="text-align: center;">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- freeformatter-responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2485708030241382"
+     data-ad-slot="9677864628"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+	</div>
+</div>
+		<div class="content">
+			<div class="content-inner">
+
+				<h1>Epoch & Unix Timestamp Converter</h1>
+				<p>
+					Converts an epoch/unix timestamp into a human readable date. It also lets you do the inverse, i.e. converts a human readable date into an epoch/unix timestamp. It also
+					displays the current epoch/unix timestamp in both seconds and milliseconds.
+				</p>
+				<p>
+					<strong>Epoch</strong>, also known as <strong>Unix timestamps</strong>, is the number of <strong>seconds</strong> (not milliseconds!) that have elapsed since January 1, 1970 at 00:00:00 GMT (1970-01-01 00:00:00 GMT). 
+				</p>
+				<p>
+					In many modern programming languages, date objects make use of epoch as a starting point from which they compute the inner date value. For example, in Java, the java.lang.Date
+					class is set with the number of milliseconds that have elapsed since epoch.    
+				</p>
+				<p>Thanks to Kevin Stewart for pointing out the conversion issue.</p>
+				<h2>Current Unix epoch time</h2>				
+				<div class="form-wrapper" style="padding:10px 0 20px 20px;">					
+					<div style="margin-top:10px;">
+						<span id="epoch" class="timestamp"></span>
+						<span>&nbsp;</span>
+						<span><a href="javascript:converter.stopEpoch();">Stop</a></span>
+						<span>&nbsp;|&nbsp;</span>
+						<span><a href="javascript:converter.startEpoch();">Resume</a></span>
+					</div>					
+				</div>
+				<h2 style="margin:15px 0 0 0">Current Unix epoch time in milliseconds</h2>				
+				<div class="form-wrapper" style="padding:10px 0 20px 20px;">					
+					<div style="margin-top:10px;">
+						<span id="epochMs" class="timestamp"></span>
+						<span>&nbsp;</span>
+						<span><a href="javascript:converter.stopEpochMs();">Stop</a></span>
+						<span>&nbsp;|&nbsp;</span>
+						<span><a href="javascript:converter.startEpochMs();">Resume</a></span>
+					</div>					
+				</div>
+				<h2 style="margin:15px 0 0 0">Convert epoch timestamp to date</h2>				
+				<div class="form-wrapper" style="padding:10px 0 20px 20px;">					
+					<div style="margin-top:10px;">
+						<span>Enter epoch timestamp in seconds or millis:</span>
+						<input type="text" id="sourceEpoch" value="" maxLength="13" style="width:95px; padding:3px; margin:0 5px;"/>
+						<a style="margin:0 5px 0 3px;" href="javascript:converter.convertToDate();">Convert</a>
+						<span id="resultDate" class="timestamp" style="display:none;"></span>
+					</div>					
+				</div>
+				<h2 style="margin:15px 0 0 0">Convert date to epoch timestamp</h2>				
+				<div class="form-wrapper" style="padding:10px 0 20px 20px">					
+					<table class="epoch">
+						<thead>
+							<tr>
+								<th>Year</th>
+								<th>Month</th>
+								<th>Date</th>
+								<th>Hours</th>
+								<th>Minutes</th>
+								<th>Seconds</th>
+								<th>Time Zone</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><input id="year" type="text" maxlength="4" value="2017"/></td>
+								<td>
+									<select id="month" style="width:150px;">
+										<option value="1">01 - January</option>
+										<option value="2">02 - February</option>
+										<option value="3">03 - March</option>
+										<option value="4">04 - April</option>
+										<option value="5">05 - May</option>
+										<option value="6">06 - June</option>
+										<option value="7">07 - July</option>
+										<option value="8">08 - August</option>
+										<option value="9">09 - September</option>
+										<option value="10">10 - October</option>
+										<option value="11">11 - November</option>
+										<option value="12">12 - December</option>
+									</select>
+								</td>
+								<td>
+									<select id="date" style="width:50px;">
+										<option value="1">01</option>
+										<option value="2">02</option>
+										<option value="3">03</option>
+										<option value="4">04</option>
+										<option value="5">05</option>
+										<option value="6">06</option>
+										<option value="7">07</option>
+										<option value="8">08</option>
+										<option value="9">09</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+										<option value="13">13</option>
+										<option value="14">14</option>
+										<option value="15">15</option>
+										<option value="16">16</option>
+										<option value="17">17</option>
+										<option value="18">18</option>
+										<option value="19">19</option>
+										<option value="20">20</option>
+										<option value="21">21</option>
+										<option value="22">22</option>
+										<option value="23">23</option>
+										<option value="24">24</option>
+										<option value="25">25</option>
+										<option value="26">26</option>
+										<option value="27">27</option>
+										<option value="28">28</option>
+										<option value="29">29</option>
+										<option value="30">30</option>
+										<option value="31">31</option>
+									</select>
+								</td>								
+								<td>
+									<select id="hours" style="width:50px;">
+										<option value="0">00</option>
+										<option value="1">01</option>
+										<option value="2">02</option>
+										<option value="3">03</option>
+										<option value="4">04</option>
+										<option value="5">05</option>
+										<option value="6">06</option>
+										<option value="7">07</option>
+										<option value="8">08</option>
+										<option value="9">09</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+										<option value="13">13</option>
+										<option value="14">14</option>
+										<option value="15">15</option>
+										<option value="16">16</option>
+										<option value="17">17</option>
+										<option value="18">18</option>
+										<option value="19">19</option>
+										<option value="20">20</option>
+										<option value="21">21</option>
+										<option value="22">22</option>
+										<option value="23">23</option>
+									</select>
+								</td>
+								<td>
+									<select id="minutes" style="width:50px;">
+										<option value="0">00</option>
+										<option value="1">01</option>
+										<option value="2">02</option>
+										<option value="3">03</option>
+										<option value="4">04</option>
+										<option value="5">05</option>
+										<option value="6">06</option>
+										<option value="7">07</option>
+										<option value="8">08</option>
+										<option value="9">09</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+										<option value="13">13</option>
+										<option value="14">14</option>
+										<option value="15">15</option>
+										<option value="16">16</option>
+										<option value="17">17</option>
+										<option value="18">18</option>
+										<option value="19">19</option>
+										<option value="20">20</option>
+										<option value="21">21</option>
+										<option value="22">22</option>
+										<option value="23">23</option>
+										<option value="24">24</option>
+										<option value="25">25</option>
+										<option value="26">26</option>
+										<option value="27">27</option>
+										<option value="28">28</option>
+										<option value="29">29</option>
+										<option value="30">30</option>
+										<option value="31">31</option>
+										<option value="32">32</option>
+										<option value="33">33</option>
+										<option value="34">34</option>
+										<option value="35">35</option>
+										<option value="36">36</option>
+										<option value="37">37</option>
+										<option value="38">38</option>
+										<option value="39">39</option>
+										<option value="40">40</option>
+										<option value="41">41</option>
+										<option value="42">42</option>
+										<option value="43">43</option>
+										<option value="44">44</option>
+										<option value="45">45</option>
+										<option value="46">46</option>
+										<option value="47">47</option>
+										<option value="48">48</option>
+										<option value="49">49</option>
+										<option value="50">50</option>
+										<option value="51">51</option>
+										<option value="52">52</option>
+										<option value="53">53</option>
+										<option value="54">54</option>
+										<option value="55">55</option>
+										<option value="56">56</option>
+										<option value="57">57</option>
+										<option value="58">58</option>
+										<option value="59">59</option>										
+									</select>
+								</td>
+								<td>
+									<select id="seconds" style="width:50px;">
+										<option value="0">00</option>
+										<option value="1">01</option>
+										<option value="2">02</option>
+										<option value="3">03</option>
+										<option value="4">04</option>
+										<option value="5">05</option>
+										<option value="6">06</option>
+										<option value="7">07</option>
+										<option value="8">08</option>
+										<option value="9">09</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+										<option value="13">13</option>
+										<option value="14">14</option>
+										<option value="15">15</option>
+										<option value="16">16</option>
+										<option value="17">17</option>
+										<option value="18">18</option>
+										<option value="19">19</option>
+										<option value="20">20</option>
+										<option value="21">21</option>
+										<option value="22">22</option>
+										<option value="23">23</option>
+										<option value="24">24</option>
+										<option value="25">25</option>
+										<option value="26">26</option>
+										<option value="27">27</option>
+										<option value="28">28</option>
+										<option value="29">29</option>
+										<option value="30">30</option>
+										<option value="31">31</option>
+										<option value="32">32</option>
+										<option value="33">33</option>
+										<option value="34">34</option>
+										<option value="35">35</option>
+										<option value="36">36</option>
+										<option value="37">37</option>
+										<option value="38">38</option>
+										<option value="39">39</option>
+										<option value="40">40</option>
+										<option value="41">41</option>
+										<option value="42">42</option>
+										<option value="43">43</option>
+										<option value="44">44</option>
+										<option value="45">45</option>
+										<option value="46">46</option>
+										<option value="47">47</option>
+										<option value="48">48</option>
+										<option value="49">49</option>
+										<option value="50">50</option>
+										<option value="51">51</option>
+										<option value="52">52</option>
+										<option value="53">53</option>
+										<option value="54">54</option>
+										<option value="55">55</option>
+										<option value="56">56</option>
+										<option value="57">57</option>
+										<option value="58">58</option>
+										<option value="59">59</option>										
+									</select>
+								</td>																
+								<!-- 
+								<td><input id="month" type="text" maxlength="2" pattern="^(0?[1-9]|1[012])$"/></td>
+								<td><input id="date" type="text" maxlength="2" pattner="(0[1-9]|[12]\d|3[01])"/></td>
+								<td><input id="hours" type="text" maxlength="2" pattern="([01]?[0-9]|2[0-3])"/></td>
+								<td><input id="minutes" type="text" maxlength="2" pattern="[0-5][0-9]"/></td>
+								<td><input id="seconds" type="text" maxlength="2" pattern="[0-5][0-9]"/></td>
+								 -->
+								<td>
+									<select id="timeZone" style="width:80px;">
+										<option value="local">Local</option>									
+										<option value="gmt">GMT</option>
+									</select>
+								</td>								
+								<td style="padding:3px 0;margin:0;"><a href="javascript:converter.convertToEpoch();">Convert</a></td>									
+							</tr>
+						</tbody>
+					</table>
+					<div id="result" style="margin-left:10px;display:none;">
+					    Converted epoch timestamp in seconds: <span id="resultEpoch" class="timestamp"></span>
+					</div>
+				</div>				
+
+				<div id="ad-output" class="ad-wrapper">
+					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- freeformatter-responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2485708030241382"
+     data-ad-slot="9677864628"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+				</div>
+																						
+			</div>
+			<footer>
+	<p>&copy; FreeFormatter.com - FREEFORMATTER is a d/b/a of 10174785 Canada Inc. - <a href="/copyright-notice.html">Copyright Notice</a> - <a href="/privacy-statement.html">Privacy Statement</a> - <a href="/terms-of-use.html">Terms of Use</a></p>
+</footer>	
+		</div>
+	</div>
+	<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24060392-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<div id="fb-root"></div>
+<script>
+	(
+		function() {
+    		var e = document.createElement('script'); e.async = true;
+    		e.setAttribute('defer', 'defer');
+    		e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js#xfbml=1';    		
+    		document.getElementById('fb-root').appendChild(e);
+ 		}()
+ 	);
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {		
+		$('body').append('<scri' + 'pt type="text/javascript" src="//apis.google.com/js/plusone.js" defer></scr' + 'ipt>');		
+	});	
+</script>
+</body>
+</html>

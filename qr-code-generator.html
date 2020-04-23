@@ -1,0 +1,737 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+
+
+<head>
+	<title>Free Online QR Code Generator / Encoder - FreeFormatter.com</title>
+	<meta name="title" content="Free Online QR Code Generator / Encoder - FreeFormatter.com"/>
+	<meta name="description" content="This free online tool lets you generate QR codes for contact information (vcard), events, email, geo location, telephone, sms, url, wifi and more"/>	  		
+		<meta name="language" content="en"/>
+	<meta name="robots" content="all"/>
+	<meta name="rating" content="general"/>	
+	<meta charset="utf-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="shortcut icon" href="favicon.ico"/>
+	<link rel="stylesheet" href="/3.4.0.3/css/styles.css"/>
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/cupertino/jquery-ui.css"/>	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>	
+	<script src="/3.4.0.3/js/freeformatter.js"></script>
+	<script src="/3.4.0.3/js/date.js"></script>
+	<script type="text/javascript">
+	
+		$(document).ready(function() {
+			
+			$("#qr-code-type").change(QRCode.onTypeChange);
+			$("#qr-code-type").trigger("change");
+			
+			$("#generateButton").click(QRCode.onSubmit);
+			
+	        $(".datepicker").datetimepicker({
+	        	dateFormat: "yy-mm-dd",
+	        	timeFormat: "HH:mm:ss z",
+	        	showTimezone: true,
+	        	useLocalTimezone: true
+	        });
+			
+		});
+
+		var QRCode = {
+			
+			onTypeChange: function() {
+				$("div.qr-controls").hide();
+				$("div.qr-controls[type='" + QRCode.getType() + "']").show();
+			},
+			
+			onSubmit: function() {
+				
+				var type = QRCode.getType();
+				
+				var queryString = '';
+				
+				if (type == 'address-book') {
+					queryString = QRCode.buildAddressBook();
+				} else if (type == 'email') {
+					queryString = QRCode.buildEmail();
+				} else if (type == 'event') {
+					queryString = QRCode.buildEvent();
+				} else if (type == 'geo') {
+					queryString = QRCode.buildGeo();
+				} else if (type == 'text') {
+					queryString = QRCode.buildText();
+				} else if (type == 'sms') {
+					queryString = QRCode.buildSms();
+				} else if (type == 'tel') {
+					queryString = QRCode.buildTel();
+				} else if (type == 'url') {
+					queryString = QRCode.buildUrl();
+				} else if (type == 'wifi') {
+					queryString = QRCode.buildWifi();
+				}
+				
+				if (!queryString) {
+					return;
+				}
+				
+				QRCode.refreshImage(queryString);
+				
+			},
+			
+			showFieldError: function( field ) {
+				alert("The field '" + field + "' is mandatory");
+			},
+			
+			buildAddressBook: function() {
+				
+				var value = null;
+				var str = 'BEGIN:VCARD\nVERSION:3.0\n';
+				
+				value = $('div.qr-controls[type="address-book"] input.name').val();
+				if (!$.isBlank(value)) {
+					str += 'N:' + value + '\n';	
+				} else {
+					QRCode.showFieldError('Name');
+					return null;
+				}
+				
+				value = $('div.qr-controls[type="address-book"] input.company').val();
+				if (!$.isBlank(value)) {
+					str += 'ORG:' + value + '\n';	
+				} 
+				
+				value = $('div.qr-controls[type="address-book"] input.occupation').val();
+				if (!$.isBlank(value)) {
+					str += 'TITLE:' + value + '\n';	
+				}				
+				
+				value = $('div.qr-controls[type="address-book"] input.telephone').val();
+				if (!$.isBlank(value)) {
+					str += 'TEL:' + value + '\n';	
+				}
+				
+				value = $('div.qr-controls[type="address-book"] input.email').val();
+				if (!$.isBlank(value)) {
+					str += 'EMAIL:' + value + '\n';	
+				}
+				
+				value = $('div.qr-controls[type="address-book"] input.address').val();
+				if (!$.isBlank(value)) {
+					str += 'ADR:' + value + '\n';	
+				}
+				
+				value = $('div.qr-controls[type="address-book"] input.website-url').val();
+				if (!$.isBlank(value)) {
+					str += 'URL:' + value + '\n';	
+				}
+				
+				value = $('div.qr-controls[type="address-book"] input.note').val();
+				if (!$.isBlank(value)) {
+					str += 'NOTE:' + value + '\n';	
+				}				
+				
+				str += 'END:VCARD';
+				console.debug(str);
+				return str;
+				
+			},
+			
+			buildEvent: function() {
+				
+				var value = null;
+				var str = 'BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\n';
+
+				value = $('div.qr-controls[type="event"] input.title').val();
+				if (!$.isBlank(value)) {
+					str += 'SUMMARY:' + value + '\n';
+				} else {
+					QRCode.showFieldError('Title');
+					return null;
+				}
+				
+				value = $('div.qr-controls[type="event"] input.description').val();
+				if (!$.isBlank(value)) {
+					str += 'DESCRIPTION:' + value + '\n';	
+				}				
+				
+				value = $('div.qr-controls[type="event"] input.location').val();
+				if (!$.isBlank(value)) {
+					str += 'LOCATION:' + value + '\n';	
+				} else {
+					QRCode.showFieldError('Location');
+					return null;
+				}
+				
+				value = $('div.qr-controls[type="event"] input.start-date').val();
+				if (!$.isBlank(value)) {
+					value = QRCode.convertDate(value);
+					str += 'DTSTART:' + value + '\n';	
+				} else {
+					QRCode.showFieldError('Start Date');
+					return null;
+				}
+				
+				value = $('div.qr-controls[type="event"] input.end-date').val();
+				if (!$.isBlank(value)) {
+					value = QRCode.convertDate(value);
+					str += 'DTEND:' + value + '\n';	
+				} else {
+					QRCode.showFieldError('End Date');
+					return null;
+				}
+				
+				str += 'END:VEVENT\nEND:VCALENDAR';
+				console.debug(str);
+				return str;
+				
+			},
+			
+			buildEmail: function() {
+				
+				var value = null;
+				var str = 'mailto:';
+
+				value = $('div.qr-controls[type="email"] input.email').val();
+				if (!$.isBlank(value)) {
+					str += value;
+				} else {
+					QRCode.showFieldError('Email');
+					return null;
+				}
+				
+				return str;
+				
+			},
+						
+			buildGeo: function() {
+						
+				var value = null;
+				var str = 'geo:';
+
+				value = $('div.qr-controls[type="geo"] input.latitude').val();
+				if (!$.isBlank(value)) {
+					str += value;
+				} else {
+					QRCode.showFieldError('Latitude');
+					return null;
+				}
+				
+				value = $('div.qr-controls[type="geo"] input.longitude').val();
+				if (!$.isBlank(value)) {
+					str += ',' + value;
+				} else {
+					QRCode.showFieldError('Longitude');
+					return null;
+				}
+				
+				value = $('div.qr-controls[type="geo"] input.queryString').val();
+				if (!$.isBlank(value)) {
+					str += "?q=" + encodeURIComponent(value);
+				}				
+				
+				return str;
+						
+			},
+			
+			buildText: function() {
+								
+				var value = null;
+				var str = '';
+
+				value = $('div.qr-controls[type="text"] textarea.text').val();
+				if (!$.isBlank(value)) {
+					str += value;
+				} else {
+					QRCode.showFieldError('Text');
+					return null;
+				}
+				
+				return str;
+				
+			},
+			
+			buildSms: function() {
+								
+				var value = null;
+				var str = 'smsto:';
+
+				value = $('div.qr-controls[type="sms"] input.telephone').val();
+				if (!$.isBlank(value)) {
+					str += value;
+				} else {
+					QRCode.showFieldError('Telephone');
+					return null;
+				}
+				
+				value = $('div.qr-controls[type="sms"] textarea.message').val();
+				if (!$.isBlank(value)) {
+					str += ':' + value;
+				} else {
+					QRCode.showFieldError('Message');
+					return null;
+				}
+				
+				return str;			
+				
+			},
+			
+			buildTel: function() {			
+				
+				var value = null;
+				var str = 'tel:';
+
+				value = $('div.qr-controls[type="tel"] input.telephone').val();
+				if (!$.isBlank(value)) {
+					str += value;
+				} else {
+					QRCode.showFieldError('Telephone');
+					return null;
+				}
+				
+				return str;		
+				
+			},
+			
+			buildUrl: function() {
+				
+				var value = null;
+				var str = '';
+
+				value = $('div.qr-controls[type="url"] input.url').val();
+				
+				if (!$.isBlank(value)) {
+					
+					var patt = /^http(s)?:\/\/.+$/;
+					if (!patt.test(value)) {
+						value = 'http://' + value;	
+					}
+					
+					str += value;
+					
+				} else {
+					QRCode.showFieldError('URL');
+					return null;
+				}
+				
+				return str;	
+				
+			},
+			
+			buildWifi: function() {
+				
+				var value = null;
+				var str = 'WIFI:';
+
+				value = $('div.qr-controls[type="wifi"] input.ssid').val();				
+				if (!$.isBlank(value)) {			
+					str += 'S:' + value + ';';					
+				} else {
+					QRCode.showFieldError('SSID');
+					return null;
+				}
+				
+				value = $('div.qr-controls[type="wifi"] input.password').val();				
+				if (!$.isBlank(value)) {			
+					str += 'P:' + value + ';';					
+				}
+				
+				value = $('div.qr-controls[type="wifi"] select.networkType').val();				
+				if (!$.isBlank(value)) {			
+					str += 'T:' + value + ';';					
+				}				
+				
+				return str;	
+								
+			},
+			
+			convertDate: function(rawInput) {
+				
+				var date = Date.parse(rawInput);
+				date.setTimezone("GMT");
+				date = new Date(date).toString("yyyyMMddTHHmmssZ");
+								
+				return date;
+								
+			},
+			
+			getType: function() {
+				return $("#qr-code-type").val();
+			},
+			
+			refreshImage: function(queryString) {
+				$("#qrCode").attr("src", "https://www.freeformatter.com/qr-code?w=350&h=350&e=" + $("#error").val() + "&c=" + encodeURIComponent(queryString));				
+			}
+			
+		};
+
+	</script>
+	
+	<style type="text/css">
+		
+		label {
+			float:none;		
+			padding: 5px 0 5px 0;	
+		}
+		
+		.qr-controls {
+			display:none;
+			margin-top: 10px;
+		}
+		
+		form div {
+			margin: 10px 0 3px 0;
+		}
+		
+		.left-section {
+			float: left; 
+			width: 250px;
+		}
+		
+		.right-section {
+			float: right;
+			width: 360px;
+			border: solid 1px black;
+			height: 360px;
+			background-color: white;
+			margin-top: 38px;
+			border-radius: 8px;
+			padding: 5px;
+		}
+				
+		.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+		.ui-timepicker-div dl { text-align: left; }
+		.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+		.ui-timepicker-div dl dd { margin: 0 10px 10px 90px; }
+		.ui-timepicker-div td { font-size: 90%; }
+		.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+		
+		.ui-timepicker-rtl{ direction: rtl; }
+		.ui-timepicker-rtl dl { text-align: right; }
+		.ui-timepicker-rtl dl dd { margin: 0 65px 10px 10px; }
+		
+		dd.ui_tpicker_timezone select {
+			width: 80px;
+			padding: 2px;
+		}
+		
+		input[readonly] {
+			cursor: auto;
+			border: 1px solid #CCCCCC;
+			background-color: #FFF;
+		}
+		
+		.alert-message {
+			display: none;
+		}
+		
+	</style>
+</head>
+<body>
+	<div class="topbar">
+	<div class="topbar-inner">
+		<div class="container-fluid">
+			<a class="brand" href="http://www.freeformatter.com">FreeFormatter.com</a>
+			<ul class="nav">
+				<li><a href="https://www.freeformatter.com">HTTPS</a></li>
+				<li><a href="mailto:freeformatter@gmail.com">Contact</a></li>
+			</ul>
+			<div class="social" style="float:right;">
+				<div class="fb-like" data-href="http://www.freeformatter.com" data-send="false" data-layout="button_count" data-width="50" data-show-faces="true" data-font="arial"></div>
+				<!-- Place this tag where you want the +1 button to render -->
+				<div style="float: left; padding: 8px 5px 5px;">
+					<g:plusone></g:plusone>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<div class="container-fluid">
+		<div class="sidebar">
+	<div class="well">
+		<a href="/formatters.html"><h5>Formatters</h5></a>
+		<ul>
+			<li><a href="/json-formatter.html">JSON Formatter</a></li>
+			<li><a href="/html-formatter.html">HTML Formatter</a></li>
+			<li><a href="/xml-formatter.html">XML Formatter</a></li>
+			<li><a href="/sql-formatter.html">SQL Formatter</a></li>
+			<li><a href="/batch-formatter.html">Batch Formatter (new!)</strong></a></li>
+		</ul>
+		<a href="/validators.html"><h5>Validators</h5></a>
+		<ul>		
+			<li><a href="/json-validator.html">JSON Validator</a></li>
+			<li><a href="/html-validator.html">HTML Validator</a></li>
+			<li><a href="/xml-validator-xsd.html">XML Validator - XSD</a></li>
+			<li><a href="/xpath-tester.html">XPath Tester</a></li>
+			<li><a href="/credit-card-number-generator-validator.html">Credit Card Number Generator & Validator</a></li>
+			<li><a href="/regex-tester.html">Regular Expression Tester</a></li>			
+			<li><a href="/java-regex-tester.html">Java Regular Expression Tester</a></li>
+			<li><a href="/cron-expression-generator-quartz.html">Cron Expression Generator - Quartz</a></li>						
+		</ul>
+		<a href="/encoders.html"><h5>Encoders & Decoders</h5></a>
+		<ul>
+			<li><a href="/url-encoder.html">Url Encoder & Decoder</a></li>
+			<li><a href="/base64-encoder.html">Base 64 Encoder & Decoder</a></li>
+			<li><a href="/qr-code-generator.html">QR Code Generator</a></li>			
+		</ul>
+		<a href="/minifiers.html"><h5>Code Minifiers / Beautifier</h5></a>
+		<ul>
+			<li><a href="/javascript-beautifier.html">JavaScript Beautifier</a></li>
+			<li><a href="/css-beautifier.html">CSS Beautifier</a></li>
+			<li><a href="/javascript-minifier.html">JavaScript Minifier</a></li>
+			<li><a href="/css-minifier.html">CSS Minifier</a></li>
+		</ul>
+		<a href="/converters.html"><h5>Converters</h5></a>
+		<ul>
+			<li><a href="/xsd-generator.html">XSD Generator</a></li>
+			<li><a href="/xsl-transformer.html">XSLT (XSL Transformer)</a></li>					
+			<li><a href="/xml-to-json-converter.html">XML to JSON Converter</a></li>
+			<li><a href="/json-to-xml-converter.html">JSON to XML Converter</a></li>
+			<li><a href="/csv-to-xml-converter.html">CSV to XML Converter</a></li>	
+			<li><a href="/csv-to-json-converter.html">CSV to JSON Converter</a></li>			
+			<li><a href="/epoch-timestamp-to-date-converter.html">Epoch Timestamp To Date</a></li>
+		</ul>
+		<a href="/cryptography-and-security.html"><h5>Cryptography & Security</h5></a>
+		<ul>
+			<li><a href="/message-digest.html">Message Digester (MD5, SHA-256, SHA-512)</a></li>
+			<li><a href="/hmac-generator.html">HMAC Generator</a></li>			
+			<li><a href="/md5-generator.html">MD5 Generator</a></li>
+			<li><a href="/sha256-generator.html">SHA-256 Generator</a></li>
+			<li><a href="/sha512-generator.html">SHA-512 Generator</a></li>			
+		</ul>
+		<a href="/string-escaper.html"><h5>String Escaper & Utilities</h5></a>
+		<ul>
+			<li><a href="/string-utilities.html">String Utilities</a></li>
+			<li><a href="/html-escape.html">HTML Escape</a></li>
+			<li><a href="/xml-escape.html">XML Escape</a></li>
+			<li><a href="/java-dotnet-escape.html">Java and .Net Escape</a></li>
+			<li><a href="/javascript-escape.html">JavaScript Escape</a></li>
+			<li><a href="/json-escape.html">JSON Escape</a></li>			
+			<li><a href="/csv-escape.html">CSV Escape</a></li>
+			<li><a href="/sql-escape.html">SQL	Escape</a></li>
+		</ul>
+		<a href="/web-resources.html"><h5>Web Resources</h5></a>
+		<ul>
+			<li><a href="/lorem-ipsum-generator.html">Lorem Ipsum Generator</a></li>
+			<li><a href="/less-compiler.html">LESS Compiler</a></li>
+			<li><a href="/mime-types-list.html">List of MIME types</a></li>
+			<li><a href="/html-entities.html">HTML Entities</a></li>
+			<li><a href="/url-parser-query-string-splitter.html">Url Parser / Query String Splitter</a></li>						
+			<li><a href="/i18n-standards-code-snippets.html">i18n - Formatting standards & code snippets</a></li>
+			<li><a href="/iso-country-list-html-select.html">ISO country list - HTML select snippet</a></li>
+			<li><a href="/usa-state-list-html-select.html">USA state list - HTML select snippet</a></li>
+			<li><a href="/canada-province-list-html-select.html">Canada province	list - HTML select snippet</a></li>
+			<li><a href="/mexico-state-list-html-select.html">Mexico state list - HTML select snippet</a></li>			
+			<li><a href="/time-zone-list-html-select.html">Time zone list - HTML select snippet</a></li>
+		</ul>
+	</div>
+	<div style="text-align: center;">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- freeformatter-responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2485708030241382"
+     data-ad-slot="9677864628"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+	</div>
+</div>
+		<div class="content">
+			<div class="content-inner">
+			
+				<h1>QR Code Generator / Encoder</h1>
+				
+				<p>
+					This free tool lets you generate QR Codes for address books (vcard), events (vcalendar, vevent), emails (mailto), geo coordinates (geo), 
+					telephones (tel), sms (smsto), urls (http://), plain text, wifi connection string and more. Also allows you to select your error 
+					correction level from L (Low 7%), M (Medium 15%), Q (Quartile 25%) and H (High 30%). 
+					It makes use of the <a href="http://code.google.com/p/zxing/">ZXing ("Zebra Crossing")</a> library.
+				</p>
+				<p>
+					If you want to test it out on your Android device, install <a href="https://play.google.com/store/apps/details?id=com.google.zxing.client.android&hl=en">Barcode Scanner</a>.
+					For iPhones, use <a href="https://itunes.apple.com/us/app/barcodes-scanner/id417257150?mt=8">Barcodes Scanner</a>					 
+				</p>
+								
+				<div class="form-wrapper" style="display:inline-block; width:92%; padding:0 30px 20px 20px;">
+					<form id="form">					
+						<div class="left-section">
+							
+							<div>QR Code Type</div>
+							
+							<select id="qr-code-type">
+								<option value="address-book">Address Book (VCARD)</option>
+								<option value="email">Email (MAILTO)</option>
+								<option value="event">Event (VEVENT)</option>
+								<option value="geo">Geo Coordinates (GEO)</option>
+								<option value="text">Plain Text</option>
+								<option value="sms">SMS (SMSTO)</option>
+								<option value="tel">Telephone (TEL)</option>
+								<option value="url">URL</option>
+								<option value="wifi">WiFi</option>
+							</select>
+							
+							<div class="qr-controls" type="address-book">
+								<div>*Name:</div>
+								<input class="name" type="text"/>
+								<div>Company:</div>
+								<input class="company" type="text"/>
+								<div>Occupation:</div>
+								<input class="occupation" type="text"/>
+								<div>Telephone:</div>
+								<input class="telephone" type="text"/>
+								<div>Email:</div>
+								<input class="email" type="text"/>
+								<div>Address:</div>
+								<input class="address" type="text"/>
+								<div>Website Url:</div>
+								<input class="website-url" type="text"/>
+								<div>Note:</div>
+								<input class="note" type="text"/>
+							</div>
+							
+							<div class="qr-controls" type="event">
+								<div>*Title:</div>
+								<input class="title" type="text"/>
+								<div>*Location:</div>
+								<input class="location" type="text"/>
+								<div>Description:</div>
+								<input class="description" type="text"/>
+								<div>*Start Date:</div>
+								<input class="start-date datepicker" type="text" readonly="readonly"/>
+								<div>*End Date:</div>
+								<input class="end-date datepicker" type="text" readonly="readonly"/>
+							</div>
+							
+							<div class="qr-controls" type="email">
+								<div>*Email:</div>
+								<input class="email" type="text"/>								
+							</div>
+							
+							<div class="qr-controls" type="geo">
+								<div>*Latitude: (Ex: 40.860284)</div>
+								<input class="latitude" type="text"/>
+								<div>*Longitude: (Ex: -73.183363)</div>
+								<input class="longitude" type="text"/>
+								<div>Query String:</div>
+								<input class="queryString" type="text"/>
+							</div>
+							
+							<div class="qr-controls" type="text">
+								<div>*Text:</div>
+								<textarea class="text"></textarea>
+							</div>
+							
+							<div class="qr-controls" type="sms">
+								<div>*Telephone:</div>
+								<input class="telephone" type="text"/>
+								<div>*Message:</div>
+								<textarea class="message"></textarea> 
+							</div>
+							
+							<div class="qr-controls" type="tel">
+								<div>*Telephone:</div>
+								<input class="telephone" type="text"/>
+							</div>
+							
+							<div class="qr-controls" type="url">
+								<div>*URL:</div>
+								<input class="url" type="text"/>
+							</div>
+							
+							<div class="qr-controls" type="wifi">
+								<div>*SSID: (Network Id)</div>
+								<input class="ssid" type="text"/>
+								<div>Password:</div>
+								<input class="password" type="text"/>
+								<div>Network Type:</div>
+								<select class="networkType">
+									<option value="WEP">WEP</option>
+									<option value="WPA/WPA2">WPA/WPA2</option>
+									<option value="nopass">Not secured</option>
+								</select>
+							</div>
+							
+							<!-- 
+							<div>Image Size</div>
+							<select id="size">
+								<option value="small">Small (150 x 150)</option>
+								<option value="medium">Medium (250 x 250)</option>
+								<option value="large" selected="selected">Large (350 x 350)</option>
+							</select>
+							-->
+							
+							<div>Error Correction</div>
+							<select id="error">
+								<option value="L">Low (7%)</option>
+								<option value="M">Medium (15%)</option>
+								<option value="Q" selected="selected">Quartile (25%)</option>
+								<option value="H">High (30%)</option>								
+							</select>	
+										
+							<div class="buttons">
+								<button class="btn primary" id="generateButton" title="Generate the QR Code" onclick="return false;">GENERATE QR CODE</button>
+							</div>
+																			
+						</div>
+						
+						<div class="right-section">
+							<img id="qrCode" src=""/>
+						</div>
+						
+					</form>
+									
+				</div>			
+				
+				<div id="ad-output" class="ad-wrapper">
+					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- freeformatter-responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2485708030241382"
+     data-ad-slot="9677864628"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+				</div>
+			
+			</div>
+			<footer>
+	<p>&copy; FreeFormatter.com - FREEFORMATTER is a d/b/a of 10174785 Canada Inc. - <a href="/copyright-notice.html">Copyright Notice</a> - <a href="/privacy-statement.html">Privacy Statement</a> - <a href="/terms-of-use.html">Terms of Use</a></p>
+</footer>	
+		</div>
+	</div>
+	<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24060392-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<div id="fb-root"></div>
+<script>
+	(
+		function() {
+    		var e = document.createElement('script'); e.async = true;
+    		e.setAttribute('defer', 'defer');
+    		e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js#xfbml=1';    		
+    		document.getElementById('fb-root').appendChild(e);
+ 		}()
+ 	);
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {		
+		$('body').append('<scri' + 'pt type="text/javascript" src="//apis.google.com/js/plusone.js" defer></scr' + 'ipt>');		
+	});	
+</script>
+</body>
+</html>

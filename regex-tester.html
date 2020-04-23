@@ -1,0 +1,821 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+
+
+<head>
+	<title>Free Online Regular Expression Tester - FreeFormatter.com</title>
+	<meta name="title" content="Free Online Regular Expression Tester - FreeFormatter.com"/>
+	<meta name="description" content="Free online regular expression tester with cheatsheet and most common solutions to common problems"/>	  		
+		<meta name="language" content="en"/>
+	<meta name="robots" content="all"/>
+	<meta name="rating" content="general"/>	
+	<meta charset="utf-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="shortcut icon" href="favicon.ico"/>
+	<link rel="stylesheet" href="/3.4.0.3/css/styles.css"/>
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/cupertino/jquery-ui.css"/>	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>	
+	<script src="/3.4.0.3/js/freeformatter.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/xregexp/2.0.0/xregexp-all-min.js"></script>
+	<style type="text/css">
+		r {
+			background-color: #D1EED1;
+		}
+	</style>	
+	<script type="text/javascript">
+	
+		var htmlEscapes = {
+		  '&': '&amp;',
+		  '<': '&lt;',
+		  '>': '&gt;',
+		  '"': '&quot;',
+		  "'": '&#x27;',
+		  '/': '&#x2F;'
+		};
+	
+		var htmlEscaper = /[&<>"'\/]/g;
+	
+		function escapeHTML(string) {
+			return ('' + string).replace(htmlEscaper, function(match) {
+				return htmlEscapes[match];
+			});
+		};
+	
+		$(document).ready(function() {
+			$("#matchesButton").click(tester.test);
+			$("#replaceButton").click(tester.replace);
+		});
+			
+		var tester = {
+			
+			test: function() {
+				
+				var regex = tester.getRegex();
+				var message = '', toDisplay = '';
+				
+				if (typeof(regex) === 'string') {
+					message = '<div class="alert-message block-message error">' + regex + '</div>';
+				} else {
+				
+					var source = $("#inputString").val();
+					
+					var results = tester.getResults(regex, source);
+				
+					if (results.length == 0) {
+						message = '<div class="alert-message block-message error">No match was found!</div>';
+					} else if (results.length == 1 && results[0][0].length == source.length) {
+						message = '<div class="alert-message block-message success">Fully matches the source string!</div>';
+					} else {
+						
+						if (results.length == 1) {
+							message = '<div class="alert-message block-message success">Found 1 match. Match is highlighted below.</div>';
+						} else {
+							message = '<div class="alert-message block-message success">Found ' + results.length + ' matches. Matches are highlighted below.</div>';	
+						}
+											
+						var idx = 0;
+	
+						while((result = results.shift()) != null) {
+	
+							toDisplay += escapeHTML(source.substring(idx, result.index));
+									
+							if (result != "") {
+								if ($.string(result[0]).blank()) {
+									toDisplay += '<r>&nbsp;</r>' + result[0];	
+								} else {
+									toDisplay += '<r>' + escapeHTML(result[0]) +'</r>';
+								}						
+								idx = result.index + result[0].length;
+							} else {
+								toDisplay += '<r>&nbsp;</r>';
+								idx = result.index;
+							}
+							
+						}
+	
+						toDisplay += escapeHTML(source.substring(idx, source.length));
+	
+					}
+					
+				}
+				
+				$("#result-message").html(message);
+				
+				if (toDisplay.length > 0) {					
+					
+					$("#result-string").html(toDisplay).show();
+
+					var container = $("#result-string");
+					var scrollTo = $("r:first");
+
+					container.scrollTop(
+				    	scrollTo.offset().top - container.offset().top + container.scrollTop()
+					);
+					
+				} else {
+					$("#result-string").hide();
+				}
+				
+				$("#result-wrapper").show();
+				
+				$(window).scrollTop(
+					$("div.form-wrapper").position().top
+				);
+				
+			},
+			
+			getResults: function(regex, source) {
+				
+				var result = null;
+				var results = new Array();
+
+				while (result = regex.exec(source)) {
+					
+					if (result.index == regex.lastIndex) {
+						regex.lastIndex++;
+					}
+					
+					results.push(result);
+					
+					if (!regex.global) {
+						break;
+					}
+					
+				}
+
+				return results;
+				
+			},
+			
+			replace: function() {
+				
+				var regex = tester.getRegex();
+				var message = '', result = '';
+				
+				if (typeof(regex) === 'string') {
+					message = '<div class="alert-message block-message error">' + regex + '</div>';
+				} else {
+				
+					var source = $("#inputString").val();
+					
+					var replace = $("#replaceString").val();
+					replace = replace.replace(/\\n/g,'\n').replace(/\\t/g,'\t').replace(/\\r/g,'\r');
+					
+					result = source.replace(regex, replace);
+					
+					if (result != source) {
+						message = '<div class="alert-message block-message success">Replace was successful.</div>';
+					} else {
+						message = '<div class="alert-message block-message warning">String is same as before replace!</div>';
+					}
+					
+				}
+				
+				$("#result-message").html(message).show();
+				if (result) {
+					$("#result-string").html(escapeHTML(result)).show();
+				} else {
+					$("#result-string").html(escapeHTML(result)).hide();
+				}
+				$("#result-wrapper").show();
+				
+				$(window).scrollTop(
+					$("div.form-wrapper").position().top
+				);
+				
+			},
+			
+			getRegex: function() {
+				
+				var regexStr = $("#regex").val();
+				
+				var ignoreCase = $("#ignoreCase").attr("checked");
+				var multiline = $("#multiline").attr("checked");
+				var global = $("#global").attr("checked");
+				var dotmatchall = $("#dotmatchall").attr("checked");
+				
+				var flags = "";
+				
+				if (ignoreCase) {
+					flags += "i";
+				}
+				
+				if (multiline) {
+					flags += "m";
+				}
+				
+				if (global) {
+					flags += "g";
+				}
+				
+				if (dotmatchall) {
+					flags += "s";
+				}
+					
+				try {
+					return new XRegExp(regexStr, flags);				 
+				} catch(err) {
+					return err.message;
+				}
+				
+			}
+			
+		};
+	
+	</script>
+</head>
+<body>
+	<div class="topbar">
+	<div class="topbar-inner">
+		<div class="container-fluid">
+			<a class="brand" href="http://www.freeformatter.com">FreeFormatter.com</a>
+			<ul class="nav">
+				<li><a href="https://www.freeformatter.com">HTTPS</a></li>
+				<li><a href="mailto:freeformatter@gmail.com">Contact</a></li>
+			</ul>
+			<div class="social" style="float:right;">
+				<div class="fb-like" data-href="http://www.freeformatter.com" data-send="false" data-layout="button_count" data-width="50" data-show-faces="true" data-font="arial"></div>
+				<!-- Place this tag where you want the +1 button to render -->
+				<div style="float: left; padding: 8px 5px 5px;">
+					<g:plusone></g:plusone>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<div class="container-fluid">
+		<div class="sidebar">
+	<div class="well">
+		<a href="/formatters.html"><h5>Formatters</h5></a>
+		<ul>
+			<li><a href="/json-formatter.html">JSON Formatter</a></li>
+			<li><a href="/html-formatter.html">HTML Formatter</a></li>
+			<li><a href="/xml-formatter.html">XML Formatter</a></li>
+			<li><a href="/sql-formatter.html">SQL Formatter</a></li>
+			<li><a href="/batch-formatter.html">Batch Formatter (new!)</strong></a></li>
+		</ul>
+		<a href="/validators.html"><h5>Validators</h5></a>
+		<ul>		
+			<li><a href="/json-validator.html">JSON Validator</a></li>
+			<li><a href="/html-validator.html">HTML Validator</a></li>
+			<li><a href="/xml-validator-xsd.html">XML Validator - XSD</a></li>
+			<li><a href="/xpath-tester.html">XPath Tester</a></li>
+			<li><a href="/credit-card-number-generator-validator.html">Credit Card Number Generator & Validator</a></li>
+			<li><a href="/regex-tester.html">Regular Expression Tester</a></li>			
+			<li><a href="/java-regex-tester.html">Java Regular Expression Tester</a></li>
+			<li><a href="/cron-expression-generator-quartz.html">Cron Expression Generator - Quartz</a></li>						
+		</ul>
+		<a href="/encoders.html"><h5>Encoders & Decoders</h5></a>
+		<ul>
+			<li><a href="/url-encoder.html">Url Encoder & Decoder</a></li>
+			<li><a href="/base64-encoder.html">Base 64 Encoder & Decoder</a></li>
+			<li><a href="/qr-code-generator.html">QR Code Generator</a></li>			
+		</ul>
+		<a href="/minifiers.html"><h5>Code Minifiers / Beautifier</h5></a>
+		<ul>
+			<li><a href="/javascript-beautifier.html">JavaScript Beautifier</a></li>
+			<li><a href="/css-beautifier.html">CSS Beautifier</a></li>
+			<li><a href="/javascript-minifier.html">JavaScript Minifier</a></li>
+			<li><a href="/css-minifier.html">CSS Minifier</a></li>
+		</ul>
+		<a href="/converters.html"><h5>Converters</h5></a>
+		<ul>
+			<li><a href="/xsd-generator.html">XSD Generator</a></li>
+			<li><a href="/xsl-transformer.html">XSLT (XSL Transformer)</a></li>					
+			<li><a href="/xml-to-json-converter.html">XML to JSON Converter</a></li>
+			<li><a href="/json-to-xml-converter.html">JSON to XML Converter</a></li>
+			<li><a href="/csv-to-xml-converter.html">CSV to XML Converter</a></li>	
+			<li><a href="/csv-to-json-converter.html">CSV to JSON Converter</a></li>			
+			<li><a href="/epoch-timestamp-to-date-converter.html">Epoch Timestamp To Date</a></li>
+		</ul>
+		<a href="/cryptography-and-security.html"><h5>Cryptography & Security</h5></a>
+		<ul>
+			<li><a href="/message-digest.html">Message Digester (MD5, SHA-256, SHA-512)</a></li>
+			<li><a href="/hmac-generator.html">HMAC Generator</a></li>			
+			<li><a href="/md5-generator.html">MD5 Generator</a></li>
+			<li><a href="/sha256-generator.html">SHA-256 Generator</a></li>
+			<li><a href="/sha512-generator.html">SHA-512 Generator</a></li>			
+		</ul>
+		<a href="/string-escaper.html"><h5>String Escaper & Utilities</h5></a>
+		<ul>
+			<li><a href="/string-utilities.html">String Utilities</a></li>
+			<li><a href="/html-escape.html">HTML Escape</a></li>
+			<li><a href="/xml-escape.html">XML Escape</a></li>
+			<li><a href="/java-dotnet-escape.html">Java and .Net Escape</a></li>
+			<li><a href="/javascript-escape.html">JavaScript Escape</a></li>
+			<li><a href="/json-escape.html">JSON Escape</a></li>			
+			<li><a href="/csv-escape.html">CSV Escape</a></li>
+			<li><a href="/sql-escape.html">SQL	Escape</a></li>
+		</ul>
+		<a href="/web-resources.html"><h5>Web Resources</h5></a>
+		<ul>
+			<li><a href="/lorem-ipsum-generator.html">Lorem Ipsum Generator</a></li>
+			<li><a href="/less-compiler.html">LESS Compiler</a></li>
+			<li><a href="/mime-types-list.html">List of MIME types</a></li>
+			<li><a href="/html-entities.html">HTML Entities</a></li>
+			<li><a href="/url-parser-query-string-splitter.html">Url Parser / Query String Splitter</a></li>						
+			<li><a href="/i18n-standards-code-snippets.html">i18n - Formatting standards & code snippets</a></li>
+			<li><a href="/iso-country-list-html-select.html">ISO country list - HTML select snippet</a></li>
+			<li><a href="/usa-state-list-html-select.html">USA state list - HTML select snippet</a></li>
+			<li><a href="/canada-province-list-html-select.html">Canada province	list - HTML select snippet</a></li>
+			<li><a href="/mexico-state-list-html-select.html">Mexico state list - HTML select snippet</a></li>			
+			<li><a href="/time-zone-list-html-select.html">Time zone list - HTML select snippet</a></li>
+		</ul>
+	</div>
+	<div style="text-align: center;">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- freeformatter-responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2485708030241382"
+     data-ad-slot="9677864628"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+	</div>
+</div>
+		<div class="content">
+			<div class="content-inner">
+			
+				<h1>Regular Expression Tester</h1>
+				
+				<p>This free regular expression tester lets you test your regular expressions against any entry of your choice and clearly highlights all matches. It is JavaScript based and uses <a href="http://xregexp.com/">XRegExp library</a> for enhanced features.</p>
+				<p>Consult the <a href="#documentation">regular expression documentation</a> or the <a href="#examples">regular expression solutions to common problems</a> section of this page for examples. If you need more examples or solutions, please <a href="mailto:freeformatter@gmail.com">contact me</a>.</p>			
+						
+				<div class="form-wrapper">
+				
+					<div class="title first"><span class="option">Regular expression :</span></div>
+					<input type="text" id="regex" style="width:100%;"/>			
+				
+					<div class="title"><span class="option">Entry to test against :</span></div>
+					<textarea rows="" cols="" id="inputString" style="width:100%;height:100px;"></textarea>
+				
+					<div class="title"><span class="option">Replace with (Optional):</span></div>					
+					<input type="text" id="replaceString" style="width:100%;"/>
+				
+					<div style="margin-top:3px;color:#888;font-size:11px">You can make use of $1, $2, $3 and so on if you are using parenthesis groups in your regular expression. \t \n \r  are supported.</div>
+				
+					<div class="title"><span class="option">Flags:</span></div>
+					<div>
+						<div><input type="checkbox" id="ignoreCase" checked="checked"/><label for="ignoreCase" style="float:none;">i - Case-insensitive</label></div>
+						<div><input type="checkbox" id="multiline" checked="checked"/><label for="multiline" style="float:none;">m - Multiline</label></div>
+						<div><input type="checkbox" id="global" checked="checked"/><label for="global" style="float:none;">g - Global (don't stop at first match)</label></div>
+						<div><input type="checkbox" id="dotmatchall" checked="checked"/><label for="dotmatchall" style="float:none;">s - Dot matches all INCLUDING line breaks (XRegExp only).</label></div>
+					</div>
+				
+					<div class="buttons">
+						<button id="matchesButton" class="btn primary" title="" onclick="return false;">TEST MATCH</button>
+						<button id="replaceButton" class="btn primary" title="" onclick="return false;">REPLACE</button>
+					</div>			
+				
+					<div id="result-wrapper" style="display:none;">
+						<div class="title"><span class="option">Result:</span></div>
+						<div id="result-message"></div>							
+						<pre id="result-string" style="background-color:#FFF;overflow:auto;height:200px;"></pre>
+					</div>
+									
+				</div>			
+				
+				<div id="ad-output" class="ad-wrapper">
+					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- freeformatter-responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2485708030241382"
+     data-ad-slot="9677864628"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+				</div>
+				
+				<h2 id="documentation" class="section-title">Regular Expression - Documentation</h2>
+				
+				<h3>Metacharacters</h3>
+				
+				<p class="space">
+					<table class="bordered-table zebra-striped table-sort " style="font-size:11px;">
+						<thead>
+							<tr>
+								<th nowrap="nowrap" style="width:150px;">Character</th>
+								<th nowrap="nowrap">What does it do?</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>\</td>
+								<td>
+									<ul>
+										<li>
+											Used to indicate that the <strong>next character should NOT be interpreted literally</strong>. For example, the character 'w' by itself will be interpreted as 
+											'match the character w', but using '\w' signifies 'match an alpha-numeric character including underscore'. 
+										</li>
+										<li>
+											Used to indicate that a <strong>metacharacter is to be interpreted literally</strong>. For example, the '.' metacharacter means 'match any single character but a new line', but if
+											we would rather match a dot character instead, we would use '\.'.
+										</li>
+									</ul>
+								</td>
+							</tr>							
+							<tr>
+								<td>^</td>
+								<td>
+									<ul>
+										<li>Matches the <strong>beginning of the input</strong>. If in multiline mode, it also matches <strong>after a line break character</strong>, hence every new line.</li>
+										<li>When used in a set pattern ([^abc]), it negates the set; <strong>match anything not enclosed in the brackets</strong></li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<td>$</td>
+								<td>
+									Matches the <strong>end of the input</strong>. If in multiline mode, it also matches <strong>before a line break character</strong>, hence every end of line.
+								</td>
+							</tr>
+							<tr>
+								<td>*</td>
+								<td>Matches the preceding character <strong>0 or more times</strong>.</td>
+							</tr>
+							<tr>
+								<td>+</td>
+								<td>Matches the preceding character <strong>1 or more times</strong>.</td>
+							</tr>													
+							<tr>
+								<td>?</td>
+								<td>
+									<ul>
+										<li>
+											Matches the preceding character <strong>0 or 1 time</strong>.
+										</li>
+										<li>
+											When used after the quantifiers *, +, ? or {}, <strong>makes the quantifier non-greedy</strong>; it will match
+											the minimum number of times as opposed to matching the maximum number of times.								
+										</li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<td>.</td>
+								<td>Matches <strong>any single character except the newline character</strong>.</td>
+							</tr>						
+							<tr>
+								<td>(x)</td>
+								<td>Matches 'x' and <strong>remembers the match</strong>. Also known as capturing parenthesis.</td>
+							</tr>
+							<tr>
+								<td>(?:x)</td>
+								<td>Matches 'x' but <strong>does NOT remember the match</strong>. Also known as NON-capturing parenthesis.</td>
+							</tr>														
+							<tr>
+								<td>x(?=y)</td>
+								<td>Matches 'x' <strong>only if 'x' is followed by 'y'</strong>. Also known as a lookahead.</td>
+							</tr>
+							<tr>
+								<td>x(?!y)</td>
+								<td>Matches 'x' <strong>only if 'x' is NOT followed by 'y'</strong>. Also known as a negative lookahead.</td>
+							</tr>
+							<tr>
+								<td>x|y</td>
+								<td>Matches <strong>'x' OR 'y'</strong>.</td>
+							</tr>
+							<tr>
+								<td>{n}</td>
+								<td>Matches the preceding character <strong>exactly n times</strong>.</td>
+							</tr>
+							<tr>
+								<td>{n,m}</td>
+								<td>Matches the preceding character <strong>at least n times and at most m times. n and m can be omitted if zero.</strong>.</td>
+							</tr>
+							<tr>
+								<td>[abc]</td>
+								<td>Matches <strong>any of the enclosed characters</strong>. Also known as a character set. 
+								You can create range of characters using the hyphen character such as A-Z (A to Z). Note that in character sets, 
+								special characters (., *, +) do not have any special meaning.</td>
+							</tr>																																	
+							<tr>
+								<td>[^abc]</td>
+								<td>Matches <strong>anything NOT enclosed by the brackets</strong>. Also known as a negative character set.</td>								
+							</tr>
+							<tr>
+								<td>[\b]</td>
+								<td>Matches a <strong>backspace</strong>.</td>								
+							</tr>		
+							<tr>
+								<td>\b</td>
+								<td>Matches a <strong>word boundary</strong>. Boundaries are determined when a word character is NOT followed or NOT preceeded with another word character.</td>								
+							</tr>
+							<tr>
+								<td>\B</td>
+								<td>Matches a <strong>NON-word boundary</strong>. Boundaries are determined when two adjacent characters are word characters OR non-word characters.</td>								
+							</tr>
+							<tr>
+								<td>\cX</td>
+								<td>Matches a <strong>control character</strong>. X must be between A to Z inclusive.</td>								
+							</tr>
+							<tr>
+								<td>\d</td>
+								<td>Matches a <strong>digit character</strong>. Same as [0-9] or [0123456789].</td>
+							</tr>
+							<tr>
+								<td>\D</td>
+								<td>Matches a <strong>NON-digit character</strong>. Same as [^0-9] or [^0123456789].</td>
+							</tr>
+							<tr>
+								<td>\f</td>
+								<td>Matches a <strong>form feed</strong>.</td>
+							</tr>
+							<tr>
+								<td>\n</td>
+								<td>Matches a <strong>line feed</strong>.</td>
+							</tr>
+							<tr>
+								<td>\r</td>
+								<td>Matches a <strong>carriage return</strong>.</td>
+							</tr>
+							<tr>
+								<td>\s</td>
+								<td>Matches a <strong>single white space character</strong>. This includes space, tab, form feed and line feed.</td>
+							</tr>
+							<tr>
+								<td>\S</td>
+								<td>Matches <strong>anything OTHER than a single white space character</strong>. Anything other than space, tab, form feed and line feed.</td>
+							</tr>
+							<tr>
+								<td>\t</td>
+								<td>Matches <strong>a tab</strong>.</td>
+							</tr>
+							<tr>
+								<td>\v</td>
+								<td>Matches <strong>a vertical tab</strong>.</td>
+							</tr>							
+							<tr>
+								<td>\w</td>
+								<td>Matches <strong>any alphanumeric character incuding underscore</strong>. Equivalent to [A-Za-z0-9_].</td>
+							</tr>
+							<tr>
+								<td>\W</td>
+								<td>Matches <strong>anything OTHER than an alphanumeric character incuding underscore</strong>. Equivalent to [^A-Za-z0-9_].</td>
+							</tr>							
+							<tr>
+								<td>\x</td>
+								<td>A back reference to the substring matched by the x parenthetical expression. x is a positive integer.</td>
+							</tr>
+							<tr>
+								<td>\0</td>
+								<td>Matches a <strong>NULL character</strong>.</td>
+							</tr>
+							<tr>
+								<td>\xhh</td>
+								<td>Matches a character with the <strong>2-digits hexadecimal code</strong>.</td>
+							</tr>							
+							<tr>
+								<td>\uhhhh</td>
+								<td>Matches a character with the <strong>4-digits hexadecimal code</strong>.</td>
+							</tr>							
+						</tbody>
+					</table>
+				</p>
+							
+				<div id="ad-output" class="ad-wrapper">
+					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- freeformatter-responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2485708030241382"
+     data-ad-slot="9677864628"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+				</div>			
+
+				<h2 id="examples" class="section-title">Regular Expression - Solutions to common problems (Recipes)</h2>
+				
+				<h3>How can I emulate DOTALL in JavaScript?</h3>
+				<p class="space">
+					DOTALL is a flag in most recent regex libraries that makes the . metacharacter match anything INCLUDING line breaks. JavaScript by default does
+					not support this since the . metacharacter matches anything BUT line breaks. To emulate this behavior, simply replaces all . metacharacters
+					by [\S\s]. This means match anything that is a single white space character OR anything that is not a white space character!     
+				</p>
+				<code>[\S\s]</code>
+				<hr/>				
+				
+				<h3>How to validate an EMAIL address with a regular expression?</h3>
+				<p class="space">
+					There is no 100% reliable solution since the RFC is way too complex. This is the best solution and should work 99% of the time is. Consult this <a href="http://fightingforalostcause.net/misc/2006/compare-email-regex.php">page</a>
+					for more details on this problem. <strong>Always turn off case sensitivity!</strong>
+				</p>
+				<code>
+					^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$
+				</code>
+				<hr/>
+				
+				<h3>How to validate an IP address (IPV4) with a regular expression?</h3>
+				<p class="space">
+					This will make sure that every number in the IP address is between 0 and 255, unlike the version using \d{1,3} which would allow for 999.999.999.999. 
+					If you want to match an IP within a string, get rid of the leading ^ and trailing $ to use \b (word boundaries) instead.			
+				</p>
+				<code>^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$</code>							
+				<hr/>
+				
+				<h3>How to validate a DATE with a regular expression?</h3>
+				<p class="space"> 
+					Never use a regular expression to validate a date. The regular expression is only useful to validate the format of the date as entered by a user. For the actual date validity,  
+					you should rely on another language.
+				</p>
+				<p>
+					The following expressions will validate the number of days in a month but will NOT handle leap year validation; hence february can have 29 days every year, but not more.
+				</p>
+				<div><strong>ISO date format (yyyy-mm-dd):</strong></div>
+				<code>^[0-9]{4}-(((0[13578]|(10|12))-(0[1-9]|[1-2][0-9]|3[0-1]))|(02-(0[1-9]|[1-2][0-9]))|((0[469]|11)-(0[1-9]|[1-2][0-9]|30)))$</code>
+				<div><strong>ISO date format (yyyy-mm-dd) with separators '-' or '/' or '.' or ' '. Forces usage of same separator accross date.</strong></div>
+				<code>^[0-9]{4}([- /.])(((0[13578]|(10|12))\1(0[1-9]|[1-2][0-9]|3[0-1]))|(02\1(0[1-9]|[1-2][0-9]))|((0[469]|11)\1(0[1-9]|[1-2][0-9]|30)))$</code>
+				<div><strong>United States date format (mm/dd/yyyy)</strong></div>
+				<code>^(((0[13578]|(10|12))/(0[1-9]|[1-2][0-9]|3[0-1]))|(02/(0[1-9]|[1-2][0-9]))|((0[469]|11)/(0[1-9]|[1-2][0-9]|30)))/[0-9]{4}$</code>
+				<div><strong>Hours and minutes, 24 hours format (HH:MM):</strong></div>
+				<code>^(20|21|22|23|[01]\d|\d)((:[0-5]\d){1,2})$</code>
+				<hr/>
+				
+				<h3>How to validate NUMBERS with a regular expression?</h3>
+				<p class="space">
+					It depends. What type of number? What precision? What length? What do you want as a decimal separator? Etc. The following examples 
+					should help you want with the most common tasks. 			
+				</p>
+				<div><strong>Positive integers of undefined length:</strong></div>
+				<code>^\d+$</code>
+				<div><strong>Positive integers of maximum length (10 in our example):</strong></div>
+				<code>^\d{1,10}$</code>
+				<div><strong>Positive integers of fixed length (5 in our example):</strong></div>
+				<code>^\d{5}$</code>
+				<div><strong>Negative integers of undefined length:</strong></div>
+				<code>^-\d+$</code>
+				<div><strong>Negative integers of maximum length (10 in our example):</strong></div>
+				<code>^-\d{1,10}$</code>
+				<div><strong>Negative integers of fixed length (5 in our example):</strong></div>
+				<code>^-\d{5}$</code>
+				<div><strong>Integers of undefined length:</strong></div>
+				<code>^-?\d+$</code>
+				<div><strong>Integers of maximum length (10 in our example):</strong></div>
+				<code>^-?\d{1,10}$</code>
+				<div><strong>Integers of fixed length (5 in our example):</strong></div>
+				<code>^-?\d{5}$</code>				
+				<div><strong>Numbers of undefined length with or without decimals (1234.1234):</strong></div>
+				<code>^-?\d*\.{0,1}\d+$</code>
+				<div><strong>Numbers with 2 decimals (.00):</strong></div>
+				<code>^-?\d*\.\d{2}$</code>
+				<div><strong>Currency numbers with optional dollar sign and thousand separators and optional 2 decimals ($1,000,00.00, 10000.12, 0.00):</strong></div>
+				<code>^$?\-?([1-9]{1}[0-9]{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\-?$?([1-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\($?([1-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))\)$</code>
+				<div><strong>Percentage from 0 to 100 with optional 2 decimals and optional % sign at the end (0, 0.00, 100.00, 100%, 99.99%):</strong></div>
+				<code>^-?[0-9]{0,2}(\.[0-9]{1,2})?%?$|^-?(100)(\.[0]{1,2})?%?$</code>
+				<hr/>
+				
+				<h3>How to validate feet and inches with a regular expression?</h3>
+				<p class="space">
+					The notation for feet and inches is F'I". Possible values would be 0'0", 6'11", 12456'44"			
+				</p>
+				<code>^\d+'(\d|1[01])"$</code>
+				<hr/>
+				
+				<h3>How to validate an hexadecimal color code (#FFFFFF) with a regular expression?</h3>
+				<p class="space">
+					The leading # sign is optional and the color code can take either the 6 or 3 hexadecimal digits format.  
+				</p>
+				<code>^#?([a-f0-9]{6}|[a-f0-9]{3})$</code>
+				<hr/>
+				
+				<h3>How to check for ALPHANUMERIC values with a regular expression?</h3>
+				<p class="space">
+					You could make use of \w, but it also tolerates the underscore character.
+				</p>
+				<code>^[a-zA-Z0-9]+$</code>				
+				<hr/>
+				
+				<h3>How to validate a SSN (Social Security Number) with a regular expression?</h3>
+				<p class="space">
+					Unlike many other similar numbers such as the canadian social insurance number (SIN) there is no checksum for a SSN. 
+					Validating the format of the SSN does not mean it's valid per say though.
+				</p>
+				<code>^\d{3}-?\d{2}-?\d{4}$</code>				
+				<hr/>
+				
+				<h3>How to validate a SIN (Social Insurance Number) with a regular expression?</h3>
+				<p class="space">
+					This will only validate the format. A SIN should also be validated by computing the checksum digit. This regex
+					will tolerate the form XXX XXX XXX, XXXXXXXX or XXX-XXX-XXX. Note that the group separator must be the same.
+				</p>
+				<code>^\d{3}([\s-])?\d{3}\1\d{3}$</code>				
+				<hr/>
+				
+				<h3>How to validate a US Zip Code with a regular expression?</h3>
+				<p class="space">
+					The United States Postal Services makes use of zip codes. Zip codes have 5 digits OR 9 digits in what is known as a
+					 Zip+4.
+				</p>
+				<div>Zip Code (99999)</div>
+				<code>^\d{5}$</code>
+				<div>Zip and Zip+4 (99999-9999)</div>
+				<code>^\d{5}(-\d{4})?$</code>
+				<hr/>
+				
+				<h3>How to validate a Canadian Postal Code with a regular expression?</h3>
+				<p class="space">
+					The Canadian Postal Services uses postal code. The postal codes are in format X9X 9X9. This will tolerate a space between
+					the first and second group.
+				</p>
+				<code>^[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1} *\d{1}[A-Z]{1}\d{1}$</code>
+				<hr/>								
+				
+				<h3>How to extract the filename in a windows path using a regular expression?</h3>
+				<p class="space">
+					Since every part of a path is separated by a \ character, we only need to find the last one. Note that there's just no 
+					way to check if the last portion of a path is a file or a directory just by the name alone. You could try to match for  
+					an extension, but there's no requirement for a file to have an extension.
+				</p>
+				<code>[^\\]+$</code>
+				<hr/>
+				
+				<h3>How to validate a US or Canadian telephone number using a regular expression?</h3>
+				<p class="space">
+					There are probably dozens of way to format a phone number. Your user interface should take care of the formatting problem 
+					by having a clear documentation on the format and/or split the phone into parts (area, exchange, number) and/or have an entry mask. 
+					The following expression is pretty lenient on the format and should accept 999-999-9999, 9999999999, (999) 999-9999.
+				</p>
+				<code>^(\d{10})|(([\(]?([0-9]{3})[\)]?)?[ \.\-]?([0-9]{3})[ \.\-]([0-9]{4}))$</code>
+				<hr/>									
+				
+				<h3>How to validate credit cards using a regular expression?</h3>
+				<p class="space">
+					Again, you should rely on other methods since the regular expressions here will only validate the format. Make use of the 
+					<a href="/credit-card-number-generator-validator.html#howToValidate">Luhn algorithm </a>to properly validate a card.
+				</p>
+				<div><strong>VISA:</strong></div>
+				<code>^4[0-9]{12}(?:[0-9]{3})?$</code>
+				<div><strong>MasterCard:</strong></div>
+				<code>^5[1-5][0-9]{14}$</code>
+				<div><strong>American Express:</strong></div>
+				<code>^3[47][0-9]{13}$</code>
+				<div><strong>Diners Club:</strong></div>
+				<code>^3(?:0[0-5]|[68][0-9])[0-9]{11}$</code>				
+				<div><strong>Discover:</strong></div>
+				<code>^6(?:011|5[0-9]{2})[0-9]{12}$</code>
+				<div><strong>JCB:</strong></div>
+				<code>^(?:2131|1800|35\d{3})\d{11}$</code>				
+				<hr/>
+				
+				<h3>How do I strip all HTML tags from a string?</h3>
+				<p class="space">
+					Make sure to be in global mode (g flag), case insensitive and to have the dot all option on. This regular expression will match all HTML tags
+					and their attributes. This will LEAVE the content of the tags within the string.  
+				</p>
+				<code><(.|\n)+?></code>
+				<hr/>
+				
+				<h3>How can I remove all blank lines from a string using regular expression?</h3>
+				<p class="space">
+					Make sure to be in global and multiline mode. Use an empty string as a replacement value.      
+				</p>
+				<code>^\s*\r?\n</code>
+				<hr/>				
+								
+			</div>
+			<footer>
+	<p>&copy; FreeFormatter.com - FREEFORMATTER is a d/b/a of 10174785 Canada Inc. - <a href="/copyright-notice.html">Copyright Notice</a> - <a href="/privacy-statement.html">Privacy Statement</a> - <a href="/terms-of-use.html">Terms of Use</a></p>
+</footer>	
+		</div>
+	</div>
+	<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24060392-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<div id="fb-root"></div>
+<script>
+	(
+		function() {
+    		var e = document.createElement('script'); e.async = true;
+    		e.setAttribute('defer', 'defer');
+    		e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js#xfbml=1';    		
+    		document.getElementById('fb-root').appendChild(e);
+ 		}()
+ 	);
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {		
+		$('body').append('<scri' + 'pt type="text/javascript" src="//apis.google.com/js/plusone.js" defer></scr' + 'ipt>');		
+	});	
+</script>
+</body>
+</html>

@@ -1,0 +1,906 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+
+
+<head>
+	<title>Formatting standards & code snippets for Vietnam - Freeformatter.com</title>
+	<meta name="title" content="Formatting standards & code snippets for Vietnam - Freeformatter.com"/>
+	<meta name="description" content="Formatting standards & code snippets for Vietnam in CSV,JSON,HTML,SQL & XML - Freeformatter.com"/>	  		
+		<meta name="language" content="en"/>
+	<meta name="robots" content="all"/>
+	<meta name="rating" content="general"/>	
+	<meta charset="utf-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="shortcut icon" href="favicon.ico"/>
+	<link rel="stylesheet" href="/3.4.0.3/css/styles.css"/>
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/cupertino/jquery-ui.css"/>	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>	
+	<script src="/3.4.0.3/js/freeformatter.js"></script>
+</head>
+<body onload="prettyPrint();">
+	<div class="topbar">
+	<div class="topbar-inner">
+		<div class="container-fluid">
+			<a class="brand" href="http://www.freeformatter.com">FreeFormatter.com</a>
+			<ul class="nav">
+				<li><a href="https://www.freeformatter.com">HTTPS</a></li>
+				<li><a href="mailto:freeformatter@gmail.com">Contact</a></li>
+			</ul>
+			<div class="social" style="float:right;">
+				<div class="fb-like" data-href="http://www.freeformatter.com" data-send="false" data-layout="button_count" data-width="50" data-show-faces="true" data-font="arial"></div>
+				<!-- Place this tag where you want the +1 button to render -->
+				<div style="float: left; padding: 8px 5px 5px;">
+					<g:plusone></g:plusone>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<div class="container-fluid">
+		<div class="sidebar">
+	<div class="well">
+		<a href="/formatters.html"><h5>Formatters</h5></a>
+		<ul>
+			<li><a href="/json-formatter.html">JSON Formatter</a></li>
+			<li><a href="/html-formatter.html">HTML Formatter</a></li>
+			<li><a href="/xml-formatter.html">XML Formatter</a></li>
+			<li><a href="/sql-formatter.html">SQL Formatter</a></li>
+			<li><a href="/batch-formatter.html">Batch Formatter (new!)</strong></a></li>
+		</ul>
+		<a href="/validators.html"><h5>Validators</h5></a>
+		<ul>		
+			<li><a href="/json-validator.html">JSON Validator</a></li>
+			<li><a href="/html-validator.html">HTML Validator</a></li>
+			<li><a href="/xml-validator-xsd.html">XML Validator - XSD</a></li>
+			<li><a href="/xpath-tester.html">XPath Tester</a></li>
+			<li><a href="/credit-card-number-generator-validator.html">Credit Card Number Generator & Validator</a></li>
+			<li><a href="/regex-tester.html">Regular Expression Tester</a></li>			
+			<li><a href="/java-regex-tester.html">Java Regular Expression Tester</a></li>
+			<li><a href="/cron-expression-generator-quartz.html">Cron Expression Generator - Quartz</a></li>						
+		</ul>
+		<a href="/encoders.html"><h5>Encoders & Decoders</h5></a>
+		<ul>
+			<li><a href="/url-encoder.html">Url Encoder & Decoder</a></li>
+			<li><a href="/base64-encoder.html">Base 64 Encoder & Decoder</a></li>
+			<li><a href="/qr-code-generator.html">QR Code Generator</a></li>			
+		</ul>
+		<a href="/minifiers.html"><h5>Code Minifiers / Beautifier</h5></a>
+		<ul>
+			<li><a href="/javascript-beautifier.html">JavaScript Beautifier</a></li>
+			<li><a href="/css-beautifier.html">CSS Beautifier</a></li>
+			<li><a href="/javascript-minifier.html">JavaScript Minifier</a></li>
+			<li><a href="/css-minifier.html">CSS Minifier</a></li>
+		</ul>
+		<a href="/converters.html"><h5>Converters</h5></a>
+		<ul>
+			<li><a href="/xsd-generator.html">XSD Generator</a></li>
+			<li><a href="/xsl-transformer.html">XSLT (XSL Transformer)</a></li>					
+			<li><a href="/xml-to-json-converter.html">XML to JSON Converter</a></li>
+			<li><a href="/json-to-xml-converter.html">JSON to XML Converter</a></li>
+			<li><a href="/csv-to-xml-converter.html">CSV to XML Converter</a></li>	
+			<li><a href="/csv-to-json-converter.html">CSV to JSON Converter</a></li>			
+			<li><a href="/epoch-timestamp-to-date-converter.html">Epoch Timestamp To Date</a></li>
+		</ul>
+		<a href="/cryptography-and-security.html"><h5>Cryptography & Security</h5></a>
+		<ul>
+			<li><a href="/message-digest.html">Message Digester (MD5, SHA-256, SHA-512)</a></li>
+			<li><a href="/hmac-generator.html">HMAC Generator</a></li>			
+			<li><a href="/md5-generator.html">MD5 Generator</a></li>
+			<li><a href="/sha256-generator.html">SHA-256 Generator</a></li>
+			<li><a href="/sha512-generator.html">SHA-512 Generator</a></li>			
+		</ul>
+		<a href="/string-escaper.html"><h5>String Escaper & Utilities</h5></a>
+		<ul>
+			<li><a href="/string-utilities.html">String Utilities</a></li>
+			<li><a href="/html-escape.html">HTML Escape</a></li>
+			<li><a href="/xml-escape.html">XML Escape</a></li>
+			<li><a href="/java-dotnet-escape.html">Java and .Net Escape</a></li>
+			<li><a href="/javascript-escape.html">JavaScript Escape</a></li>
+			<li><a href="/json-escape.html">JSON Escape</a></li>			
+			<li><a href="/csv-escape.html">CSV Escape</a></li>
+			<li><a href="/sql-escape.html">SQL	Escape</a></li>
+		</ul>
+		<a href="/web-resources.html"><h5>Web Resources</h5></a>
+		<ul>
+			<li><a href="/lorem-ipsum-generator.html">Lorem Ipsum Generator</a></li>
+			<li><a href="/less-compiler.html">LESS Compiler</a></li>
+			<li><a href="/mime-types-list.html">List of MIME types</a></li>
+			<li><a href="/html-entities.html">HTML Entities</a></li>
+			<li><a href="/url-parser-query-string-splitter.html">Url Parser / Query String Splitter</a></li>						
+			<li><a href="/i18n-standards-code-snippets.html">i18n - Formatting standards & code snippets</a></li>
+			<li><a href="/iso-country-list-html-select.html">ISO country list - HTML select snippet</a></li>
+			<li><a href="/usa-state-list-html-select.html">USA state list - HTML select snippet</a></li>
+			<li><a href="/canada-province-list-html-select.html">Canada province	list - HTML select snippet</a></li>
+			<li><a href="/mexico-state-list-html-select.html">Mexico state list - HTML select snippet</a></li>			
+			<li><a href="/time-zone-list-html-select.html">Time zone list - HTML select snippet</a></li>
+		</ul>
+	</div>
+	<div style="text-align: center;">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- freeformatter-responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2485708030241382"
+     data-ad-slot="9677864628"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+	</div>
+</div>
+		<div class="content">
+			<div class="content-inner">
+
+					<h1 class="top"><strong>Vietnam</strong> - Formatting standards & code snippets</h1>
+					<p>Here is a complete list of standards and formats used in Vietnam. It includes a full list of ISO codes, number, date, currency, telephone and address formats. You will also get code examples on how to perform the most common formatting operations in Java, C#, JavaScript and PHP. Multiple resource files are made available, mainly the complete list of states, in different formats such as CSV, XML, JSON, HTML and SQL.</p>
+					<ul>
+						<li>
+							<a href="#downloadstatelist">Download list of provinces/municipalities for Vietnam in CSV, JSON, HTML, SQL and XML</a>
+							<ul>
+								<li><a href="#vietnam-html-list-of-provinces">List of provinces/municipalities: HTML - Select Control</a></li>
+								<li><a href="#vietnam-csv-list-of-provinces">List of provinces/municipalities: CSV</a></li>
+								<li><a href="#vietnam-json-list-of-provinces">List of provinces/municipalities: JSON</a></li>
+								<li><a href="#vietnam-sql-list-of-provinces">List of provinces/municipalities: SQL</a></li>
+								<li><a href="#vietnam-xml-list-of-provinces">List of provinces/municipalities: XML</a></li>
+							</ul>
+						</li>
+						<li><a href="#iso3166">ISO-3166-1 Codes</a></li>
+						<li><a href="#offlang">Official Language</a></li>
+						<li><a href="#dateformats">Date Format</a><ul><li><a href="#dateformats" onclick="$('#codedate').toggle();">How to format dates for Vietnam in Java, C#, PHP, and JavaScript</a></li></ul></li>
+						<li><a href="#timeformats">Time Format</a><ul><li><a href="#timeformats" onclick="$('#codetime').toggle();">How to format time for Vietnam in Java, C#, PHP, and JavaScript</a></li></ul></li>
+						<li><a href="#numericformats">Numeric Format</a><ul><li><a href="#numericformats" onclick="$('#codenumber').toggle();">How to format numbers for Vietnam in Java, C#, PHP, and JavaScript</a></li></ul></li>
+						<li><a href="#currencyformats">Currency Format</a><ul><li><a href="#currencyformats" onclick="$('#codecurrency').toggle();">How to format currencies for Vietnam in Java, C#, PHP, and JavaScript</a></li></ul></li>
+					</ul>
+					
+					<div style="margin:auto;text-align:center;margin-top:15px;">
+						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- freeformatter-responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2485708030241382"
+     data-ad-slot="9677864628"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</div>
+					
+					<div id="iso3166">
+						<h2>What are the <strong>ISO-3166-1</strong> codes for Vietnam?</h2>
+						<ul>
+							<li><strong>Alpha-2:</strong> VN</li>
+							<li><strong>Alpha-3:</strong> VNM</li>
+							<li><strong>Numeric:</strong> 704</li>
+							<li><strong>Java Locale Code:</strong> vi_VN</li>
+							<li><strong>.Net CultireInfo Code:</strong> vi-VN</li>
+							<li><strong>PHP Locale Code:</strong> vi_VN</li>
+						</ul>
+					</div>
+
+					<div id="offlang">
+						<h2>What is the official <strong>language</strong> in Vietnam?</h2>
+						<ul>
+							<li>
+								<strong>Vietnamese</strong>
+							</li>
+						</ul>
+					</div>
+
+					<div id="dateformats">
+						<h2>What is the <strong>date format</strong> in Vietnam?</h2>
+						<p>The date format in Vietnam is <strong>little-endian</strong>:</p>
+						<ul>
+							<li><strong>Format:</strong> dd/MM/yyyy<br/><em>Ex: 31/12/2014 for December 31st 2014. Leading zeroes can be omitted, but not on the year field, hence d/M/yy is also acceptable</em></li>
+						</ul>
+						<a href="javascript:void(0);" onclick="$('#codedate').toggle();">How to format dates for Vietnam in Java, C#, PHP, and JavaScript</a>
+						<div id="codedate" style="display:none;">
+						<h5>Java:</h5>
+						<pre class="java prettyprint standards">Locale locale = new Locale("vi", "VN");
+SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", locale);
+sdf.format(new Date());</pre>
+						<h5>C#:</h5>
+						<pre class="java prettyprint standards">CultureInfo ci = CultureInfo.GetCultureInfo("vi-VN");
+DateTime.Now.ToString("dd/MM/yyyy", ci);</pre>
+						<h5>JavaScript:</h5>
+						<pre class="js prettyprint standards">var date = new Date();
+date.toLocaleDateString('vi-VN');</pre>
+						<h5>PHP:</h5>
+						<pre class="php prettyprint standards">date("d/m/Y");</pre>
+						</div>
+					</div>
+
+					<div id="timeformats">
+						<h2>What is the <strong>time format</strong> in Vietnam?</h2>
+						<p>The time format in Vietnam is <strong>12-hour notation</strong>. The leading zero in hours can be omitted:</p>
+						<ul>
+							<li>
+								<strong>h:mm[:ss] SA/CH</strong><br/><em>Ex: 9:00 CH for 09:00PM, and 9:00 SA for 09:00AM</em>
+							</li>
+						</ul>
+						<a href="javascript:void(0);" onclick="$('#codetime').toggle();">How to format time for Vietnam in Java, C#, PHP, and JavaScript</a>
+						<div id="codetime" style="display:none;">
+						<h5>Java:</h5>
+<pre class="java prettyprint standards">Locale locale = new Locale("vi", "VN");
+SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss a", locale);
+sdf.format(new Date());</pre>
+						<h5>C#:</h5>
+						<pre class="java prettyprint standards">CultureInfo ci = CultureInfo.GetCultureInfo("vi-VN");
+DateTime.Now.ToString("h:mm:ss tt", ci);</pre>
+						<h5>JavaScript:</h5>
+						<pre class="js prettyprint standards">var date = new Date();
+date.toLocaleTimeString('vi-VN', {hour12: true});</pre>
+						<h5>PHP:</h5>
+						<pre class="php prettyprint standards">date("g:i:s a");</pre>
+						</div>
+					</div>
+
+					<div id="numericformats">
+						<h2>What is the <strong>numeric format</strong> in Vietnam?</h2>
+						<ul>
+							<p>
+								<strong>Format:</strong> 999.999.999,99</br>
+							</p>
+							<li><strong>Group Size:</strong>  3</li>
+							<li><strong>Grouping Character:</strong> . (Dot)</li>
+							<li><strong>Decimal Character:</strong> , (Comma)</li>
+						</ul>
+						<a href="javascript:void(0);" onclick="$('#codenumber').toggle();">How to format numbers for Vietnam in Java, C#, PHP, and JavaScript</a>
+						<div id="codenumber" style="display:none;">
+						<h5>Java:</h5>
+<pre class="java prettyprint standards">Locale locale = new Locale("vi", "VN");
+NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+numberFormat.format(999999999.99d);</pre>
+						<h5>C#:</h5>
+<pre class="java prettyprint standards">double d = 999999999.99d;
+d.ToString("n", CultureInfo.GetCultureInfo("vi-VN")));</pre>
+						<h5>JavaScript:</h5>
+						<pre class="js prettyprint standards">var number = 999999999.99;
+number.toLocaleString('vi-VN');</pre>
+						<h5>PHP:</h5>
+						<pre class="php prettyprint standards">$fmt = new NumberFormatter($locale = 'vi_VN', NumberFormatter::DECIMAL);
+$fmt->format(999999999.99);</pre>
+						</div>
+					</div>
+
+					<div id="currencyformats">
+						<h2>What is the <strong>currency format</strong> in Vietnam?</h2>
+						<ul>
+							<p>
+								<strong>Format:</strong> 1.000.000.000 đ</br>
+							</p>
+							<li><strong>Group Size:</strong> 3</li>
+							<li><strong>Grouping Character:</strong> . (Dot)</li>
+							<li><strong>Decimal Character:</strong> Not supported</li>
+							<li><strong>Currency Symbol:</strong> ₫</li>
+							<li><strong>Currency Symbol Position:</strong> Ater number</li>
+							<li><strong>Currency Name:</strong> Vietnamese dong (VND)</li>
+						</ul>
+						<a href="javascript:void(0);" onclick="$('#codecurrency').toggle();">How to format currencies for Vietnam in Java, C#, PHP, and JavaScript</a>
+						<div id="codecurrency" style="display:none;">
+<pre class="java prettyprint standards">Locale locale = new Locale("vi", "VN");
+NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
+numberFormat.format(1000000000d);</pre>
+						<h5>C#:</h5>
+<pre class="java prettyprint standards">double d = 1000000000d;
+d.ToString("c", CultureInfo.GetCultureInfo("vi-VN")));</pre>
+						<h5>JavaScript:</h5>
+						<pre class="js prettyprint standards">var number = 1000000000;
+number.toLocaleString('vi-VN', {currency: 'VND', style: 'currency'});</pre>
+						<h5>PHP:</h5>
+						<pre class="php prettyprint standards">$fmt = new NumberFormatter($locale = 'vi_VN', NumberFormatter::CURRENCY);
+$fmt->format(1000000000);</pre>
+						</div>
+					</div>
+
+					<div id="downloadstatelist">
+						<h2>Download list of provinces/municipalities for Vietnam in CSV, JSON, HTML, SQL and XML</h2>
+						<br/>
+						<div id="vietnam-html-list-of-provinces">
+							<h3>List of provinces/municipalities: HTML - Select Control<h3>
+							<pre class="html prettyprint standards">--------------------------
+ ISO_3166-2 code + name
+------------------------
+&lt;select&gt;
+	&lt;option value=&quot;VN-44&quot;&gt;An Giang&lt;/option&gt;
+	&lt;option value=&quot;VN-43&quot;&gt;Bà Rịa–Vũng Tàu&lt;/option&gt;
+	&lt;option value=&quot;VN-54&quot;&gt;Bắc Giang&lt;/option&gt;
+	&lt;option value=&quot;VN-53&quot;&gt;Bắc Kạn&lt;/option&gt;
+	&lt;option value=&quot;VN-55&quot;&gt;Bạc Liêu&lt;/option&gt;
+	&lt;option value=&quot;VN-56&quot;&gt;Bắc Ninh&lt;/option&gt;
+	&lt;option value=&quot;VN-50&quot;&gt;Bến Tre&lt;/option&gt;
+	&lt;option value=&quot;VN-31&quot;&gt;Bình Định&lt;/option&gt;
+	&lt;option value=&quot;VN-57&quot;&gt;Bình Dương&lt;/option&gt;
+	&lt;option value=&quot;VN-58&quot;&gt;Bình Phước&lt;/option&gt;
+	&lt;option value=&quot;VN-40&quot;&gt;Bình Thuận&lt;/option&gt;
+	&lt;option value=&quot;VN-59&quot;&gt;Cà Mau&lt;/option&gt;
+	&lt;option value=&quot;VN-CT&quot;&gt;Cần Thơ&lt;/option&gt;
+	&lt;option value=&quot;VN-04&quot;&gt;Cao Bằng&lt;/option&gt;
+	&lt;option value=&quot;VN-DN&quot;&gt;Đà Nẵng&lt;/option&gt;
+	&lt;option value=&quot;VN-33&quot;&gt;Đắk Lắk&lt;/option&gt;
+	&lt;option value=&quot;VN-72&quot;&gt;Đắk Nông&lt;/option&gt;
+	&lt;option value=&quot;VN-71&quot;&gt;Điện Biên&lt;/option&gt;
+	&lt;option value=&quot;VN-39&quot;&gt;Đồng Nai&lt;/option&gt;
+	&lt;option value=&quot;VN-45&quot;&gt;Đồng Tháp&lt;/option&gt;
+	&lt;option value=&quot;VN-30&quot;&gt;Gia Lai&lt;/option&gt;
+	&lt;option value=&quot;VN-03&quot;&gt;Hà Giang&lt;/option&gt;
+	&lt;option value=&quot;VN-63&quot;&gt;Hà Nam&lt;/option&gt;
+	&lt;option value=&quot;VN-HN&quot;&gt;Hà Nội&lt;/option&gt;
+	&lt;option value=&quot;VN-23&quot;&gt;Hà Tĩnh&lt;/option&gt;
+	&lt;option value=&quot;VN-61&quot;&gt;Hải Dương&lt;/option&gt;
+	&lt;option value=&quot;VN-HP&quot;&gt;Hải Phòng&lt;/option&gt;
+	&lt;option value=&quot;VN-73&quot;&gt;Hậu Giang&lt;/option&gt;
+	&lt;option value=&quot;VN-SG&quot;&gt;Hồ Chí Minh&lt;/option&gt;
+	&lt;option value=&quot;VN-14&quot;&gt;Hòa Bình&lt;/option&gt;
+	&lt;option value=&quot;VN-66&quot;&gt;Hưng Yên&lt;/option&gt;
+	&lt;option value=&quot;VN-34&quot;&gt;Khánh Hòa&lt;/option&gt;
+	&lt;option value=&quot;VN-47&quot;&gt;Kiên Giang&lt;/option&gt;
+	&lt;option value=&quot;VN-28&quot;&gt;Kon Tum&lt;/option&gt;
+	&lt;option value=&quot;VN-01&quot;&gt;Lai Châu&lt;/option&gt;
+	&lt;option value=&quot;VN-35&quot;&gt;Lâm Đồng&lt;/option&gt;
+	&lt;option value=&quot;VN-09&quot;&gt;Lạng Sơn&lt;/option&gt;
+	&lt;option value=&quot;VN-02&quot;&gt;Lào Cai&lt;/option&gt;
+	&lt;option value=&quot;VN-41&quot;&gt;Long An&lt;/option&gt;
+	&lt;option value=&quot;VN-67&quot;&gt;Nam Định&lt;/option&gt;
+	&lt;option value=&quot;VN-22&quot;&gt;Nghệ An&lt;/option&gt;
+	&lt;option value=&quot;VN-18&quot;&gt;Ninh Bình&lt;/option&gt;
+	&lt;option value=&quot;VN-36&quot;&gt;Ninh Thuận&lt;/option&gt;
+	&lt;option value=&quot;VN-68&quot;&gt;Phú Thọ&lt;/option&gt;
+	&lt;option value=&quot;VN-32&quot;&gt;Phú Yên&lt;/option&gt;
+	&lt;option value=&quot;VN-24&quot;&gt;Quảng Bình&lt;/option&gt;
+	&lt;option value=&quot;VN-27&quot;&gt;Quảng Nam&lt;/option&gt;
+	&lt;option value=&quot;VN-29&quot;&gt;Quảng Ngãi&lt;/option&gt;
+	&lt;option value=&quot;VN-13&quot;&gt;Quảng Ninh&lt;/option&gt;
+	&lt;option value=&quot;VN-25&quot;&gt;Quảng Trị&lt;/option&gt;
+	&lt;option value=&quot;VN-52&quot;&gt;Sóc Trăng&lt;/option&gt;
+	&lt;option value=&quot;VN-05&quot;&gt;Sơn La&lt;/option&gt;
+	&lt;option value=&quot;VN-37&quot;&gt;Tây Ninh&lt;/option&gt;
+	&lt;option value=&quot;VN-20&quot;&gt;Thái Bình&lt;/option&gt;
+	&lt;option value=&quot;VN-69&quot;&gt;Thái Nguyên&lt;/option&gt;
+	&lt;option value=&quot;VN-21&quot;&gt;Thanh Hóa&lt;/option&gt;
+	&lt;option value=&quot;VN-26&quot;&gt;Thừa Thiên–Huế&lt;/option&gt;
+	&lt;option value=&quot;VN-46&quot;&gt;Tiền Giang&lt;/option&gt;
+	&lt;option value=&quot;VN-51&quot;&gt;Trà Vinh&lt;/option&gt;
+	&lt;option value=&quot;VN-07&quot;&gt;Tuyên Quang&lt;/option&gt;
+	&lt;option value=&quot;VN-49&quot;&gt;Vĩnh Long&lt;/option&gt;
+	&lt;option value=&quot;VN-70&quot;&gt;Vĩnh Phúc&lt;/option&gt;
+	&lt;option value=&quot;VN-06&quot;&gt;Yên Bái&lt;/option&gt;			
+&lt;/select&gt;</pre>
+						</div>
+						<br/>
+						<div id="vietnam-csv-list-of-provinces">
+							<h3>List of provinces/municipalities: CSV</h3>
+							<pre class="text prettyprint standards">code,name
+VN-44,"An Giang"
+VN-43,"Bà Rịa–Vũng Tàu"
+VN-54,"Bắc Giang"
+VN-53,"Bắc Kạn"
+VN-55,"Bạc Liêu"
+VN-56,"Bắc Ninh"
+VN-50,"Bến Tre"
+VN-31,"Bình Định"
+VN-57,"Bình Dương"
+VN-58,"Bình Phước"
+VN-40,"Bình Thuận"
+VN-59,"Cà Mau"
+VN-CT,"Cần Thơ"
+VN-04,"Cao Bằng"
+VN-DN,"Đà Nẵng"
+VN-33,"Đắk Lắk"
+VN-72,"Đắk Nông"
+VN-71,"Điện Biên"
+VN-39,"Đồng Nai"
+VN-45,"Đồng Tháp"
+VN-30,"Gia Lai"
+VN-03,"Hà Giang"
+VN-63,"Hà Nam"
+VN-HN,"Hà Nội"
+VN-23,"Hà Tĩnh"
+VN-61,"Hải Dương"
+VN-HP,"Hải Phòng"
+VN-73,"Hậu Giang"
+VN-SG,"Hồ Chí Minh"
+VN-14,"Hòa Bình"
+VN-66,"Hưng Yên"
+VN-34,"Khánh Hòa"
+VN-47,"Kiên Giang"
+VN-28,"Kon Tum"
+VN-01,"Lai Châu"
+VN-35,"Lâm Đồng"
+VN-09,"Lạng Sơn"
+VN-02,"Lào Cai"
+VN-41,"Long An"
+VN-67,"Nam Định"
+VN-22,"Nghệ An"
+VN-18,"Ninh Bình"
+VN-36,"Ninh Thuận"
+VN-68,"Phú Thọ"
+VN-32,"Phú Yên"
+VN-24,"Quảng Bình"
+VN-27,"Quảng Nam"
+VN-29,"Quảng Ngãi"
+VN-13,"Quảng Ninh"
+VN-25,"Quảng Trị"
+VN-52,"Sóc Trăng"
+VN-05,"Sơn La"
+VN-37,"Tây Ninh"
+VN-20,"Thái Bình"
+VN-69,"Thái Nguyên"
+VN-21,"Thanh Hóa"
+VN-26,"Thừa Thiên–Huế"
+VN-46,"Tiền Giang"
+VN-51,"Trà Vinh"
+VN-07,"Tuyên Quang"
+VN-49,"Vĩnh Long"
+VN-70,"Vĩnh Phúc"
+VN-06,"Yên Bái"</pre>
+						</div>
+						<br/>
+						<div id="vietnam-json-list-of-provinces">
+							<h3>List of provinces/municipalities: JSON</h3>
+							<pre class="js prettyprint standards">------------------------
+ ISO-3166-2 code + Name
+------------------------
+[
+	{code: "VN-44", name: "An Giang"},
+	{code: "VN-43", name: "Bà Rịa–Vũng Tàu"},
+	{code: "VN-54", name: "Bắc Giang"},
+	{code: "VN-53", name: "Bắc Kạn"},
+	{code: "VN-55", name: "Bạc Liêu"},
+	{code: "VN-56", name: "Bắc Ninh"},
+	{code: "VN-50", name: "Bến Tre"},
+	{code: "VN-31", name: "Bình Định"},
+	{code: "VN-57", name: "Bình Dương"},
+	{code: "VN-58", name: "Bình Phước"},
+	{code: "VN-40", name: "Bình Thuận"},
+	{code: "VN-59", name: "Cà Mau"},
+	{code: "VN-CT", name: "Cần Thơ"},
+	{code: "VN-04", name: "Cao Bằng"},
+	{code: "VN-DN", name: "Đà Nẵng"},
+	{code: "VN-33", name: "Đắk Lắk"},
+	{code: "VN-72", name: "Đắk Nông"},
+	{code: "VN-71", name: "Điện Biên"},
+	{code: "VN-39", name: "Đồng Nai"},
+	{code: "VN-45", name: "Đồng Tháp"},
+	{code: "VN-30", name: "Gia Lai"},
+	{code: "VN-03", name: "Hà Giang"},
+	{code: "VN-63", name: "Hà Nam"},
+	{code: "VN-HN", name: "Hà Nội"},
+	{code: "VN-23", name: "Hà Tĩnh"},
+	{code: "VN-61", name: "Hải Dương"},
+	{code: "VN-HP", name: "Hải Phòng"},
+	{code: "VN-73", name: "Hậu Giang"},
+	{code: "VN-SG", name: "Hồ Chí Minh"},
+	{code: "VN-14", name: "Hòa Bình"},
+	{code: "VN-66", name: "Hưng Yên"},
+	{code: "VN-34", name: "Khánh Hòa"},
+	{code: "VN-47", name: "Kiên Giang"},
+	{code: "VN-28", name: "Kon Tum"},
+	{code: "VN-01", name: "Lai Châu"},
+	{code: "VN-35", name: "Lâm Đồng"},
+	{code: "VN-09", name: "Lạng Sơn"},
+	{code: "VN-02", name: "Lào Cai"},
+	{code: "VN-41", name: "Long An"},
+	{code: "VN-67", name: "Nam Định"},
+	{code: "VN-22", name: "Nghệ An"},
+	{code: "VN-18", name: "Ninh Bình"},
+	{code: "VN-36", name: "Ninh Thuận"},
+	{code: "VN-68", name: "Phú Thọ"},
+	{code: "VN-32", name: "Phú Yên"},
+	{code: "VN-24", name: "Quảng Bình"},
+	{code: "VN-27", name: "Quảng Nam"},
+	{code: "VN-29", name: "Quảng Ngãi"},
+	{code: "VN-13", name: "Quảng Ninh"},
+	{code: "VN-25", name: "Quảng Trị"},
+	{code: "VN-52", name: "Sóc Trăng"},
+	{code: "VN-05", name: "Sơn La"},
+	{code: "VN-37", name: "Tây Ninh"},
+	{code: "VN-20", name: "Thái Bình"},
+	{code: "VN-69", name: "Thái Nguyên"},
+	{code: "VN-21", name: "Thanh Hóa"},
+	{code: "VN-26", name: "Thừa Thiên–Huế"},
+	{code: "VN-46", name: "Tiền Giang"},
+	{code: "VN-51", name: "Trà Vinh"},
+	{code: "VN-07", name: "Tuyên Quang"},
+	{code: "VN-49", name: "Vĩnh Long"},
+	{code: "VN-70", name: "Vĩnh Phúc"},
+	{code: "VN-06", name: "Yên Bái"}			
+]</pre>
+						</div>		
+						<br/>
+						<div id="vietnam-sql-list-of-provinces">
+							<h3>List of provinces/municipalities: SQL</h3>
+							<pre class="sql prettyprint standards">-- -----------------------------------------------------
+-- Table `province`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS province;
+
+CREATE TABLE IF NOT EXISTS province (
+  id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  code VARCHAR(6) NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE INDEX id_UNIQUE (id ASC),
+  UNIQUE INDEX code_UNIQUE (code ASC)
+) ENGINE = InnoDB;
+
+INSERT INTO province (id, code, name) VALUES (null, 'VN-44', 'An Giang');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-43', 'Bà Rịa–Vũng Tàu');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-54', 'Bắc Giang');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-53', 'Bắc Kạn');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-55', 'Bạc Liêu');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-56', 'Bắc Ninh');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-50', 'Bến Tre');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-31', 'Bình Định');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-57', 'Bình Dương');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-58', 'Bình Phước');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-40', 'Bình Thuận');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-59', 'Cà Mau');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-CT', 'Cần Thơ');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-04', 'Cao Bằng');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-DN', 'Đà Nẵng');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-33', 'Đắk Lắk');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-72', 'Đắk Nông');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-71', 'Điện Biên');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-39', 'Đồng Nai');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-45', 'Đồng Tháp');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-30', 'Gia Lai');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-03', 'Hà Giang');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-63', 'Hà Nam');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-HN', 'Hà Nội');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-23', 'Hà Tĩnh');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-61', 'Hải Dương');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-HP', 'Hải Phòng');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-73', 'Hậu Giang');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-SG', 'Hồ Chí Minh');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-14', 'Hòa Bình');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-66', 'Hưng Yên');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-34', 'Khánh Hòa');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-47', 'Kiên Giang');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-28', 'Kon Tum');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-01', 'Lai Châu');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-35', 'Lâm Đồng');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-09', 'Lạng Sơn');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-02', 'Lào Cai');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-41', 'Long An');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-67', 'Nam Định');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-22', 'Nghệ An');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-18', 'Ninh Bình');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-36', 'Ninh Thuận');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-68', 'Phú Thọ');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-32', 'Phú Yên');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-24', 'Quảng Bình');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-27', 'Quảng Nam');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-29', 'Quảng Ngãi');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-13', 'Quảng Ninh');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-25', 'Quảng Trị');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-52', 'Sóc Trăng');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-05', 'Sơn La');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-37', 'Tây Ninh');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-20', 'Thái Bình');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-69', 'Thái Nguyên');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-21', 'Thanh Hóa');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-26', 'Thừa Thiên–Huế');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-46', 'Tiền Giang');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-51', 'Trà Vinh');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-07', 'Tuyên Quang');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-49', 'Vĩnh Long');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-70', 'Vĩnh Phúc');
+INSERT INTO province (id, code, name) VALUES (null, 'VN-06', 'Yên Bái');</pre>
+						</div>
+						<br/>
+						<div id="vietnam-xml-list-of-provinces">
+							<h3>List of provinces/municipalities: XML</h3>
+							<pre class="xml prettyprint standards">&lt;!-- ISO 3166-2 code + name - French --&gt;
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;provinces&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-44&lt;/code&gt;
+		&lt;name&gt;An Giang&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-43&lt;/code&gt;
+		&lt;name&gt;Bà Rịa–Vũng Tàu&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-54&lt;/code&gt;
+		&lt;name&gt;Bắc Giang&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-53&lt;/code&gt;
+		&lt;name&gt;Bắc Kạn&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-55&lt;/code&gt;
+		&lt;name&gt;Bạc Liêu&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-56&lt;/code&gt;
+		&lt;name&gt;Bắc Ninh&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-50&lt;/code&gt;
+		&lt;name&gt;Bến Tre&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-31&lt;/code&gt;
+		&lt;name&gt;Bình Định&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-57&lt;/code&gt;
+		&lt;name&gt;Bình Dương&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-58&lt;/code&gt;
+		&lt;name&gt;Bình Phước&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-40&lt;/code&gt;
+		&lt;name&gt;Bình Thuận&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-59&lt;/code&gt;
+		&lt;name&gt;Cà Mau&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-CT&lt;/code&gt;
+		&lt;name&gt;Cần Thơ&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-04&lt;/code&gt;
+		&lt;name&gt;Cao Bằng&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-DN&lt;/code&gt;
+		&lt;name&gt;Đà Nẵng&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-33&lt;/code&gt;
+		&lt;name&gt;Đắk Lắk&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-72&lt;/code&gt;
+		&lt;name&gt;Đắk Nông&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-71&lt;/code&gt;
+		&lt;name&gt;Điện Biên&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-39&lt;/code&gt;
+		&lt;name&gt;Đồng Nai&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-45&lt;/code&gt;
+		&lt;name&gt;Đồng Tháp&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-30&lt;/code&gt;
+		&lt;name&gt;Gia Lai&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-03&lt;/code&gt;
+		&lt;name&gt;Hà Giang&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-63&lt;/code&gt;
+		&lt;name&gt;Hà Nam&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-HN&lt;/code&gt;
+		&lt;name&gt;Hà Nội&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-23&lt;/code&gt;
+		&lt;name&gt;Hà Tĩnh&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;gt;VN-61&lt;/code&gt;
+		&lt;name&gt;Hải Dương&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-HP&lt;/code&gt;
+		&lt;name&gt;Hải Phòng&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-73&lt;/code&gt;
+		&lt;name&gt;Hậu Giang&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-SG&lt;/code&gt;
+		&lt;name&gt;Hồ Chí Minh&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-14&lt;/code&gt;
+		&lt;name&gt;Hòa Bình&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-66&lt;/code&gt;
+		&lt;name&gt;Hưng Yên&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-34&lt;/code&gt;
+		&lt;name&gt;Khánh Hòa&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-47&lt;/code&gt;
+		&lt;name&gt;Kiên Giang&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-28&lt;/code&gt;
+		&lt;name&gt;Kon Tum&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-01&lt;/code&gt;
+		&lt;name&gt;Lai Châu&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-35&lt;/code&gt;
+		&lt;name&gt;Lâm Đồng&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-09&lt;/code&gt;
+		&lt;name&gt;Lạng Sơn&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-02&lt;/code&gt;
+		&lt;name&gt;Lào Cai&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-41&lt;/code&gt;
+		&lt;name&gt;Long An&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-67&lt;/code&gt;
+		&lt;name&gt;Nam Định&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-22&lt;/code&gt;
+		&lt;name&gt;Nghệ An&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-18&lt;/code&gt;
+		&lt;name&gt;Ninh Bình&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-36&lt;/code&gt;
+		&lt;name&gt;Ninh Thuận&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-68&lt;/code&gt;
+		&lt;name&gt;Phú Thọ&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-32&lt;/code&gt;
+		&lt;name&gt;Phú Yên&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-24&lt;/code&gt;
+		&lt;name&gt;Quảng Bình&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-27&lt;/code&gt;
+		&lt;name&gt;Quảng Nam&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-29&lt;/code&gt;
+		&lt;name&gt;Quảng Ngãi&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-13&lt;/code&gt;
+		&lt;name&gt;Quảng Ninh&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-25&lt;/code&gt;
+		&lt;name&gt;Quảng Trị&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-52&lt;/code&gt;
+		&lt;name&gt;Sóc Trăng&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-05&lt;/code&gt;
+		&lt;name&gt;Sơn La&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-37&lt;/code&gt;
+		&lt;name&gt;Tây Ninh&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-20&lt;/code&gt;
+		&lt;name&gt;Thái Bình&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-69&lt;/code&gt;
+		&lt;name&gt;Thái Nguyên&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-21&lt;/code&gt;
+		&lt;name&gt;Thanh Hóa&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-26&lt;/code&gt;
+		&lt;name&gt;Thừa Thiên–Huế&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-46&lt;/code&gt;
+		&lt;name&gt;Tiền Giang&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-51&lt;/code&gt;
+		&lt;name&gt;Trà Vinh&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-07&lt;/code&gt;
+		&lt;name&gt;Tuyên Quang&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-49&lt;/code&gt;
+		&lt;name&gt;Vĩnh Long&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-70&lt;/code&gt;
+		&lt;name&gt;Vĩnh Phúc&lt;/name&gt;
+	&lt;/province&gt;
+	&lt;province&gt;
+		&lt;code&gt;VN-06&lt;/code&gt;
+		&lt;name&gt;Yên Bái&lt;/name&gt;
+	&lt;/province&gt;												
+&lt;/provinces&gt;</pre>
+						</div>
+					</div>
+					<div style="margin:auto;text-align:center;margin-top:15px;">
+						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- freeformatter-responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2485708030241382"
+     data-ad-slot="9677864628"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</div>
+				</div>
+
+			</div>
+			<footer>
+	<p>&copy; FreeFormatter.com - FREEFORMATTER is a d/b/a of 10174785 Canada Inc. - <a href="/copyright-notice.html">Copyright Notice</a> - <a href="/privacy-statement.html">Privacy Statement</a> - <a href="/terms-of-use.html">Terms of Use</a></p>
+</footer>	
+		</div>
+	</div>
+	<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24060392-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<div id="fb-root"></div>
+<script>
+	(
+		function() {
+    		var e = document.createElement('script'); e.async = true;
+    		e.setAttribute('defer', 'defer');
+    		e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js#xfbml=1';    		
+    		document.getElementById('fb-root').appendChild(e);
+ 		}()
+ 	);
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {		
+		$('body').append('<scri' + 'pt type="text/javascript" src="//apis.google.com/js/plusone.js" defer></scr' + 'ipt>');		
+	});	
+</script>
+</body>
+</html>

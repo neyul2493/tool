@@ -1,0 +1,634 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+
+
+<head>
+	<title>Credit Card Number Generator & Validator - FreeFormatter.com</title>
+	<meta name="title" content="Credit Card Number Generator & Validator - FreeFormatter.com"/>
+	<meta name="description" content="Allows you to generate credit card numbers for all major brands and also to validate them using the Luhn algorithm"/>	  		
+		<meta name="language" content="en"/>
+	<meta name="robots" content="all"/>
+	<meta name="rating" content="general"/>	
+	<meta charset="utf-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="shortcut icon" href="favicon.ico"/>
+	<link rel="stylesheet" href="/3.4.0.3/css/styles.css"/>
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/cupertino/jquery-ui.css"/>	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>	
+	<script src="/3.4.0.3/js/freeformatter.js"></script>
+	<script type="text/javascript">
+	
+		// Javascript code copyright 2009 by Fiach Reid : www.webtropy.com
+ 		// This code may be used freely, as long as this copyright notice is intact.
+		function Calculate(Luhn) {
+			
+			var sum = 0;
+			for (i=0; i<Luhn.length; i++ ) {
+				sum += parseInt(Luhn.substring(i,i+1));
+			}
+			
+			var delta = new Array (0, 1, 2, 3, 4, -4, -3, -2, -1, 0);
+			for (i=Luhn.length-1; i>=0; i-=2 ) {		
+				var deltaIndex = parseInt(Luhn.substring(i, i + 1));
+				var deltaValue = delta[deltaIndex];	
+				sum += deltaValue;
+			}	
+		
+			var mod10 = sum % 10;
+			mod10 = 10 - mod10;	
+			
+			if (mod10 == 10) {		
+				mod10 = 0;
+			}
+			
+			return mod10;
+			
+		}
+
+		function Validate(Luhn) {
+			
+			Luhn = Luhn.replace(/\s/g, '');			
+			
+			var LuhnDigit = parseInt(Luhn.substring(Luhn.length-1, Luhn.length));
+			var LuhnLess = Luhn.substring(0,Luhn.length-1);
+			
+			if (Calculate(LuhnLess) == parseInt(LuhnDigit)) {
+				return true;
+			}	
+			
+			return false;
+
+		}			
+		
+		function validateCreditCard() {
+			var toValidate = $("#creditCardNumber").val();
+			var result = Validate(toValidate);
+			$("#validationResult").text(result ? "The number is valid!" : "The number is NOT valid!").show();
+		}
+		
+		/*
+			Javascript credit card number generator 
+			Copyright (C) 2006 Graham King graham@darkcoding.net
+	
+			This program is free software; you can redistribute it and/or
+			modify it under the terms of the GNU General Public License
+			as published by the Free Software Foundation; either version 2
+			of the License, or (at your option) any later version.
+	
+			This program is distributed in the hope that it will be useful,
+			but WITHOUT ANY WARRANTY; without even the implied warranty of
+			MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+			GNU General Public License for more details.
+	
+			You should have received a copy of the GNU General Public License
+			along with this program; if not, write to the Free Software
+			Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+	
+			www.darkcoding.net
+		*/		
+		function strrev(str) {
+		   if (!str) return '';
+		   var revstr='';
+		   for (i = str.length-1; i>=0; i--)
+		       revstr+=str.charAt(i)
+		   return revstr;
+		}
+
+		/*
+		'prefix' is the start of the CC number as a string, any number of digits.
+		'length' is the length of the CC number to generate. Typically 13 or 16
+		*/
+		function completed_number(prefix, length) {
+
+		    var ccnumber = prefix;
+
+		    // generate digits
+
+		    while ( ccnumber.length < (length - 1) ) {
+		        ccnumber += Math.floor(Math.random()*10);
+		    }
+
+		    // reverse number and convert to int 
+
+		    var reversedCCnumberString = strrev( ccnumber );
+
+		    var reversedCCnumber = new Array();
+		    for ( var i=0; i < reversedCCnumberString.length; i++ ) {
+		        reversedCCnumber[i] = parseInt( reversedCCnumberString.charAt(i) );   
+		    }
+
+		    // calculate sum    
+		    
+		    var sum = 0;
+		    var pos = 0;
+		    
+		    while ( pos < length - 1 ) {
+
+		        odd = reversedCCnumber[ pos ] * 2;
+		        if ( odd > 9 ) {
+		            odd -= 9;
+		        }
+
+		        sum += odd;
+
+		        if ( pos != (length - 2) ) {
+
+		            sum += reversedCCnumber[ pos +1 ];
+		        }
+		        pos += 2;
+		    }
+		    
+		    // calculate check digit
+
+		    var checkdigit = (( Math.floor(sum/10) + 1) * 10 - sum) % 10;
+		    ccnumber += checkdigit;
+
+		    return ccnumber;
+		    
+		}
+
+		function credit_card_number(prefixList, length) {
+
+	        var randomArrayIndex = Math.floor(Math.random() * prefixList.length); 
+	        var ccnumber = prefixList[ randomArrayIndex ];
+	        return completed_number(ccnumber, length);
+
+		}
+
+		var visaPrefixList = new Array("4539", "4556", "4916", "4532", "4929", "40240071", "4485", "4716", "4");
+		var mastercardPrefixList = new Array("51", "52", "53", "54", "55", "222100", "272099");
+		var amexPrefixList = new Array("34", "37");
+		var discoverPrefixList = new Array("6011");
+		var dinersPrefixList = new Array("300", "301", "302", "303", "36", "38");
+		var enRoutePrefixList = new Array("2014", "2149");
+		var jcbPrefixList = new Array("3528", "3529", "3530", "3531", "3532", "3533", "3534", "3535", "3536", "3537", "3538", "3539", "3540", "3541", "3542", "3543", "3544", "3545", "3589");
+		var voyagerPrefixList = new Array("8699");
+		var dinersNorthAmericaPrefixList = new Array("54", "55");
+		var dinersCarteBlanchePrefixList = new Array("300", "301", "302", "303", "304", "305");
+		var dinersInternationalPrefixList = new Array("36");
+		var visaElectronPrefixList = new Array("4026", "417500", "4508", "4844", "4913", "4917");
+		var maestroPrefixList = new Array("5018", "5020", "5038", "5893", "6304", "6759", "6761", "6762", "6763", "0604");
+		var instaPaymentPrefixList = new Array("637", "638", "639");
+		
+		$(document).ready(function() {
+			
+			// Worst code ever! Should use some type of array with names, iterator and eval... but I'm too lazy!
+			$("#visa1").text(credit_card_number(visaPrefixList, 16, 1));
+			$("#visa2").text(credit_card_number(visaPrefixList, 16, 1));
+			$("#visa3").text(credit_card_number(visaPrefixList, 19, 1));
+			$("#mc1").text(credit_card_number(mastercardPrefixList, 16, 1));
+			$("#mc2").text(credit_card_number(mastercardPrefixList, 16, 1));
+			$("#mc3").text(credit_card_number(mastercardPrefixList, 16, 1));
+			$("#amex1").text(credit_card_number(amexPrefixList, 15, 1));
+			$("#amex2").text(credit_card_number(amexPrefixList, 15, 1));
+			$("#amex3").text(credit_card_number(amexPrefixList, 15, 1));
+			$("#disc1").text(credit_card_number(discoverPrefixList, 16, 1));
+			$("#disc2").text(credit_card_number(discoverPrefixList, 16, 1));
+			$("#disc3").text(credit_card_number(discoverPrefixList, 19, 1));
+			$("#jcb1").text(credit_card_number(jcbPrefixList, 16, 1));
+			$("#jcb2").text(credit_card_number(jcbPrefixList, 16, 1));
+			$("#jcb3").text(credit_card_number(jcbPrefixList, 19, 1));			
+			$("#dcna1").text(credit_card_number(dinersNorthAmericaPrefixList, 16, 1));
+			$("#dcna2").text(credit_card_number(dinersNorthAmericaPrefixList, 16, 1));
+			$("#dcna3").text(credit_card_number(dinersNorthAmericaPrefixList, 16, 1));
+			$("#dccb1").text(credit_card_number(dinersCarteBlanchePrefixList, 14, 1));
+			$("#dccb2").text(credit_card_number(dinersCarteBlanchePrefixList, 14, 1));
+			$("#dccb3").text(credit_card_number(dinersCarteBlanchePrefixList, 14, 1));
+			$("#dcin1").text(credit_card_number(dinersInternationalPrefixList, 14, 1));
+			$("#dcin2").text(credit_card_number(dinersInternationalPrefixList, 14, 1));
+			$("#dcin3").text(credit_card_number(dinersInternationalPrefixList, 14, 1));
+			$("#elec1").text(credit_card_number(visaElectronPrefixList, 16, 1));
+			$("#elec2").text(credit_card_number(visaElectronPrefixList, 16, 1));
+			$("#elec3").text(credit_card_number(visaElectronPrefixList, 16, 1));
+			$("#maes1").text(credit_card_number(maestroPrefixList, 16, 1));
+			$("#maes2").text(credit_card_number(maestroPrefixList, 16, 1));
+			$("#maes3").text(credit_card_number(maestroPrefixList, 16, 1));
+			$("#ip1").text(credit_card_number(instaPaymentPrefixList, 16, 1));
+			$("#ip2").text(credit_card_number(instaPaymentPrefixList, 16, 1));
+			$("#ip3").text(credit_card_number(instaPaymentPrefixList, 16, 1));
+						
+		});
+				
+	</script>
+</head>
+<body>
+	<div class="topbar">
+	<div class="topbar-inner">
+		<div class="container-fluid">
+			<a class="brand" href="http://www.freeformatter.com">FreeFormatter.com</a>
+			<ul class="nav">
+				<li><a href="https://www.freeformatter.com">HTTPS</a></li>
+				<li><a href="mailto:freeformatter@gmail.com">Contact</a></li>
+			</ul>
+			<div class="social" style="float:right;">
+				<div class="fb-like" data-href="http://www.freeformatter.com" data-send="false" data-layout="button_count" data-width="50" data-show-faces="true" data-font="arial"></div>
+				<!-- Place this tag where you want the +1 button to render -->
+				<div style="float: left; padding: 8px 5px 5px;">
+					<g:plusone></g:plusone>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<div class="container-fluid">
+		<div class="sidebar">
+	<div class="well">
+		<a href="/formatters.html"><h5>Formatters</h5></a>
+		<ul>
+			<li><a href="/json-formatter.html">JSON Formatter</a></li>
+			<li><a href="/html-formatter.html">HTML Formatter</a></li>
+			<li><a href="/xml-formatter.html">XML Formatter</a></li>
+			<li><a href="/sql-formatter.html">SQL Formatter</a></li>
+			<li><a href="/batch-formatter.html">Batch Formatter (new!)</strong></a></li>
+		</ul>
+		<a href="/validators.html"><h5>Validators</h5></a>
+		<ul>		
+			<li><a href="/json-validator.html">JSON Validator</a></li>
+			<li><a href="/html-validator.html">HTML Validator</a></li>
+			<li><a href="/xml-validator-xsd.html">XML Validator - XSD</a></li>
+			<li><a href="/xpath-tester.html">XPath Tester</a></li>
+			<li><a href="/credit-card-number-generator-validator.html">Credit Card Number Generator & Validator</a></li>
+			<li><a href="/regex-tester.html">Regular Expression Tester</a></li>			
+			<li><a href="/java-regex-tester.html">Java Regular Expression Tester</a></li>
+			<li><a href="/cron-expression-generator-quartz.html">Cron Expression Generator - Quartz</a></li>						
+		</ul>
+		<a href="/encoders.html"><h5>Encoders & Decoders</h5></a>
+		<ul>
+			<li><a href="/url-encoder.html">Url Encoder & Decoder</a></li>
+			<li><a href="/base64-encoder.html">Base 64 Encoder & Decoder</a></li>
+			<li><a href="/qr-code-generator.html">QR Code Generator</a></li>			
+		</ul>
+		<a href="/minifiers.html"><h5>Code Minifiers / Beautifier</h5></a>
+		<ul>
+			<li><a href="/javascript-beautifier.html">JavaScript Beautifier</a></li>
+			<li><a href="/css-beautifier.html">CSS Beautifier</a></li>
+			<li><a href="/javascript-minifier.html">JavaScript Minifier</a></li>
+			<li><a href="/css-minifier.html">CSS Minifier</a></li>
+		</ul>
+		<a href="/converters.html"><h5>Converters</h5></a>
+		<ul>
+			<li><a href="/xsd-generator.html">XSD Generator</a></li>
+			<li><a href="/xsl-transformer.html">XSLT (XSL Transformer)</a></li>					
+			<li><a href="/xml-to-json-converter.html">XML to JSON Converter</a></li>
+			<li><a href="/json-to-xml-converter.html">JSON to XML Converter</a></li>
+			<li><a href="/csv-to-xml-converter.html">CSV to XML Converter</a></li>	
+			<li><a href="/csv-to-json-converter.html">CSV to JSON Converter</a></li>			
+			<li><a href="/epoch-timestamp-to-date-converter.html">Epoch Timestamp To Date</a></li>
+		</ul>
+		<a href="/cryptography-and-security.html"><h5>Cryptography & Security</h5></a>
+		<ul>
+			<li><a href="/message-digest.html">Message Digester (MD5, SHA-256, SHA-512)</a></li>
+			<li><a href="/hmac-generator.html">HMAC Generator</a></li>			
+			<li><a href="/md5-generator.html">MD5 Generator</a></li>
+			<li><a href="/sha256-generator.html">SHA-256 Generator</a></li>
+			<li><a href="/sha512-generator.html">SHA-512 Generator</a></li>			
+		</ul>
+		<a href="/string-escaper.html"><h5>String Escaper & Utilities</h5></a>
+		<ul>
+			<li><a href="/string-utilities.html">String Utilities</a></li>
+			<li><a href="/html-escape.html">HTML Escape</a></li>
+			<li><a href="/xml-escape.html">XML Escape</a></li>
+			<li><a href="/java-dotnet-escape.html">Java and .Net Escape</a></li>
+			<li><a href="/javascript-escape.html">JavaScript Escape</a></li>
+			<li><a href="/json-escape.html">JSON Escape</a></li>			
+			<li><a href="/csv-escape.html">CSV Escape</a></li>
+			<li><a href="/sql-escape.html">SQL	Escape</a></li>
+		</ul>
+		<a href="/web-resources.html"><h5>Web Resources</h5></a>
+		<ul>
+			<li><a href="/lorem-ipsum-generator.html">Lorem Ipsum Generator</a></li>
+			<li><a href="/less-compiler.html">LESS Compiler</a></li>
+			<li><a href="/mime-types-list.html">List of MIME types</a></li>
+			<li><a href="/html-entities.html">HTML Entities</a></li>
+			<li><a href="/url-parser-query-string-splitter.html">Url Parser / Query String Splitter</a></li>						
+			<li><a href="/i18n-standards-code-snippets.html">i18n - Formatting standards & code snippets</a></li>
+			<li><a href="/iso-country-list-html-select.html">ISO country list - HTML select snippet</a></li>
+			<li><a href="/usa-state-list-html-select.html">USA state list - HTML select snippet</a></li>
+			<li><a href="/canada-province-list-html-select.html">Canada province	list - HTML select snippet</a></li>
+			<li><a href="/mexico-state-list-html-select.html">Mexico state list - HTML select snippet</a></li>			
+			<li><a href="/time-zone-list-html-select.html">Time zone list - HTML select snippet</a></li>
+		</ul>
+	</div>
+	<div style="text-align: center;">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- freeformatter-responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2485708030241382"
+     data-ad-slot="9677864628"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+	</div>
+</div>
+		<div class="content">
+			<div class="content-inner">
+				<h1>Credit Card Number Generator & Validator</h1>
+				<ul>
+					<li><a href="#validate">Validate a credit card number</a></li>
+					<li><a href="#fakeNumbers">Fake credit card numbers for all major brands (Not real numbers, testing only!)</a></li>				
+					<li><a href="#howToValidate">How to validate a credit card number</a></li>
+					<li><a href="#cardFormats">List of credit card formats by issuer</a></li>
+				</ul>
+				<div>
+					<h2 id="validate" style="margin:20px 0 10px 0">Validate a credit card number</h2>					
+					<div class="form-wrapper" style="padding:10px 0 20px 20px;">					
+						<div style="margin-top:10px;">
+							<span>Credit Card Number:</span>
+							<input type="text" id="creditCardNumber" value="" maxLength="19" style="width:195px; padding:3px; margin:0 5px;"/>
+							<a style="margin:0 5px 0 3px;" href="javascript:validateCreditCard();">Validate</a>
+							<span id="validationResult" style="display:none;"></span>
+						</div>					
+					</div>
+				</div>				
+				<div>
+					<h2 id="fakeNumbers" style="margin:20px 0 10px 0">Fake credit card numbers for all major brands</h2>
+					<p><strong>These credit card numbers DO NOT work! They are for testing purposes only. Without a valid owner name, an expiration date and a valid CVV code, they can't be used for real transactions. You should use these numbers only to test your validation strategies and for bogus data. Note that the algorithm used here is freely available across the web even Wikipedia.org. These numbers were generated randomly.</strong><strong>You can <a href="javascript:location.reload();">refresh</a> the page to get new numbers.</strong></p>
+					<ul style="display:inline-block;">
+						<li style="float:left;width:200px;"><strong>VISA</strong>:<br/><span id="visa1"></span><br/><span id="visa2"></span><br/><span id="visa3"></span></li>
+						<li style="float:left;width:200px;"><strong>MasterCard</strong>:<br/><span id="mc1"></span><br/><span id="mc2"></span><br/><span id="mc3"></span></li>
+						<li style="float:left;width:200px;"><strong>American Express (AMEX)</strong>:<br/><span id="amex1"></span><br/><span id="amex2"></span><br/><span id="amex3"></span></li>
+						<li style="float:left;width:200px;"><strong>Discover</strong>:<br/><span id="disc1"></span><br/><span id="disc2"></span><br/><span id="disc3"></span></li>
+						<li style="float:left;width:200px;"><strong>JCB</strong>:<br/><span id="jcb1"></span><br/><span id="jcb2"></span><br/><span id="jcb3"></span></li>
+						<li style="float:left;width:200px;"><strong>Diners Club - North America</strong>:<br/><span id="dcna1"></span><br/><span id="dcna2"></span><br/><span id="dcna3"></span></li>
+						<li style="float:left;width:200px;"><strong>Diners Club - Carte Blanche</strong>:<br/><span id="dccb1"></span><br/><span id="dccb2"></span><br/><span id="dccb3"></span></li>
+						<li style="float:left;width:200px;"><strong>Diners Club - International</strong>:<br/><span id="dcin1"></span><br/><span id="dcin2"></span><br/><span id="dcin3"></span></li>
+						<li style="float:left;width:200px;"><strong>Maestro</strong>:<br/><span id="maes1"></span><br/><span id="maes2"></span><br/><span id="maes3"></span></li>
+						<li style="float:left;width:200px;"><strong>Visa Electron</strong>:<br/><span id="elec1"></span><br/><span id="elec2"></span><br/><span id="elec3"></span></li>
+						<li style="float:left;width:200px;"><strong>InstaPayment</strong>:<br/><span id="ip1"></span><br/><span id="ip2"></span><br/><span id="ip3"></span></li>						
+					</ul>
+				</div>				
+				<h2 id="howToValidate" style="margin:0px 0 10px 0">How to validate a Credit Card Number?</h2>
+				<p>
+					Most credit card number can be validated using the Luhn algorithm, which is more or a less a glorified Modulo 10 formula!
+					<h3>The Luhn Formula:</h3>
+					<ul>
+						<li>Drop the last digit from the number. The last digit is what we want to check against</li>
+						<li>Reverse the numbers</li>
+						<li>Multiply the digits in odd positions (1, 3, 5, etc.) by 2 and subtract 9 to all any result higher than 9</li>
+						<li>Add all the numbers together</li>
+						<li>The check digit (the last number of the card) is the amount that you would need to add to get a multiple of 10 (Modulo 10)</li>
+					</ul>
+					<h3>Luhn Example:</h3>
+					<table>
+						<thead>	
+							<tr>
+								<th nowrap="nowrap">Step</th>
+								<th nowrap="nowrap"></th>
+								<th nowrap="nowrap"></th>
+								<th nowrap="nowrap"></th>
+								<th nowrap="nowrap"></th>
+								<th nowrap="nowrap"></th>
+								<th nowrap="nowrap"></th>
+								<th nowrap="nowrap"></th>
+								<th nowrap="nowrap"></th>
+								<th nowrap="nowrap"></th>
+								<th nowrap="nowrap"></th>
+								<th nowrap="nowrap"></th>
+								<th nowrap="nowrap"></th>
+								<th nowrap="nowrap"></th>
+								<th nowrap="nowrap"></th>
+								<th nowrap="nowrap"></th>
+								<th nowrap="nowrap"></th>
+								<th nowrap="nowrap">Total</th>								
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Original Number:</td>
+								<td>4</td>
+								<td>5</td>
+								<td>5</td>
+								<td>6</td>
+								<td>7</td>
+								<td>3</td>
+								<td>7</td>
+								<td>5</td>
+								<td>8</td>
+								<td>6</td>
+								<td>8</td>
+								<td>9</td>
+								<td>9</td>
+								<td>8</td>
+								<td>5</td>
+								<td><strong>5</strong></td>
+								<td></td>								
+							</tr>
+							<tr>
+								<td>Drop the last digit:</td>
+								<td>4</td>
+								<td>5</td>
+								<td>5</td>
+								<td>6</td>
+								<td>7</td>
+								<td>3</td>
+								<td>7</td>
+								<td>5</td>
+								<td>8</td>
+								<td>6</td>
+								<td>8</td>
+								<td>9</td>
+								<td>9</td>
+								<td>8</td>
+								<td>5</td>
+								<td></td>
+								<td></td>								
+							</tr>	
+							<tr>
+								<td>Reverse the digits:</td>
+								<td>5</td>
+								<td>8</td>
+								<td>9</td>
+								<td>9</td>
+								<td>8</td>
+								<td>6</td>
+								<td>8</td>
+								<td>5</td>
+								<td>7</td>
+								<td>3</td>
+								<td>7</td>
+								<td>6</td>
+								<td>5</td>
+								<td>5</td>
+								<td>4</td>
+								<td></td>
+								<td></td>								
+							</tr>													
+							<tr>
+								<td>Multiple odd digits by 2:</td>
+								<td>10</td>
+								<td>8</td>
+								<td>18</td>
+								<td>9</td>
+								<td>16</td>
+								<td>6</td>
+								<td>16</td>
+								<td>5</td>
+								<td>14</td>
+								<td>3</td>
+								<td>14</td>
+								<td>6</td>
+								<td>10</td>
+								<td>5</td>
+								<td>8</td>
+								<td></td>
+								<td></td>								
+							</tr>							
+							<tr>
+								<td>Subtract 9 to numbers over 9:</td>
+								<td>1</td>
+								<td>8</td>
+								<td>9</td>
+								<td>9</td>
+								<td>7</td>
+								<td>6</td>
+								<td>7</td>
+								<td>5</td>
+								<td>5</td>
+								<td>3</td>
+								<td>5</td>
+								<td>6</td>
+								<td>1</td>
+								<td>5</td>
+								<td>8</td>
+								<td></td>
+								<td></td>								
+							</tr>
+							<tr>
+								<td>Add all numbers:</td>
+								<td>1</td>
+								<td>8</td>
+								<td>9</td>
+								<td>9</td>
+								<td>7</td>
+								<td>6</td>
+								<td>7</td>
+								<td>5</td>
+								<td>5</td>
+								<td>3</td>
+								<td>5</td>
+								<td>6</td>
+								<td>1</td>
+								<td>5</td>
+								<td>8</td>
+								<td></td>
+								<td><strong>85</strong></td>								
+							</tr>
+							<tr>
+								<td>Mod 10:</td>
+								<td colspan="17">85 modulo 10 = <strong>5</strong> (last digit of card)</td>
+							</tr>																					
+						</tbody>						
+					</table>
+				</p>				
+				<div>
+					<h2 id="cardFormats" style="margin:30px 0 10px 0">List of credit card number formats</h2>
+					<table class="bordered-table zebra-striped table-sort" style="font-size:11px;">
+						<thead>
+							<tr>
+								<th nowrap="nowrap" style="width:250px;">Credit Card Issuer</th>
+								<th nowrap="nowrap">Starts With ( IIN Range ) </th>
+								<th nowrap="nowrap">Length ( Number of digits )</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><strong>American Express</strong></td>
+								<td>34, 37</td>
+								<td>15</td>
+							</tr>
+							<tr>
+								<td>Diners Club - Carte Blanche</td>
+								<td>300, 301, 302, 303, 304, 305</td>
+								<td>14</td>
+							</tr>
+							<tr>
+								<td>Diners Club - International</td>
+								<td>36</td>
+								<td>14</td>
+							</tr>
+							<tr>
+								<td>Diners Club - USA & Canada</td>
+								<td>54</td>
+								<td>16</td>
+							</tr>
+							<tr>
+								<td>Discover</td>
+								<td>6011, 622126 to 622925, 644, 645, 646, 647, 648, 649, 65</td>
+								<td>16-19</td>
+							</tr>
+							<tr>
+								<td>InstaPayment</td>
+								<td>637, 638, 639</td>
+								<td>16</td>
+							</tr>
+							<tr>
+								<td>JCB</td>
+								<td>3528 to 3589</td>
+								<td>16-19</td>
+							</tr>
+							<tr>
+								<td>Maestro</td>
+								<td>5018, 5020, 5038, 5893, 6304, 6759, 6761, 6762, 6763</td>
+								<td>16-19</td>
+							</tr>
+							<tr>
+								<td><strong>MasterCard</strong></td>
+								<td>51, 52, 53, 54, 55, 222100-272099</td>
+								<td>16</td>
+							</tr>
+							<tr>
+								<td><strong>Visa</strong></td>
+								<td>4</td>
+								<td>13-16-19</td>
+							</tr>
+							<tr>
+								<td>Visa Electron</td>
+								<td>4026, 417500, 4508, 4844, 4913, 4917</td>
+								<td>16</td>
+							</tr>																																					
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<footer>
+	<p>&copy; FreeFormatter.com - FREEFORMATTER is a d/b/a of 10174785 Canada Inc. - <a href="/copyright-notice.html">Copyright Notice</a> - <a href="/privacy-statement.html">Privacy Statement</a> - <a href="/terms-of-use.html">Terms of Use</a></p>
+</footer>	
+		</div>
+	</div>
+	<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24060392-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<div id="fb-root"></div>
+<script>
+	(
+		function() {
+    		var e = document.createElement('script'); e.async = true;
+    		e.setAttribute('defer', 'defer');
+    		e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js#xfbml=1';    		
+    		document.getElementById('fb-root').appendChild(e);
+ 		}()
+ 	);
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {		
+		$('body').append('<scri' + 'pt type="text/javascript" src="//apis.google.com/js/plusone.js" defer></scr' + 'ipt>');		
+	});	
+</script>
+</body>
+</html>

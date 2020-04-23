@@ -1,0 +1,584 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+
+
+<head>
+	<title>Free Online Url Parser / Query String Splitter - FreeFormatter.com</title>
+	<meta name="title" content="Free Online Url Parser / Query String Splitter - FreeFormatter.com"/>
+	<meta name="description" content="This free online tool lets you parse complex urls into parts and splits the query string into a readable format"/>	  		
+		<meta name="language" content="en"/>
+	<meta name="robots" content="all"/>
+	<meta name="rating" content="general"/>	
+	<meta charset="utf-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="shortcut icon" href="favicon.ico"/>
+	<link rel="stylesheet" href="/3.4.0.3/css/styles.css"/>
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/cupertino/jquery-ui.css"/>	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>	
+	<script src="/3.4.0.3/js/freeformatter.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.18.1/URI.min.js"></script>
+	<script type="text/javascript">
+	
+		$(document).ready(function() {
+			$('#parseButton').click(parser.parse);			
+		});
+
+		var parser = {
+				
+			parse: function() {
+				
+				var s = $("#inputString").val();
+				var uri = new URI(s).duplicateQueryParameters(true);
+
+				$("#scheme").text(uri.scheme());
+				$("#protocol").text(uri.protocol());			
+				$("#hostname").text(uri.hostname());
+
+				if (uri.directory()) {
+					$("#directory").text(uri.directory());
+					$("#directory").parent().show();
+				} else {
+					$("#directory").parent().hide();
+				}
+				
+				if (uri.resource()) {
+					$("#resource").text(uri.resource());
+					$("#resource").parent().show();
+				} else {
+					$("#resource").parent().hide();
+				}
+				
+				if (uri.host()) {
+					$("#host").text(uri.host());
+					$("#host").parent().show();
+				} else {
+					$("#host").parent().hide();
+				}
+				
+				if (uri.userinfo()) {
+					$("#userinfo").text(uri.userinfo());
+					$("#userinfo").parent().show();
+				} else {
+					$("#userinfo").parent().hide();
+				}
+				
+				if (uri.authority()) {
+					$("#authority").text(uri.authority());
+					$("#authority").parent().show();
+				} else {
+					$("#authority").parent().hide();
+				}
+				
+				if (uri.username()) {
+					$("#username").text(uri.username());
+					$("#username").parent().show();
+				} else {
+					$("#username").parent().hide();
+				}
+				
+				if (uri.password()) {
+					$("#password").text(uri.password());
+					$("#password").parent().show();
+				} else {
+					$("#password").parent().hide();
+				}
+				
+				if (uri.port()) {
+					$("#port").text(uri.port());
+					$("#port").parent().show();
+				} else {
+					$("#port").parent().hide();
+				}
+
+				if (uri.subdomain()) {
+					$("#subdomain").text(uri.subdomain());
+					$("#subdomain").parent().show();
+				} else {
+					$("#subdomain").parent().hide();
+				}
+
+				if (uri.domain()) {
+					$("#domain").text(uri.domain());
+					$("#domain").parent().show();
+				} else {
+					$("#domain").parent().hide();
+				}
+
+				if (uri.tld()) {
+					$("#tld").text(uri.tld());
+					$("#tld").parent().show();
+				} else {
+					$("#tld").parent().hide();
+				}
+
+				if (uri.path()) {
+					$("#path").text(uri.path());
+					$("#path").parent().show();
+				} else {
+					$("#path").parent().hide();
+				}
+
+				if (uri.filename()) {
+					$("#filename").text(uri.filename());
+					$("#filename").parent().show();
+				} else {
+					$("#filename").parent().hide();
+				}
+
+				if (uri.suffix()) {
+					$("#filesuffix").text(uri.suffix());
+					$("#filesuffix").parent().show();
+				} else {
+					$("#filesuffix").parent().hide();
+				}
+
+				if (uri.query()) {
+					$("#query").text(uri.query());
+					$("#query").parent().show();
+				} else {
+					$("#query").parent().hide();
+				}
+
+				if (uri.hash()) {
+					$("#hash").text(uri.hash());
+					$("#hash").parent().show();
+				} else {
+					$("#hash").parent().hide();
+				}
+
+				var content = "";
+				$.each(uri.query(true), function(i, n) {
+
+					if ($.isArray(n)) {
+						
+						var key = $('<div/>').text(i).html();
+						for (var j = 0; j < n.length; j++) {							
+							var value = $('<div/>').text(n[j]).html();
+							content += '<tr><td class="p"><span class="sp">\'' + key + '\'[' + j + ']:<span></td><td class="v">' + value + '</td></tr>';
+						}
+						
+					} else {
+						
+						var key = $('<div/>').text(i).html();
+						var value = $('<div/>').text(n).html();
+						content += '<tr><td class="p"><span class="sp">\'' + key + '\':<span></td><td class="v">' + value + '</td></tr>';
+						
+					}
+
+				});
+
+				$("#queryString").html(content);
+				
+				if (content != "") {
+					$("#queryStringWrapper").show();
+				} else {
+					$("#queryStringWrapper").hide();
+				}
+				
+				$("#result").show();
+				
+			}
+		
+		};
+
+	</script>	  		
+	<style type="text/css">
+		.t {
+			font-weight: bold;
+			width: 150px;
+			background-color: #DDD;
+		}
+		.p {
+			font-weight: bold;
+			width: 150px;
+			background-color: #DDD;		
+		}
+		.v {
+			word-wrap:break-word;
+			width: 500px;
+			display: block;
+		}
+		.sp {
+			word-wrap:break-word;
+			width:150px;
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div class="topbar">
+	<div class="topbar-inner">
+		<div class="container-fluid">
+			<a class="brand" href="http://www.freeformatter.com">FreeFormatter.com</a>
+			<ul class="nav">
+				<li><a href="https://www.freeformatter.com">HTTPS</a></li>
+				<li><a href="mailto:freeformatter@gmail.com">Contact</a></li>
+			</ul>
+			<div class="social" style="float:right;">
+				<div class="fb-like" data-href="http://www.freeformatter.com" data-send="false" data-layout="button_count" data-width="50" data-show-faces="true" data-font="arial"></div>
+				<!-- Place this tag where you want the +1 button to render -->
+				<div style="float: left; padding: 8px 5px 5px;">
+					<g:plusone></g:plusone>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<div class="container-fluid">
+		<div class="sidebar">
+	<div class="well">
+		<a href="/formatters.html"><h5>Formatters</h5></a>
+		<ul>
+			<li><a href="/json-formatter.html">JSON Formatter</a></li>
+			<li><a href="/html-formatter.html">HTML Formatter</a></li>
+			<li><a href="/xml-formatter.html">XML Formatter</a></li>
+			<li><a href="/sql-formatter.html">SQL Formatter</a></li>
+			<li><a href="/batch-formatter.html">Batch Formatter (new!)</strong></a></li>
+		</ul>
+		<a href="/validators.html"><h5>Validators</h5></a>
+		<ul>		
+			<li><a href="/json-validator.html">JSON Validator</a></li>
+			<li><a href="/html-validator.html">HTML Validator</a></li>
+			<li><a href="/xml-validator-xsd.html">XML Validator - XSD</a></li>
+			<li><a href="/xpath-tester.html">XPath Tester</a></li>
+			<li><a href="/credit-card-number-generator-validator.html">Credit Card Number Generator & Validator</a></li>
+			<li><a href="/regex-tester.html">Regular Expression Tester</a></li>			
+			<li><a href="/java-regex-tester.html">Java Regular Expression Tester</a></li>
+			<li><a href="/cron-expression-generator-quartz.html">Cron Expression Generator - Quartz</a></li>						
+		</ul>
+		<a href="/encoders.html"><h5>Encoders & Decoders</h5></a>
+		<ul>
+			<li><a href="/url-encoder.html">Url Encoder & Decoder</a></li>
+			<li><a href="/base64-encoder.html">Base 64 Encoder & Decoder</a></li>
+			<li><a href="/qr-code-generator.html">QR Code Generator</a></li>			
+		</ul>
+		<a href="/minifiers.html"><h5>Code Minifiers / Beautifier</h5></a>
+		<ul>
+			<li><a href="/javascript-beautifier.html">JavaScript Beautifier</a></li>
+			<li><a href="/css-beautifier.html">CSS Beautifier</a></li>
+			<li><a href="/javascript-minifier.html">JavaScript Minifier</a></li>
+			<li><a href="/css-minifier.html">CSS Minifier</a></li>
+		</ul>
+		<a href="/converters.html"><h5>Converters</h5></a>
+		<ul>
+			<li><a href="/xsd-generator.html">XSD Generator</a></li>
+			<li><a href="/xsl-transformer.html">XSLT (XSL Transformer)</a></li>					
+			<li><a href="/xml-to-json-converter.html">XML to JSON Converter</a></li>
+			<li><a href="/json-to-xml-converter.html">JSON to XML Converter</a></li>
+			<li><a href="/csv-to-xml-converter.html">CSV to XML Converter</a></li>	
+			<li><a href="/csv-to-json-converter.html">CSV to JSON Converter</a></li>			
+			<li><a href="/epoch-timestamp-to-date-converter.html">Epoch Timestamp To Date</a></li>
+		</ul>
+		<a href="/cryptography-and-security.html"><h5>Cryptography & Security</h5></a>
+		<ul>
+			<li><a href="/message-digest.html">Message Digester (MD5, SHA-256, SHA-512)</a></li>
+			<li><a href="/hmac-generator.html">HMAC Generator</a></li>			
+			<li><a href="/md5-generator.html">MD5 Generator</a></li>
+			<li><a href="/sha256-generator.html">SHA-256 Generator</a></li>
+			<li><a href="/sha512-generator.html">SHA-512 Generator</a></li>			
+		</ul>
+		<a href="/string-escaper.html"><h5>String Escaper & Utilities</h5></a>
+		<ul>
+			<li><a href="/string-utilities.html">String Utilities</a></li>
+			<li><a href="/html-escape.html">HTML Escape</a></li>
+			<li><a href="/xml-escape.html">XML Escape</a></li>
+			<li><a href="/java-dotnet-escape.html">Java and .Net Escape</a></li>
+			<li><a href="/javascript-escape.html">JavaScript Escape</a></li>
+			<li><a href="/json-escape.html">JSON Escape</a></li>			
+			<li><a href="/csv-escape.html">CSV Escape</a></li>
+			<li><a href="/sql-escape.html">SQL	Escape</a></li>
+		</ul>
+		<a href="/web-resources.html"><h5>Web Resources</h5></a>
+		<ul>
+			<li><a href="/lorem-ipsum-generator.html">Lorem Ipsum Generator</a></li>
+			<li><a href="/less-compiler.html">LESS Compiler</a></li>
+			<li><a href="/mime-types-list.html">List of MIME types</a></li>
+			<li><a href="/html-entities.html">HTML Entities</a></li>
+			<li><a href="/url-parser-query-string-splitter.html">Url Parser / Query String Splitter</a></li>						
+			<li><a href="/i18n-standards-code-snippets.html">i18n - Formatting standards & code snippets</a></li>
+			<li><a href="/iso-country-list-html-select.html">ISO country list - HTML select snippet</a></li>
+			<li><a href="/usa-state-list-html-select.html">USA state list - HTML select snippet</a></li>
+			<li><a href="/canada-province-list-html-select.html">Canada province	list - HTML select snippet</a></li>
+			<li><a href="/mexico-state-list-html-select.html">Mexico state list - HTML select snippet</a></li>			
+			<li><a href="/time-zone-list-html-select.html">Time zone list - HTML select snippet</a></li>
+		</ul>
+	</div>
+	<div style="text-align: center;">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- freeformatter-responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2485708030241382"
+     data-ad-slot="9677864628"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+	</div>
+</div>
+		<div class="content">
+			<div class="content-inner">
+				<h1>URL Parser / Query String Splitter</h1>
+				<p>
+					This simple tool lets you parse a URL into its individual components, i.e scheme, protocol, username, password, hostname, port, domain, subdomain, tld, path, query string, hash, etc. 
+					It also splits the query string into a human readable format and takes of decoding the parameters.
+				</p>
+				<p>
+					This tool uses the <a href="http://medialize.github.com/URI.js/">URI.js</a> library developed by <a href="http://rodneyrehm.de/en/">Rodney Rhem</a>
+				</p>
+				<p>
+					To learn more about the structure of a URL, check out the <a href="#urls-explained">URLs Explained</a> section of this page.
+				</p>
+				<div class="form-wrapper">
+					<form id="form" enctype="multipart/form-data" method="post" action="/url-parser.html">					
+						<div class="title first"><span class="option">Copy-paste your URL here</span></div>
+						<input type="text" id="inputString" name="inputString" style="height:18px;"/>						
+						<div class="buttons">
+							<button class="btn primary" id="parseButton" title="Parse the URL and split the query string" onclick="return false;">PARSE</button>
+						</div>
+					</form>
+				</div>
+				
+				<div id="ad-output" class="ad-wrapper">
+					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- freeformatter-responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2485708030241382"
+     data-ad-slot="9677864628"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+				</div>
+						
+				<div id="result" style="display:none;">
+					<h2>URL Parts</h2>
+					<table>
+						<tr>
+							<td class="t">Scheme:</td>
+							<td id="scheme" class="v"></td>
+						</tr> 
+						<tr>
+							<td class="t">Protocol:</td>
+							<td id="protocol" class="v"></td>
+						</tr>
+						<tr>
+							<td class="t">Userinfo:</td>
+							<td id="userinfo" class="v"></td>
+						</tr>
+						<tr>
+							<td class="t">Username:</td>
+							<td id="username" class="v"></td>
+						</tr>
+						<tr>
+							<td class="t">Password:</td>
+							<td id="password" class="v"></td>
+						</tr>
+						<tr>
+							<td class="t">Authority:</td>
+							<td id="authority" class="v"></td>
+						</tr>						
+						<tr>
+							<td class="t">Host:</td>
+							<td id="host" class="v"></td>
+						</tr>						
+						<tr>
+							<td class="t">Hostname:</td>
+							<td id="hostname" class="v"></td>
+						</tr>
+						<tr>
+							<td class="t">Port:</td>
+							<td id="port" class="v"></td>
+						</tr>
+						<tr>
+							<td class="t">Subdomain:</td>
+							<td id="subdomain" class="v"></td>
+						</tr>
+						<tr>
+							<td class="t">Domain:</td>
+							<td id="domain" class="v"></td>
+						</tr>
+						<tr>
+							<td class="t">Tld:</td>
+							<td id="tld" class="v"></td>
+						</tr>
+						<tr>
+							<td class="t">Resource:</td>
+							<td id="resource" class="v"></td>
+						</tr>
+						<tr>
+							<td class="t">Directory:</td>
+							<td id="directory" class="v"></td>
+						</tr>						
+						<tr>
+							<td class="t">Path:</td>
+							<td id="path" class="v"></td>
+						</tr>
+						<tr>
+							<td class="t">File name:</td>
+							<td id="filename" class="v"></td>
+						</tr>
+						<tr>
+							<td class="t">File suffix:</td>
+							<td id="filesuffix" class="v"></td>
+						</tr>
+						<tr>
+							<td class="t">Query string:</td>
+							<td id="query" class="v"></td>
+						</tr>
+						<tr>
+							<td class="t">Hash:</td>
+							<td id="hash" class="v"></td>
+						</tr>
+					</table>
+					<div id="queryStringWrapper">
+					<h2>Query String Splitter</h2>
+					<table id="queryString">
+					</table>
+					</div>
+				</div>
+				<h2 id="urls-explained" class="section-title">Urls Explained</h2>
+				<h3>What's a URI?</h3>
+				<p class="space">
+					Uniform Resource Identifiers (URIs) are used to identify 'names' or 'resources'. They come in 2 varieties: URNs and URLs. In fact, a URI can be both a name and a locator! 
+				</p>
+				<h3>What's a URL?</h3>
+				<p class="space">
+					Uniform Resource Locators (URLs) provide a way to locate a resource using a specific scheme, most often but not limited to HTTP. Just think of a URL as an address to a resource,
+					and the scheme as a specification of how to get there.
+				</p>				
+				<h3>What's a URN?</h3>
+				<p class="space">
+					Uniform Resource Names are identifiers for resources. They are location independent and make use of the urn: scheme.
+				</p>				
+				<h3>What's the syntax of a URI?</h3>
+				<p class="space">
+					<pre>scheme:scheme-specific-part?query#fragment</pre>
+					<ul>Examples from the RFC:
+						<li>ftp://ftp.is.co.za/rfc/rfc1808.txt</li>
+						<li>http://www.ietf.org/rfc/rfc2396.txt</li>
+						<li>ldap://[2001:db8::7]/c=GB?objectClass?one</li>
+						<li>news:comp.infosystems.www.servers.unix</li>
+						<li>tel:+1-816-555-1212</li>
+						<li>telnet://192.0.2.16:80/</li>
+						<li>urn:oasis:names:specification:docbook:dtd:xml:4.1.2</li>
+					</ul>
+				</p>				
+				<h3>What's the syntax of a URL?</h3>
+				<p class="space">
+					<pre>scheme://username:password@subdomain.domain.tld:port/path/file-name.suffix?query-string#hash</pre>
+					<ul>Examples:
+						<li>http://www.google.com</li>
+						<li>http://foo:bar@w1.superman.com/very/long/path.html?p1=v1&p2=v2#more-details</li>
+						<li>https://secured.com:443</li>
+						<li>ftp://ftp.bogus.com/~some/path/to/a/file.txt</li>
+					</ul>
+				</p>
+				<h3>What's the syntax of a URN?</h3>
+				<p class="space">
+					<pre>urn:namespame-identifier:namespace-specific-string</pre>
+					<ul>Examples from Wikipedia:
+						<li>urn:isbn:0451450523</li>
+						<li>urn:ietf:rfc:2648</li>
+						<li>urn:uuid:6e8bc430-9c3a-11d9-9669-0800200c9a66</li>
+					</ul>
+				</p>				
+				<h3>What's the 'userinfo' in a URL?</h3>
+				<p class="space">				
+					The userinfo part of a URL is made of the <strong>username</strong> and/or the <strong>password</strong>. They are optional and used for authentication purposes. The userinfo has the format username:password and is followed
+					by the @ character and the host. The password is optional, often resulting in a prompt by the user interface for a password. 
+					<ul>Examples:
+						<li>ftp://<strong>username:password</strong>@host.com/</li>
+						<li>ftp://<strong>username</strong>@host.com/</li>
+					</ul>  
+				</p>				
+				<h3>What's the 'authority' in a URL?</h3>
+				<p class="space">				
+					The authority of a URL is made of the <strong>userinfo</strong>, the <strong>hostname</strong> and the <strong>port</strong>. The <strong>userinfo</strong> and <strong>port</strong> are optional. When the port is not present, a default port for the specific scheme is assumed. 
+					For example port 80 for http or 443 for https.					
+					<ul>Examples:
+						<li>username:password@host.com/</li>
+						<li>subdomain.domain.com</li>
+						<li>www.superaddress.com:8080</li>
+					</ul>
+				</p>			
+				<h3>What's the 'fragment' in a URL?</h3>
+				<p class="space">
+					Also known as a hash, the fragment is a pointer to a secondary resource with the first resource. It follows the # character.
+					<ul>Example:
+						<li>http://www.foo.bar/?listings.html<strong>#section-2</strong></li>
+					</ul>
+				</p>
+				<h3>What's the 'path' in a URL?</h3>
+				<p class="space">
+					The path of a URL is made of segments that represent a structured hierarchy. Each segment is separated by a the / character. You can think of a path as a directory structure.
+					<ul>Example:
+						<li>http://www.foo.bar<strong>/segment1/segment2/some-resource.html</strong></li>
+						<li>http://www.foo.bar<strong>/image-2.html</strong>?w=100&h=50</li>
+						<li>ftp://ftp.foo.bar<strong>/~john/doe</strong>?w=100&h=50</li>
+					</ul>					
+				</p>				
+				<h3>What's the 'query string' in a URL?</h3>
+				<p class="space">
+					The query contains extra information that is usually in the key-pair format. Each pair is usually separated by an ampersand &amp; character. It follows the ? character.
+					<ul>Examples:
+						<li>http://www.foo.bar/image.jpg<strong>?height=150&width=100</strong></li>
+						<li>https://www.secured.com:443/resource.html<strong>?id=6e8bc430-9c3a-11d9-9669-0800200c9a66</strong>#some-header</li>
+					</ul>							
+				</p>				
+
+				<div id="ad-output" class="ad-wrapper">
+					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- freeformatter-responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2485708030241382"
+     data-ad-slot="9677864628"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+				</div>
+																						
+			</div>
+			<footer>
+	<p>&copy; FreeFormatter.com - FREEFORMATTER is a d/b/a of 10174785 Canada Inc. - <a href="/copyright-notice.html">Copyright Notice</a> - <a href="/privacy-statement.html">Privacy Statement</a> - <a href="/terms-of-use.html">Terms of Use</a></p>
+</footer>	
+		</div>
+	</div>
+	<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24060392-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<div id="fb-root"></div>
+<script>
+	(
+		function() {
+    		var e = document.createElement('script'); e.async = true;
+    		e.setAttribute('defer', 'defer');
+    		e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js#xfbml=1';    		
+    		document.getElementById('fb-root').appendChild(e);
+ 		}()
+ 	);
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {		
+		$('body').append('<scri' + 'pt type="text/javascript" src="//apis.google.com/js/plusone.js" defer></scr' + 'ipt>');		
+	});	
+</script>
+</body>
+</html>
