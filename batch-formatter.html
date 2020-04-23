@@ -1,0 +1,500 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+
+
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.20.min.js"></script>
+<head>
+	<title>Format multiple files: XML,JSON,HTML,JS,CSS and more</title>
+	<meta name="title" content="Format multiple files: XML,JSON,HTML,JS,CSS and more"/>
+	<meta name="description" content="Format many files at the same time. Supports XML, JSON, HTML, JS, CSS and more"/>	 
+		<meta name="language" content="en"/>
+	<meta name="robots" content="all"/>
+	<meta name="rating" content="general"/>	
+	<meta charset="utf-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="shortcut icon" href="favicon.ico"/>
+	<link rel="stylesheet" href="/3.4.0.3/css/styles.css"/>
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/cupertino/jquery-ui.css"/>	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>	
+	<script src="/3.4.0.3/js/freeformatter.js"></script>
+	<script type="text/javascript">
+		
+		AWS.config.update({
+			region: 'us-east-1', 
+			credentials: new AWS.Credentials('AKIAJCK5Y2V3UVZU7QXQ', 'v2VoV1EF+J0yG7tI97lzF5mL85xrTe/g8mg5gCb7')
+		});
+
+		var s3 = new AWS.S3({
+			apiVersion: '2006-03-01',
+			sslEnabled: true,
+			params: {Bucket: 'batch-freeformattercom-write'}
+		});		
+
+		function Converter() {
+			this.MAX_FILES = 10;
+			this.MAX_UPLOAD_SIZE = 100 * 1024 * 1024;
+			this.processed = 0;
+		}		
+		
+		Converter.prototype.onComplete = function() {
+			this.processed--;
+			if (this.processed === 0) {
+				$('#close-button').prop('disabled', false);
+			}
+		}			
+		
+		Converter.prototype.acceptFiles = function(files) {
+			if (this.isValid(files)) {
+				this.processed = 0;
+				for (var i = 0; i < files.length; i++) {
+					this.processed++;						
+					new FileUpload(files[i], this.onComplete.bind(this));
+				}
+				$('#main-content-wrapper').hide();
+				$('#filelist-wrapper').show();
+				window.scrollTo(0,0);
+			}
+		}	
+		
+		Converter.prototype.isValid = function(files) {
+			if (!files || !files.length) {
+				_notifications("No files detected", "error");
+				return false;
+			} else if (files.length > this.MAX_FILES) {
+				_notifications("You can't upload more than 10 files at a time", "error");
+				return false;
+			}
+			for (var i = 0; i < files.length; i++) {
+				var file = files[i];
+				if (file.size > this.MAX_UPLOAD_SIZE) {
+					_notifications("File exceed allowed size of 100 megabytes", "error");
+					return false;
+				}
+			}
+			return true;
+		}		
+
+		function FileUpload(file, onComplete) {
+			this.file = file;
+			this.onComplete = onComplete;
+			this.id = this.nextId();
+			this.process();
+		}
+		
+		FileUpload.prototype.nextId = function() {
+			if (FileUpload.id == undefined) {
+				FileUpload.id = 0;
+			}
+			return FileUpload.id++;
+		}
+
+		FileUpload.prototype.process = function() {
+			this.display();
+			this.startUpload();
+		}		
+
+		FileUpload.prototype.display = function() {
+			var $entry = $('.file-entry.template').clone().removeClass('template').attr('id','file-upload-' + this.id).show().appendTo('.file-entries');
+			this.$entry = $entry;
+			$entry.children('.file-name').text(this.file.name);
+			$entry.children('.file-status').text('Contacting server...');
+		}		
+		
+		FileUpload.prototype.showError = function(err) {
+			this.$entry.children('.file-status').text('Unable to upload file!');
+		}		
+		
+		FileUpload.prototype.enqueue = function(data) {
+			var $this = this;
+			this.$entry.children('.file-status').text('Upload complete. Adding to queue...');
+			$.ajax({
+				type: "POST",
+				url: "https://batch.freeformatter.com/batch-formatter-enqueue",
+				dataType: "json",
+				data: {key : this.key, identation: $('#indentation').val(), braceStyle: $('#braceStyle').val(), encoding: $('#encoding').val()},
+				success: function(data) {
+					$this.interval = setInterval($this.monitorStatus.bind($this), 1000);
+				}, error: function() {
+					$this.$entry.children('.file-status').html('<span style="color:red;">Failed to add file to processing queue!</span>');
+					$this.$entry.children('.spinner').hide();					
+					$this.onComplete();
+				}
+			});
+		}		
+		
+		FileUpload.prototype.monitorStatus = function() {
+			var $this = this;
+			$.ajax({
+				type: "POST",
+				url: "https://batch.freeformatter.com/batch-formatter-status",
+				dataType: "json",
+				data: {key : $this.key},
+				success: function(data) {
+					$this.$entry.children('.file-status').text(data.statusMessage);
+					if (data.status === 'ERROR') {
+						clearInterval($this.interval);
+						$this.onComplete();
+						$this.$entry.children('.spinner').hide();
+					} else if (data.status === 'COMPLETED') {
+						$this.$entry.children('.file-buttons').html('<a href="' + data.url + '" target="_blank" class="btn primary">DOWNLOAD</a>');
+						$this.$entry.children('.spinner').hide();
+						clearInterval($this.interval);
+						$this.onComplete();
+					}
+				}, error: function() {
+					$this.$entry.children('.file-status').html('<span style="color:red;">Failed to process file! Aborted.</span>');
+					$this.$entry.children('.spinner').hide();
+					$this.onComplete();
+				}
+			});			
+		}		
+
+		FileUpload.prototype.complete = function(err, data) {
+			if (err) {
+	  			this.showError(err);
+	  		} else {
+	  			this.enqueue(data);
+	  		}
+		}
+
+		FileUpload.prototype.progress = function(progress) {
+			this.$entry.children('.file-status').text(progress.loaded + " of " + progress.total + " bytes");
+		}
+
+		FileUpload.prototype.startUpload = function() {
+
+			this.key = encodeURIComponent('guid=' + this.generateUUID() + '&filename=' + this.file.name); 
+
+			this.request = s3.putObject({
+		   		Key: this.key,
+		   		Body: this.file
+		  	}, this.complete.bind(this)); 
+
+		  	this.request.on('httpUploadProgress', this.progress.bind(this));
+
+		}
+
+		FileUpload.prototype.generateUUID = function() {
+			var s4 = function() {
+    			return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+  			}
+			return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+		}
+
+		var converter = new Converter();		
+		
+		$(function() {
+			
+			var $zone = $('#drag-drop-zone');
+			$zone.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
+			    e.preventDefault();
+			    e.stopPropagation();
+			}).on('dragover dragenter', function() {
+				$zone.addClass('dragover');
+			}).on('dragleave dragend drop', function() {
+				$zone.removeClass('dragover');
+			}).on('drop', function(e) {
+				var files = e.originalEvent.dataTransfer.files;
+				if (files.length) {
+					if (files.length > 10) {
+						_notifications("You can't upload more than 10 files at a time", "error");
+						return;
+					}
+					$zone.html(files.length + ' file' + (files.length == 1 ? '' : 's') + ' selected. Press the FORMAT FILES button when ready!');
+					converter.files = files;
+				} 
+			});
+			
+			$('#close-button').on('click', function() {
+								
+				converter.files = null;
+				$('#files').val('');
+				
+				$('#close-button').prop('disabled', true);
+				$('#filelist-wrapper').hide().children('.file-entries').html('');
+				$('#drag-drop-zone').html('Drop files here');
+				$('#main-content-wrapper').show();
+				
+			});
+			
+			$('#files').on('change', function() {
+				converter.files = this.files;
+			});
+			
+			$('#formatButton').on('click', function() {
+				converter.acceptFiles(converter.files);
+				converter.files = null;
+			});
+			
+		});		
+		
+	</script>
+</head>
+<body>
+	<div class="topbar">
+	<div class="topbar-inner">
+		<div class="container-fluid">
+			<a class="brand" href="http://www.freeformatter.com">FreeFormatter.com</a>
+			<ul class="nav">
+				<li><a href="https://www.freeformatter.com">HTTPS</a></li>
+				<li><a href="mailto:freeformatter@gmail.com">Contact</a></li>
+			</ul>
+			<div class="social" style="float:right;">
+				<div class="fb-like" data-href="http://www.freeformatter.com" data-send="false" data-layout="button_count" data-width="50" data-show-faces="true" data-font="arial"></div>
+				<!-- Place this tag where you want the +1 button to render -->
+				<div style="float: left; padding: 8px 5px 5px;">
+					<g:plusone></g:plusone>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<div class="container-fluid">
+		<div class="sidebar">
+	<div class="well">
+		<a href="/formatters.html"><h5>Formatters</h5></a>
+		<ul>
+			<li><a href="/json-formatter.html">JSON Formatter</a></li>
+			<li><a href="/html-formatter.html">HTML Formatter</a></li>
+			<li><a href="/xml-formatter.html">XML Formatter</a></li>
+			<li><a href="/sql-formatter.html">SQL Formatter</a></li>
+			<li><a href="/batch-formatter.html">Batch Formatter (new!)</strong></a></li>
+		</ul>
+		<a href="/validators.html"><h5>Validators</h5></a>
+		<ul>		
+			<li><a href="/json-validator.html">JSON Validator</a></li>
+			<li><a href="/html-validator.html">HTML Validator</a></li>
+			<li><a href="/xml-validator-xsd.html">XML Validator - XSD</a></li>
+			<li><a href="/xpath-tester.html">XPath Tester</a></li>
+			<li><a href="/credit-card-number-generator-validator.html">Credit Card Number Generator & Validator</a></li>
+			<li><a href="/regex-tester.html">Regular Expression Tester</a></li>			
+			<li><a href="/java-regex-tester.html">Java Regular Expression Tester</a></li>
+			<li><a href="/cron-expression-generator-quartz.html">Cron Expression Generator - Quartz</a></li>						
+		</ul>
+		<a href="/encoders.html"><h5>Encoders & Decoders</h5></a>
+		<ul>
+			<li><a href="/url-encoder.html">Url Encoder & Decoder</a></li>
+			<li><a href="/base64-encoder.html">Base 64 Encoder & Decoder</a></li>
+			<li><a href="/qr-code-generator.html">QR Code Generator</a></li>			
+		</ul>
+		<a href="/minifiers.html"><h5>Code Minifiers / Beautifier</h5></a>
+		<ul>
+			<li><a href="/javascript-beautifier.html">JavaScript Beautifier</a></li>
+			<li><a href="/css-beautifier.html">CSS Beautifier</a></li>
+			<li><a href="/javascript-minifier.html">JavaScript Minifier</a></li>
+			<li><a href="/css-minifier.html">CSS Minifier</a></li>
+		</ul>
+		<a href="/converters.html"><h5>Converters</h5></a>
+		<ul>
+			<li><a href="/xsd-generator.html">XSD Generator</a></li>
+			<li><a href="/xsl-transformer.html">XSLT (XSL Transformer)</a></li>					
+			<li><a href="/xml-to-json-converter.html">XML to JSON Converter</a></li>
+			<li><a href="/json-to-xml-converter.html">JSON to XML Converter</a></li>
+			<li><a href="/csv-to-xml-converter.html">CSV to XML Converter</a></li>	
+			<li><a href="/csv-to-json-converter.html">CSV to JSON Converter</a></li>			
+			<li><a href="/epoch-timestamp-to-date-converter.html">Epoch Timestamp To Date</a></li>
+		</ul>
+		<a href="/cryptography-and-security.html"><h5>Cryptography & Security</h5></a>
+		<ul>
+			<li><a href="/message-digest.html">Message Digester (MD5, SHA-256, SHA-512)</a></li>
+			<li><a href="/hmac-generator.html">HMAC Generator</a></li>			
+			<li><a href="/md5-generator.html">MD5 Generator</a></li>
+			<li><a href="/sha256-generator.html">SHA-256 Generator</a></li>
+			<li><a href="/sha512-generator.html">SHA-512 Generator</a></li>			
+		</ul>
+		<a href="/string-escaper.html"><h5>String Escaper & Utilities</h5></a>
+		<ul>
+			<li><a href="/string-utilities.html">String Utilities</a></li>
+			<li><a href="/html-escape.html">HTML Escape</a></li>
+			<li><a href="/xml-escape.html">XML Escape</a></li>
+			<li><a href="/java-dotnet-escape.html">Java and .Net Escape</a></li>
+			<li><a href="/javascript-escape.html">JavaScript Escape</a></li>
+			<li><a href="/json-escape.html">JSON Escape</a></li>			
+			<li><a href="/csv-escape.html">CSV Escape</a></li>
+			<li><a href="/sql-escape.html">SQL	Escape</a></li>
+		</ul>
+		<a href="/web-resources.html"><h5>Web Resources</h5></a>
+		<ul>
+			<li><a href="/lorem-ipsum-generator.html">Lorem Ipsum Generator</a></li>
+			<li><a href="/less-compiler.html">LESS Compiler</a></li>
+			<li><a href="/mime-types-list.html">List of MIME types</a></li>
+			<li><a href="/html-entities.html">HTML Entities</a></li>
+			<li><a href="/url-parser-query-string-splitter.html">Url Parser / Query String Splitter</a></li>						
+			<li><a href="/i18n-standards-code-snippets.html">i18n - Formatting standards & code snippets</a></li>
+			<li><a href="/iso-country-list-html-select.html">ISO country list - HTML select snippet</a></li>
+			<li><a href="/usa-state-list-html-select.html">USA state list - HTML select snippet</a></li>
+			<li><a href="/canada-province-list-html-select.html">Canada province	list - HTML select snippet</a></li>
+			<li><a href="/mexico-state-list-html-select.html">Mexico state list - HTML select snippet</a></li>			
+			<li><a href="/time-zone-list-html-select.html">Time zone list - HTML select snippet</a></li>
+		</ul>
+	</div>
+	<div style="text-align: center;">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- freeformatter-responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2485708030241382"
+     data-ad-slot="9677864628"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+	</div>
+</div>
+		<div class="content">
+			<div class="content-inner">
+				<div id="main-content-wrapper">
+					<h1>Batch Formatter</h1>
+					<p>
+						This free online tool allows you to <b>format many files</b> in batch mode. It will automatically detect the file types.
+					</p>
+					<ul>
+						<li>Automatically detects file type</li>				
+						<li>Upload up to 10 files per batch (file size is limited to <strong>100 megabytes</strong>)</li>
+						<li>Supports XML, JSON, HTML, JavaScript, CSS and LESS</li>
+					</ul>
+	
+					<div id="notifications">
+	
+	
+	
+	
+	
+	
+	
+	
+</div>				
+	
+					<div class="form-wrapper">
+					
+						<div class="title first"><span class="option">Option 1:</span> <span class="option-text">Drag and drop files</span></div>
+						<div id="drag-drop-zone">
+							Drop files here
+						</div>
+						
+						<div class="title"><span class="option">Option 2:</span> <span class="option-text">Or upload your files</span></div>
+						<input type="file" id="files" name="files" multiple/>
+						
+						<div class="title"><span class="option">Encoding of files:</span></div>
+						<select id="encoding" style="width:350px;">
+							<option value="ISO-8859-1">ISO-8859-1 (Latin Alphabet No. 1)</option>
+							<option value="ISO-8859-2">ISO-8859-2 (Latin Alphabet No. 2)</option>
+							<option value="ISO-8859-3">ISO-8859-3 (Latin Alphabet No. 3)</option>
+							<option value="ISO-8859-4">ISO-8859-4 (Latin Alphabet No. 4)</option>
+							<option value="ISO-8859-5">ISO-8859-5 (Latin/Cyrillic Alphabet)</option>
+							<option value="ISO-8859-6">ISO-8859-6 (Latin/Arabic Alphabet)</option>
+							<option value="ISO-8859-7">ISO-8859-7 (Latin/Greek Alphabet)</option>
+							<option value="ISO-8859-8">ISO-8859-8 (Latin/Hebrew Alphabet)</option>
+							<option value="ISO-8859-9">ISO-8859-9 (Latin Alphabet No. 5)</option>
+							<option value="ISO-8859-13">ISO-8859-13 (Latin Alphabet No. 7)</option>
+							<option value="ISO-8859-15">ISO-8859-15 (Latin Alphabet No. 9)</option>
+							<option value="UTF-8" selected="selected">UTF-8</option>
+							<option value="UTF-16">UTF-16</option>
+							<option value="UTF-16BE">UTF-16 (Big-Endian)</option>
+							<option value="UTF-16LE">UTF-16 (Little-Endian)</option>
+							<option value="UTF-32">UTF-32</option>
+							<option value="UTF-32BE">UTF-32 (Big-Endian)</option>
+							<option value="UTF-32LE">UTF-32 (Little-Endian)</option>
+							<option value="US-ASCII">US-ASCII</option>
+							<option value="windows-1250">windows-1250 (Windows Eastern European)</option>
+							<option value="windows-1251">windows-1251 (Windows Cyrillic)</option>
+							<option value="windows-1252">windows-1252 (Windows Latin-1)</option>
+							<option value="windows-1253">windows-1253 (Windows Greek)</option>
+							<option value="windows-1254">windows-1254 (Windows Turkish)</option>
+							<option value="windows-1255">windows-1255 (Windows Hebrew)</option>
+							<option value="windows-1256">windows-1256 (Windows Arabic)</option>
+							<option value="windows-1257">windows-1257 (Windows Baltic)</option>
+							<option value="windows-1258">windows-1257 (Windows Vietnamese)</option>
+						</select>						
+						
+						<div class="title"><span class="option">Indentation level:</span></div>
+						<select id="indentation">
+							<option value="TWO_SPACES">2 spaces per indent level</option>
+							<option value="THREE_SPACES">3 spaces per indent level</option>
+							<option value="FOUR_SPACES">4 spaces per indent level</option>
+							<option value="TABS" selected="selected">Tab delimited</option>
+						</select>					
+					
+						<div class="title"><span class="option">Brace style (if applicable):</span></div>
+						<select id="braceStyle">
+							<option value="COLLAPSE" selected="selected">Collapsed (braces on same line)</option>
+							<option value="EXPAND">Expanded (braces on different line)</option>
+							<option value="END_EXPAND">Expanded new line (open braces on same line, end braces on different line)</option>
+						</select>				
+					
+						<div class="buttons">
+							<button class="btn primary" id="formatButton" title="Format all files">FORMAT FILES</button>
+						</div>
+					
+					</div>	
+				</div>			
+				<div id="filelist-wrapper" style="display:none;">
+  					<div class="title">
+  						<h3>File Formatting Progress</h3>
+ 						<div><button id="close-button" class="btn primary" disabled>CLOSE</button></div>
+ 					</div>
+ 					<div class="file-entries">
+					</div>
+				</div>
+
+				<div class="file-entry template" style="display:none;">
+					<img class="spinner" src="3.4.0.3/img/ring-alt.gif" width="25" height="25">
+               		<span class="file-buttons"></span>
+               		<span class="file-name"></span>
+					<span class="file-status"></span>	
+				</div>	
+				
+				<div id="ad-output" class="ad-wrapper">
+					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- freeformatter-responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2485708030241382"
+     data-ad-slot="9677864628"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+				</div>
+
+			</div>
+			<footer>
+	<p>&copy; FreeFormatter.com - FREEFORMATTER is a d/b/a of 10174785 Canada Inc. - <a href="/copyright-notice.html">Copyright Notice</a> - <a href="/privacy-statement.html">Privacy Statement</a> - <a href="/terms-of-use.html">Terms of Use</a></p>
+</footer>	
+		</div>
+	</div>
+	<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24060392-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<div id="fb-root"></div>
+<script>
+	(
+		function() {
+    		var e = document.createElement('script'); e.async = true;
+    		e.setAttribute('defer', 'defer');
+    		e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js#xfbml=1';    		
+    		document.getElementById('fb-root').appendChild(e);
+ 		}()
+ 	);
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {		
+		$('body').append('<scri' + 'pt type="text/javascript" src="//apis.google.com/js/plusone.js" defer></scr' + 'ipt>');		
+	});	
+</script>
+</body>
+</html>
