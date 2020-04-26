@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>http://tool.neyul.com/</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/formatters.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/json-formatter.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/html-formatter.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/xml-formatter.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/sql-formatter.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/batch-formatter.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/json-validator.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/html-validator.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/xml-validator-xsd.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/xpath-tester.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/credit-card-number-generator-validator.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/regex-tester.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/java-regex-tester.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/cron-expression-generator-quartz.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/url-encoder.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/base64-encoder.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/qr-code-generator.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/javascript-beautifier.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/css-beautifier.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/javascript-minifier.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/css-minifier.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/xsd-generator.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/xsl-transformer.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/xml-to-json-converter.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/json-to-xml-converter.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/csv-to-xml-converter.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/csv-to-json-converter.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/epoch-timestamp-to-date-converter.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/message-digest.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/hmac-generator.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/md5-generator.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/sha256-generator.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/sha512-generator.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/string-utilities.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/html-escape.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/xml-escape.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/java-dotnet-escape.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/javascript-escape.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/json-escape.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/csv-escape.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/sql-escape.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/lorem-ipsum-generator.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/less-compiler.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/mime-types-list.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/html-entities.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/url-parser-query-string-splitter.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/i18n-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/iso-country-list-html-select.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/usa-state-list-html-select.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/canada-province-list-html-select.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/mexico-state-list-html-select.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/time-zone-list-html-select.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/argentina-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/australia-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/brazil-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/canada-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/france-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/germany-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/india-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/indonesia-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/israel-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/italy-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/mexico-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/netherlands-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/pakistan-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/philippines-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/poland-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/romania-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/russia-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/spain-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/sweden-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/turkey-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/ukraine-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/united-kingdom-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/united-states-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/vietnam-standards-code-snippets.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/copyright-notice.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/privacy-statement.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://tool.neyul.com/terms-of-use.html</loc>
+  <lastmod>2020-04-23T11:53:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
+</urlset>
